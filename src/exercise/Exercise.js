@@ -6,7 +6,7 @@ const multiplesOf = (firstNumber, secondNumber) => {
             if (i % firstNumber === 0) {
                 sum = i + sum;
             }
-            else if (i % secondNumber == 0) {
+            else if (i % secondNumber == '0') {
                 sum = i + sum;
             }
         }

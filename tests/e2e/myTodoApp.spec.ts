@@ -1,0 +1,32 @@
+import { test, expect } from '@playwright/test';
+import { ToDoPage } from './pom/ToDo.page';
+
+let todoPage: ToDoPage;
+
+
+test.beforeEach('sukurti nauja todo', async ({page}) => {
+todoPage = new ToDoPage(page);
+await todoPage.gotoToDoPage();
+  await todoPage.writeInput('prideti mano pirmaji todo');
+})
+
+test('galiu prideti savo pirmaji todo', async ({ page }) => {
+  await todoPage.enterInput();
+  await todoPage.validateInput('prideti mano pirmaji todo');
+
+});
+
+test('galiu prideti nauja todo ir paskui ji pakeisti', async ({ page }) => {
+  await page.goto('https://demo.playwright.dev/todomvc/#/');
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).click();
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).fill('naujas todo i sarasa kuri as paskui pakeisiu');
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).press('Enter');
+
+    await expect(page.getByTestId('todo-title')).toContainText('naujas todo i sarasa kuri as paskui pakeisiu');
+  await page.getByTestId('todo-title').dblclick();
+  await page.getByRole('textbox', { name: 'Edit' }).press('ControlOrMeta+a');
+  await page.getByRole('textbox', { name: 'Edit' }).fill('naujas todo kuri as pakeiciau');
+  await page.getByRole('textbox', { name: 'Edit' }).press('Enter');
+    await expect(page.getByTestId('todo-title')).toContainText('naujas todo kuri as pakeiciau');
+});
+

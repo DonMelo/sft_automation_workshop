@@ -1,8 +1,5 @@
 import {Locator, Page, expect} from '@playwright/test'
 
-//          testwjoy1se
-
-
 export class ToDoPage{
   readonly page: Page;
   readonly whatNeedsToBeDoneTextBox: Locator;

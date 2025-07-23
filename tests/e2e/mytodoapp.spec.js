@@ -16,7 +16,6 @@ test('test input', async ({ page }) => {
 
 test('test edit', async ({ page }) => {
   await todopage.validateInput('Pirmas');
-  
   await todopage.editNote('Pirmas(edited)');
   await todopage.enterText();
   await todopage.validateInputEdited('Pirmas(edited)');

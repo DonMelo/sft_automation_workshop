@@ -4,21 +4,21 @@ export class ToDoPage {
     readonly page: Page;
     readonly whatNeedsToBeDoneTextBox: Locator;
     readonly todoItem : Locator;
-    //readonly 
+    readonly deleteButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.whatNeedsToBeDoneTextBox = page.getByRole('textbox', { name: 'What needs to be done?' });
         this.todoItem = page.getByTestId('todo-title');
-        this.todoItem = page.getByTestId('delete');
+        this.deleteButton = page.getByRole('button', { name: 'Delete'});
     }
 
     async gotoToDoPage(){
-        this.page.goto('https://demo.playwright.dev/todomvc/#/');
+        await this.page.goto('https://demo.playwright.dev/todomvc/#/');
     }
 
-    async writeInput(input: String) {
-        await this.whatNeedsToBeDoneTextBox.fill();
+    async writeInput(input: string) {
+        await this.whatNeedsToBeDoneTextBox.fill(input);
 
     }
 
@@ -26,11 +26,13 @@ export class ToDoPage {
         await this.whatNeedsToBeDoneTextBox.press('Enter');
     }
 
-    async validateInput(input: String) {
-        await expect(this.todoItem).toContainText();
+    async validateInput(input: string) {
+        await expect(this.todoItem).toContainText(input);
     }
 
-    async deleteInput(){
-        await this.whatNeedsToBeDoneTextBox.press('Delete');
+    async clickDeleteButton() {
+        await this.deleteButton.click();
     }
+
+
 }

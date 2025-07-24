@@ -1,0 +1,34 @@
+import { test, expect } from '@playwright/test';
+import { ToDoPage } from 'e2e-tests/pom/todo.page';
+
+let todoPage: ToDoPage;
+test.beforeEach('setup', async ({page}) => {
+    todoPage = new ToDoPage(page);
+
+    await todoPage.goTo();
+})
+test('add a todo', async ({ page }) => {
+    await todoPage.enterANewTodo('add a new todo');
+
+
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).press('Enter');
+
+  await expect(page.getByTestId('todo-title')).toContainText('add a new todo');
+});
+
+
+
+test('test1', async ({ page }) => {
+    const todoPage = new ToDoPage(page);
+    await todoPage.enterANewTodo('add a new todo for edit')
+  await page.goto('https://demo.playwright.dev/todomvc/#/');
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).click();
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).fill('add a new todo');
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).press('Enter');
+  await page.getByTestId('todo-title').click();
+  await page.getByTestId('todo-title').dblclick();
+  await page.getByRole('textbox', { name: 'Edit' }).fill('update the todo');
+  await page.getByRole('textbox', { name: 'Edit' }).press('Enter');
+
+await expect(page.getByTestId('todo-title')).toContainText('update the todo');
+});

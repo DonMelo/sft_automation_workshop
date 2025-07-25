@@ -23,9 +23,6 @@ test.describe('ToDo App', () => {
         await todoPage.enterInput();
         await todoPage.validateInput('naujas todo i sarasa kuri pakeisiu');
 
-        // Uncomment and implement these methods in ToDoPage if needed
-        
-        
         await todoPage.clickTodoItem();
         
         await todoPage.currentTodoItemEditingLocator.fill('naujas to do kuri pakeiciau');

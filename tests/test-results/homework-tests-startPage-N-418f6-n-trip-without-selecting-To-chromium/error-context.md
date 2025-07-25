@@ -1,15 +1,26 @@
 # Page snapshot
 
 ```yaml
-- banner:
-  - img
-  - heading "We're sorry, but something went wrong." [level=1]
-  - paragraph: The issue has been logged for investigation. Please try again later.
-- link "Technical details for the administrator of this website":
-  - /url: "#"
-- contentinfo:
-  - text: This website is powered by
-  - link "Phusion Passenger(R)":
-    - /url: https:<wbr>//www.phusionpassenger.com
-  - text: ®, the smart application server built by Phusion®.
+- text: Welcome agileway |
+- link "Sign off (agileway)":
+  - /url: /logout
+- heading [level=1]
+- heading "Passenger Details" [level=2]
+- paragraph:
+  - strong: Flights
+  - text: (return trip)
+- text: 2026-07-15 New York to 2026-07-20 to New York
+- paragraph:
+  - strong: Passenger details
+- table:
+  - rowgroup:
+    - row "First name:":
+      - cell "First name:"
+      - cell:
+        - textbox
+    - row "Last name:":
+      - cell "Last name:"
+      - cell:
+        - textbox
+- button "Next"
 ```

@@ -6,8 +6,6 @@ export class Login {
     readonly password: Locator;
     readonly signIn: Locator;
 
-
-
     constructor (page: Page) {
         this.page = page;
         this.userName = page.locator('#username');

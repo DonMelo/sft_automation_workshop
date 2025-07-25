@@ -21,7 +21,7 @@ export class PaymentPage {
         this.expiryMonth = page.locator('[name="expiry_month"]');
         this.expiryYear = page.locator('[name="expiry_year"]');
         this.payNowButton = page.locator('[type="submit"]');
-        this.confirmation = page.locator('#confirmation');
+        this.confirmation = page.locator('div#confirmation');
         this.bookingNumber = page.locator('#booking_number');
     }
 

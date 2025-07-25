@@ -20,6 +20,21 @@ test('Happy Path', async() => {
 test.describe('Negative tests', () => {
     test('Fill out payment form without selecting card type', async() => {
         await pageManager.paymentPage.paymentFormWithoutCardType('Kristina Cvirkaite', '123456', '07', '2027');
-        await expect(pageManager.paymentPage.bookingNumber).not.toBeVisible(); 
+        await expect(pageManager.paymentPage.confirmation).not.toBeVisible(); 
+    });
+
+    test('Fill out payment form without card holders name', async() => {
+        await pageManager.paymentPage.fillPaymentForm('', '123456', '07', '2027');
+        await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
+    });
+
+    test('Fill out payment form without card number', async() => {
+        await pageManager.paymentPage.fillPaymentForm('Kristina Cvirkaite', '', '07', '2027');
+        await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
+    });
+
+    test('Fill out payment form without expiry date', async() => {
+        await pageManager.paymentPage.fillPaymentForm('Kristina Cvirkaite', '123456', '', '');
+        await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
     });
 })

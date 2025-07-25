@@ -7,6 +7,7 @@
     "tests"
   ],
   "scripts": {
+    "test:homework": "npm run test -w homework",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "npm run test -w src",
     "test:e2e": "npm run test -w tests"

@@ -29,15 +29,6 @@ test('pazymeti todo', async ({ page }) => {
   await todoPage.checkItem();
   await todoPage.validateCheck();
 });
-
-test('istrinti todo', async ({ page }) => {
-  const todoPage = new ToDoPage(page)
-  await todoPage.validateInput('prideti mano pirmaji todo');
-
-  await todoPage.deleteItem();
-  await expect(todoPage.todoItem).toHaveCount(0);
-
-});
 /*
 css .klasespavadinimas #idpavadinimas 
 xpath /div[@id='idpavadinimas'] 

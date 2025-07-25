@@ -11,6 +11,7 @@ export class StartPage {
     readonly selectReturnDay: Locator;
     readonly selectReturnMonth: Locator;
     readonly continueButton: Locator;
+    readonly timeRadioButton: Locator;
 
     constructor (page: Page) {
         this.page = page;
@@ -23,9 +24,36 @@ export class StartPage {
         this.selectReturnDay = page.locator('#returnDay');
         this.selectReturnMonth = page.locator('#returnMonth');
         this.continueButton = page.locator('[type="submit"]');
+        this.timeRadioButton = page.locator('[type="checkbox"]');
     }
 
-    async returnTrip(from: string, to: string, departDay: number, departMonth: number, returnDay: number, returnMonth: number) {
-        
+    async returnTrip(from: string, to: string, departDay: string, departMonth: string, returnDay: string, returnMonth: string) {
+        await this.selectFrom.selectOption(from);
+        await this.selectTo.selectOption(to);
+        await this.selectDepartDay.selectOption(departDay);
+        await this.selectDepartMonth.selectOption(departMonth);
+        await this.selectReturnDay.selectOption(returnDay);
+        await this.selectReturnMonth.selectOption(returnMonth);
+        await this.timeRadioButton.first().check();
+        await this.continueButton.click();
+    }
+
+    async oneWayTrip(from: string, to: string, departDay: string, departMonth: string) {
+        await this.radioButtonOneWay.check();
+        await this.selectFrom.selectOption(from);
+        await this.selectTo.selectOption(to);
+        await this.selectDepartDay.selectOption(departDay);
+        await this.selectDepartMonth.selectOption(departMonth);
+        await this.timeRadioButton.first().check();
+        await this.continueButton.click();
+    }
+
+    async timeNotSelected(from: string, to: string, departDay: string, departMonth: string) {
+        await this.radioButtonOneWay.check();
+        await this.selectFrom.selectOption(from);
+        await this.selectTo.selectOption(to);
+        await this.selectDepartDay.selectOption(departDay);
+        await this.selectDepartMonth.selectOption(departMonth);
+        await this.continueButton.click();
     }
 }

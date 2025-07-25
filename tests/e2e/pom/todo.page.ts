@@ -2,29 +2,37 @@ import {expect, Page} from "@playwright/test";
 
 export class ToDoPage {
     readonly page: Page;
+    readonly whatNeedsToBeDoneTextBox: ReturnType<Page['getByRole']>;
+    readonly todoItem: ReturnType<Page['getByTestId']>;
+    readonly currentTodoItemEditingLocator: ReturnType<Page['locator']>;
 
     constructor(page: Page){
         this.page = page;
-        this.whatneedsToBeDoneTextBox = page.getByRole('textbox', { name: 'What needs to be done?' });
-        this.todoItem = page.getByTestId('todo-title');
+        this.whatNeedsToBeDoneTextBox = page.getByRole('textbox', { name: 'What needs to be done?' });
+        this.todoItem = page.getByTestId('todo-title'); // first item
+        // Fix: Use locator instead of getByQuery
+        this.currentTodoItemEditingLocator = page.locator('li.editing .edit');
     }
+
     async gotoToDoPage() {
         await this.page.goto('https://demo.playwright.dev/todomvc/#/');   
     }
-    async writeInput(input:string) {
-        await this.whatneedsToBeDoneTextBox.fill('prideti mano pirmaji todo');
-    }
-    async enterInput (){
-        await this.whatneedsToBeDoneTextBox.press('Enter');
-    }
-    async validateInput(){
-        await expect (this.todoItem).toContainText('prideti mano pirmaji todo');
     
+    async writeInput(input:string) {
+        await this.whatNeedsToBeDoneTextBox.fill(input);
     }
+
+    async enterInput (){
+        await this.whatNeedsToBeDoneTextBox.press('Enter');
+    }
+    
+    async validateInput(input: string) {
+        await expect (this.todoItem).toContainText(input);
+    }
+    
     async clickTodoItem() {
-        await this.todoItem.click();
+        await this.todoItem.dblclick();
     }
-async editTodoItem(newText: string) {
-    await this.whatneedsToBeDoneTextBox.fill('naujas todo i sarasa kuri pakeisiu');
+    
+
 }
-  

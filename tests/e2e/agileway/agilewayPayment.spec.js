@@ -15,23 +15,9 @@ await login.fullLogin('agileway','testW1se');
 await start.fullOnewayFlight('New York','Sydney','07','October 2026');
 await details.fullInput('first','last');
 });
-// await page.getByText('Booking number:').click();
-// await page.getByText('Flights (return Trip)').click();
-// await page.getByText('Flights (return Trip) 2025-10').click();
-// await page.getByRole('paragraph').filter({ hasText: 'Passenger Details: john joohn' }).click();
-// await page.getByText('Fare (return New York to').click();
-test('Correct payment detailed', async ({ page }) => {
-  
-  await agilewayPayment.cardTypeVisa();
-  await agilewayPayment.inputNumber("1234123412341234");
-  await agilewayPayment.inputExpiryMonth('05');
-  await agilewayPayment.inputExpiryYear('2028');
-  await agilewayPayment.pay();
 
-  await expect(page.getByRole('heading', { name: 'Confirmation' })).toBeVisible();
-
-});
-test('Correct payment simple', async ({ page }) => {
+// invalid payment not implemented, so no invalid test regression
+test('All fields payment', async ({ page }) => {
   await agilewayPayment.fullPayment('1234123412341234','06','2026');
 
   await expect(page.getByRole('heading', { name: 'Confirmation' })).toBeVisible();

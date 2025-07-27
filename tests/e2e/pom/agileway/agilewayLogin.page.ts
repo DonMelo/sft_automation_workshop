@@ -15,15 +15,6 @@ export class AgilewayLogin{
   async gotoPage(){
     await this.page.goto('https://travel.agileway.net/login');
   }
-  async writeLoginUsername(input: string){
-    await this.usernameInputField.fill(input);
-  }
-  async writeLoginPassword(input: string){
-    await this.passwordInputField.fill(input);
-  }
-  async clickLogin(){
-    await this.loginButton.click();
-  }
   async fullLogin(username:string,pass:string ) {
     await this.usernameInputField.fill(username);
     await this.passwordInputField.fill(pass);

@@ -18,24 +18,6 @@ export class AgilewayPayment{
     this.cardTypes = page.getByRole('radio');
   }
 
-  async pay(){
-    this.payment.click();
-  }
-  async cardTypeVisa(){
-    this.cardTypes.first().check();
-  }
-  async cardTypeMaster(){
-    this.cardTypes.nth(1).check();
-  }
-  async inputNumber(cardNumber: string){
-    this.fieldCardNumber.fill(cardNumber);
-  }
-  async inputExpiryMonth(month:string){
-    this.fieldCardExpiryMonth.selectOption(month);
-  }
-  async inputExpiryYear(year:string){
-    this.fieldCardExpiryYear.selectOption(year);
-  }
   async fullPayment(cardNumber: string, cardExpiryMonth: string, cardExpiryYear: string){
     this.fieldCardNumber.fill(cardNumber);
     this.fieldCardExpiryMonth.selectOption(cardExpiryMonth);

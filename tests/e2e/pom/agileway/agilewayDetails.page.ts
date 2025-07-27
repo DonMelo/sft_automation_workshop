@@ -18,16 +18,7 @@ export class AgilewayDetails{
     this.lastName = page.locator('input[name="passengerLastName"]');
     this.buttonNext = page.getByRole('button', { name: 'Next' });
   }
-  async inputFirstName(firstName: string){
-    await this.firstName.fill(firstName);
-  }
-  async inputLastName(lastName: string){
-    await this.lastName.fill(lastName);
-    
-  }
-  async continue(){
-    await this.buttonNext.click();
-  }
+ 
   
   async fullInput(firstName: string, lastName: string){
     await this.lastName.fill(lastName);

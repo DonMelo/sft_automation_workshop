@@ -26,30 +26,7 @@ export class AgilewayStart{
     this.radioButtonTime = page.getByRole('checkbox');
     this.buttonContinue = page.getByRole('button', { name: 'Continue' });
   }
-  async continue(){
-    await this.buttonContinue.click();
-  }
-  async flightTimeCheck(nthCheckbox: number){
-    await this.radioButtonTime.nth(nthCheckbox).check();
-  }
-  async flightPorts(from: string,to:string){
-    await this.selectFromPort.selectOption(from);
-    await this.selectToPort.selectOption(to);
-  }
-  async onewayFlight(){
-    await this.radioButtonOneWay.check();
-  }
-  async returningFlight(){
-    await this.radioButtonReturning.check();
-  }
-  async departTime(day: string, monthYear: string){
-    await this.selectDepartDay.selectOption(day);
-    await this.selectDepartMonth.selectOption(monthYear);
-  }
-  async returnTime(day: string, monthYear: string){
-    await this.selectReturnDay.selectOption(day);
-    await this.selectReturnMonth.selectOption(monthYear);
-  }
+ 
   
   async fullOnewayFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string){
     await this.radioButtonOneWay.check();

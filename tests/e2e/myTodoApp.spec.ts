@@ -28,7 +28,7 @@ test('galiu prideti nauja toto ir ji paskui pakeisti', async ({ page }) => {
     await todoPage.validateInput('prideti mano pirmaji todo');
     await todoPage.doubleClick();
     await page.getByRole('textbox', { name: 'Edit' }).fill('test one 1');
-    await todoPage.enterInput();
+    await todoPage.enterEdit();
 
     await expect(page.getByTestId('todo-title')).toContainText('test one 1');
 });

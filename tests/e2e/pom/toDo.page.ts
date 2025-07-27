@@ -4,14 +4,14 @@ export class ToDoPage{
  readonly page: Page;
  readonly whatNeedsToBeDoneTextBox: Locator;
  readonly todoItem: Locator;
-
+ readonly editedTextBox: Locator;
 
 
     constructor(page: Page){
         this.page = page;
         this.whatNeedsToBeDoneTextBox = page.getByRole('textbox', {name: 'What needs to be done'});
         this.todoItem = page.getByTestId('todo-title');
-        
+        this.editedTextBox =page.getByRole('textbox', { name: 'Edit' })
     }
 
     async gotoToDoPage() {
@@ -33,4 +33,8 @@ export class ToDoPage{
     async edditText(){
         
     }
+     async enterEdit(){
+        await this.editedTextBox.press('Enter');
+     
+     }
 }

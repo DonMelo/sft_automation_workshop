@@ -9,7 +9,7 @@
 - paragraph:
   - strong: Flights
   - text: (return trip)
-- text: 2016-04-15 New York to Sydney 2016-04-20 Sydney to New York
+- text: 2016-04-07 New York to Sydney 2016-06-15 Sydney to New York
 - paragraph:
   - strong: Passenger details
 - table:

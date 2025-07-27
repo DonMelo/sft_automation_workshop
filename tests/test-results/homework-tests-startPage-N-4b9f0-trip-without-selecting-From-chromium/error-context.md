@@ -9,7 +9,7 @@
 - paragraph:
   - strong: Flights
   - text: (return trip)
-- text: 2026-07-15 to Sydney 2026-07-20 Sydney to
+- text: 2026-01-07 to Sydney 2026-05-15 Sydney to
 - paragraph:
   - strong: Passenger details
 - table:

@@ -11,6 +11,8 @@ export class PaymentPage {
     readonly payNowButton: Locator;
     readonly bookingNumber: Locator;
     readonly confirmation: Locator;
+    readonly tripDetails: Locator;
+    readonly passengerDetails: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -23,6 +25,8 @@ export class PaymentPage {
         this.payNowButton = page.locator('[type="submit"]');
         this.confirmation = page.locator('div#confirmation');
         this.bookingNumber = page.locator('#booking_number');
+        this.tripDetails = page.locator('i');
+        this.passengerDetails = page.locator('label');
     }
 
     async fillPaymentForm(name: string, cardNr: string, month: string, year: string) {

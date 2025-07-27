@@ -9,7 +9,7 @@
 - paragraph:
   - strong: Flights
   - text: (oneway trip)
-- text: 2026-07-15 New York to Sydney
+- text: 2026-01-07 New York to Sydney
 - paragraph:
   - strong: Passenger details
 - table:

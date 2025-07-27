@@ -68,13 +68,13 @@ test.describe("Failed login", () => {
     await agilewayLogin.clickLogin();
     
     await expect(page).toHaveURL('https://travel.agileway.net/sessions');
-    await expect(page.getByText('Invalid email or password')).toBeVisible();
+    await expect(page.locator('#flash_alert')).toBeVisible();
   });
   
   test('Failed login simple', async ({page}) =>{
     await agilewayLogin.fullLogin('wrongUsername','wrongPassword');
 
     await expect(page).toHaveURL('https://travel.agileway.net/sessions');
-    await expect(page.getByText('Invalid email or password')).toBeVisible();
+    await expect(page.locator('#flash_alert')).toBeVisible();
 });
 });

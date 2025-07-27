@@ -15,8 +15,8 @@ export class AgilewayStart{
 
   constructor(page: Page){
     this.page = page;
-    this.radioButtonOneWay = page.getByRole('radio').first();
-    this.radioButtonReturning = page.getByRole('radio').nth(1);
+    this.radioButtonReturning = page.getByRole('radio').first();
+    this.radioButtonOneWay = page.getByRole('radio').nth(1);
     this.selectFromPort = page.locator('select[name="fromPort"]');
     this.selectToPort = page.locator('select[name="toPort"]');
     this.selectDepartDay = page.locator('#departDay');
@@ -61,7 +61,7 @@ export class AgilewayStart{
   }
 
   async fullReturningFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string, dayReturn: string, monthYearReturn: string, nthCheckbox: number){
-    await this.radioButtonOneWay.check();
+    await this.radioButtonReturning.check();
     await this.selectFromPort.selectOption(fromPort);
     await this.selectToPort.selectOption(toPort);
     await this.selectDepartDay.selectOption(dayDepart);

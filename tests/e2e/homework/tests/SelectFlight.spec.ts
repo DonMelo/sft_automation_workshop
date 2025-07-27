@@ -27,84 +27,81 @@ test('Select return trip', async () => {
     await selectFlightPage.selectTripType('return');
     await expect(selectFlightPage.tripTypeButtonReturn).toBeChecked();
 
-    await selectFlightPage.selectFromAirport('New York');
-    await selectFlightPage.selectToAirport('Sydney');
-    await expect(selectFlightPage.selectFrom).toHaveValue('New York');
-    await expect(selectFlightPage.selectTo).toHaveValue('Sydney');
+    await selectFlightPage.selectFromAirport(vars.flight_from);
+    await selectFlightPage.selectToAirport(vars.flight_to);
+    await expect(selectFlightPage.selectFrom).toHaveValue(vars.flight_from);
+    await expect(selectFlightPage.selectTo).toHaveValue(vars.flight_to);
 
-    await selectFlightPage.selectDepartDate('15', 'March 2025');
-    await selectFlightPage.selectReturnDate('20', 'March 2025');
-    await expect(selectFlightPage.selectDepartDay).toHaveValue('15');
-    await expect(selectFlightPage.selectDepartMonth).toHaveValue('032025');
-    await expect(selectFlightPage.selectReturnDay).toHaveValue('20');
-    await expect(selectFlightPage.selectReturnMonth).toHaveValue('032025');
+    await selectFlightPage.selectDepartDate(vars.depart_day, vars.depart_month);
+    await selectFlightPage.selectReturnDate(vars.return_day, vars.return_month);
+    await expect(selectFlightPage.selectDepartDay).toHaveValue(vars.depart_day);
+    await expect(selectFlightPage.selectDepartMonth).toHaveValue(vars.depart_month);
+    await expect(selectFlightPage.selectReturnDay).toHaveValue(vars.return_day);
+    await expect(selectFlightPage.selectReturnMonth).toHaveValue(vars.return_month);
 
     await selectFlightPage.selectFlight();
     await expect(selectFlightPage.selectFlightButton.first()).toBeChecked();
 
     await selectFlightPage.continueToNextStep();
     await expect(selectFlightPage.page.locator('h2')).toContainText('Passenger Details');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(2)')).toContainText('New York');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText('Sydney');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(5)')).toContainText('Sydney');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(6)')).toContainText('New York');
+    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(2)')).toContainText(vars.flight_from);
+    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText(vars.flight_to);
+    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(5)')).toContainText(vars.flight_to);
+    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(6)')).toContainText(vars.flight_from);
 });
 
 test('Select one-way trip', async () => {
     await selectFlightPage.selectTripType('oneway');
     await expect(selectFlightPage.tripTypeButtonOneWay).toBeChecked();
 
-    await selectFlightPage.selectFromAirport('San Francisco');
-    await selectFlightPage.selectToAirport('New York');
-    await expect(selectFlightPage.selectFrom).toHaveValue('San Francisco');
-    await expect(selectFlightPage.selectTo).toHaveValue('New York');
+    await selectFlightPage.selectFromAirport(vars.flight_from);
+    await selectFlightPage.selectToAirport(vars.flight_to);
+    await expect(selectFlightPage.selectFrom).toHaveValue(vars.flight_from);
+    await expect(selectFlightPage.selectTo).toHaveValue(vars.flight_to);
 
-    await selectFlightPage.selectDepartDate('10', 'April 2025');
-    await expect(selectFlightPage.selectDepartDay).toHaveValue('10');
-    await expect(selectFlightPage.selectDepartMonth).toHaveValue('042025');
+    await selectFlightPage.selectDepartDate(vars.depart_day, vars.depart_month);
+    await expect(selectFlightPage.selectDepartDay).toHaveValue(vars.depart_day);
+    await expect(selectFlightPage.selectDepartMonth).toHaveValue(vars.depart_month);
 
     await selectFlightPage.selectFlight();
     await expect(selectFlightPage.selectFlightButton.first()).toBeChecked();
 
     await selectFlightPage.continueToNextStep();
     await expect(selectFlightPage.page.locator('h2')).toHaveText('Passenger Details');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(2)')).toContainText('San Francisco');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText('New York');
+    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(2)')).toContainText(vars.flight_from);
+    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText(vars.flight_to);
 });
 
 test.describe('Incorrect flight selection', () => {
     test('Select flight without selecting "from" airport', async () => {
         await selectFlightPage.selectTripType('return');
-        await selectFlightPage.selectToAirport('Sydney');
-        await selectFlightPage.selectDepartDate('15', 'March 2025');
-        await selectFlightPage.selectReturnDate('20', 'March 2025');
+        await selectFlightPage.selectToAirport(vars.flight_to);
+        await selectFlightPage.selectDepartDate(vars.depart_day, vars.depart_month);
+        await selectFlightPage.selectReturnDate(vars.return_day, vars.return_month);
 
         await expect(selectFlightPage.selectFrom).toHaveValue('');
-        // await expect(selectFlightPage.continueButton).toBeDisabled();
-        // This throws an error, I believe the button should be disabled if the "from"airport is not selected. Bellow code added to pass tests :P
-        await expect(selectFlightPage.continueButton).toBeEnabled();
+        await expect(selectFlightPage.continueButton).toBeDisabled();
+        // This throws an error, I believe the button should be disabled if the "from"airport is not selected.
     });
     test('Select flight without selecting "to" airport', async () => {
         await selectFlightPage.selectTripType('return');
-        await selectFlightPage.selectFromAirport('New York');
-        await selectFlightPage.selectDepartDate('15', 'March 2025');
-        await selectFlightPage.selectReturnDate('20', 'March 2025');
+        await selectFlightPage.selectFromAirport(vars.flight_from);
+        await selectFlightPage.selectDepartDate(vars.depart_day, vars.depart_month);
+        await selectFlightPage.selectReturnDate(vars.return_day, vars.return_month);
 
         await expect(selectFlightPage.selectTo).toHaveValue('');
-        // await expect(selectFlightPage.continueButton).toBeDisabled();
-        // This throws an error, I believe the button should be disabled if the "to" airport is not selected. Bellow code added to pass tests :P
-        await expect(selectFlightPage.continueButton).toBeEnabled();
+        await expect(selectFlightPage.continueButton).toBeDisabled();
+        // This throws an error, I believe the button should be disabled if the "to" airport is not selected.
     });
     test('Select route without selecting the actual flight', async () => {
         await selectFlightPage.selectTripType('return');
-        await selectFlightPage.selectFromAirport('New York');
-        await selectFlightPage.selectToAirport('Sydney');
-        await selectFlightPage.selectDepartDate('15', 'March 2025');
-        await selectFlightPage.selectReturnDate('20', 'March 2025');
+        await selectFlightPage.selectFromAirport(vars.flight_from);
+        await selectFlightPage.selectToAirport(vars.flight_to);
+        await selectFlightPage.selectDepartDate(vars.depart_day, vars.depart_month);
+        await selectFlightPage.selectReturnDate(vars.return_day, vars.return_month);
 
         await expect(selectFlightPage.selectFlightButton.first()).not.toBeChecked();
-        // await expect(selectFlightPage.continueButton).toBeDisabled();
-        // This throws an error, I believe the button should be disabled if no flight is selected, there is nothing to continue with Bellow code added to pass tests :P
-        await expect(selectFlightPage.continueButton).toBeEnabled();
+        await expect(selectFlightPage.continueButton).toBeDisabled();
+        // This throws an error, I believe the button should be disabled if no flight is selected, there is nothing to continue with.
     });
 });

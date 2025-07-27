@@ -28,4 +28,8 @@ export class LoginPage {
     async submitSignIn() {
         await this.signInButton.click();
     }
+
+    async signOut() {
+        await this.page.locator("a[href='/logout']").click();
+    }
 }

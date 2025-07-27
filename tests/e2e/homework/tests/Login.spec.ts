@@ -68,3 +68,12 @@ test.describe('Login with incorrect credentials', () => {
 		await expect(page.locator('#flash_alert')).toBeVisible();
 	});
 });
+
+test('Sign out', async ({ page }) => {
+	await loginPage.enterUsername(vars.correct_username);
+	await loginPage.enterPassword(vars.correct_password);
+	await loginPage.submitSignIn();
+
+	await loginPage.signOut();
+	await expect(page.locator('#flash_notice')).toContainText('Signed out!');
+});

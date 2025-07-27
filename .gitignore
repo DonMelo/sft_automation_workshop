@@ -17,3 +17,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /tests/test-results
+/tests/playwright-report
+/tests/test-results

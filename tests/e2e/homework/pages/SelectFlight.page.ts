@@ -78,4 +78,13 @@ export class SelectFlightPage {
     async selectFlight() {
         await this.selectFlightButton.first().check();
     }
+
+    // Default fillout method for the flight selection
+    async filloutDetailsDefault(){
+        await this.selectFromAirport(vars.flight_from);
+        await this.selectToAirport(vars.flight_to);
+        await this.selectDepartDate(vars.depart_day, vars.depart_month);
+        await this.selectReturnDate(vars.return_day, vars.return_month);
+        await this.selectFlight();
+    }
 }

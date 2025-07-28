@@ -7,7 +7,8 @@ export class AgilewayPayment{
   readonly fieldCardExpiryMonth: Locator;
   readonly fieldCardExpiryYear: Locator;
   readonly payment: Locator;
-  readonly cardTypes: Locator;
+  readonly cardTypeMaster: Locator;
+  readonly cardTypeVisa: Locator;
   static readonly paymentURL = 'https://travel.agileway.net/flights/passenger';
 
   constructor(page: Page) {
@@ -17,14 +18,22 @@ export class AgilewayPayment{
     this.fieldCardExpiryMonth = page.locator('select[name="expiry_month"]');
     this.fieldCardExpiryYear = page.locator('select[name="expiry_year"]');
     this.payment = page.getByRole('button', { name: 'Pay now' });
-    this.cardTypes = page.getByRole('radio');
+    this.cardTypeMaster =  page.getByRole('radio', {name: "master"});;
+    this.cardTypeVisa =  page.getByRole('radio', {name: "visa"});;
+  }
+  async useMastercard(){
+    await this.cardTypeMaster.check();
+  }
+  
+  async useVisa(){
+    await this.cardTypeVisa.check();
   }
 
   async fullPayment(cardNumber: string, cardExpiryMonth: string, cardExpiryYear: string){
-    this.fieldCardNumber.fill(cardNumber);
-    this.fieldCardExpiryMonth.selectOption(cardExpiryMonth);
-    this.fieldCardExpiryYear.selectOption(cardExpiryYear);
-    this.payment.click();
+    await this.fieldCardNumber.fill(cardNumber);
+    await this.fieldCardExpiryMonth.selectOption(cardExpiryMonth);
+    await this.fieldCardExpiryYear.selectOption(cardExpiryYear);
+    await this.payment.click();
   }
 
 } 

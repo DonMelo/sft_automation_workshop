@@ -1,11 +1,12 @@
 import { Locator, Page } from "playwright";
 import { Basepage } from "./basePage.page";
+import { AgilewayStart } from "./agilewayStart.page";
 
 export class AgilewayLogin extends Basepage{
   readonly loginButton: Locator;
   readonly usernameInputField: Locator;
   readonly passwordInputField: Locator;
-  readonly loginURL = 'https://travel.agileway.net/login';
+  readonly loginURL = '/login';
 
   constructor(page: Page) {
     super(page);
@@ -24,5 +25,8 @@ export class AgilewayLogin extends Basepage{
 
   async expectLoginAlertVisible(){
     await this.expectAlertVisible("Invalid email or password");
+  }
+  async expectSuccessURL() {
+    this.expectURL(AgilewayStart.startUrl);
   }
 }

@@ -13,4 +13,8 @@ export class Basepage{
   async expectAlertVisible(alertMessage: string){
     await expect(this.page.getByText(alertMessage)).toBeVisible();
   }
+  
+  async expectURL(Url: string){
+    await expect(this.page).toHaveURL(Url);
+  }
 }

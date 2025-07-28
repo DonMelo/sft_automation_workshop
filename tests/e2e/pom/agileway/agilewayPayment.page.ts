@@ -1,7 +1,8 @@
 import { Locator, Page } from "playwright";
+import { Basepage } from "./basePage.page";
+import { expect } from "playwright/test";
 
-export class AgilewayPayment{
-  readonly page: Page;
+export class AgilewayPayment extends Basepage{
   readonly fieldCardNumber: Locator;
   readonly fieldCardHolder: Locator;
   readonly fieldCardExpiryMonth: Locator;
@@ -9,10 +10,10 @@ export class AgilewayPayment{
   readonly payment: Locator;
   readonly cardTypeMaster: Locator;
   readonly cardTypeVisa: Locator;
-  static readonly paymentURL = 'https://travel.agileway.net/flights/passenger';
+  static readonly paymentURL = '/flights/passenger';
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.fieldCardHolder = page.locator('input[name="holder_name"]');
     this.fieldCardNumber = page.locator('input[name="card_number"]');
     this.fieldCardExpiryMonth = page.locator('select[name="expiry_month"]');
@@ -36,4 +37,7 @@ export class AgilewayPayment{
     await this.payment.click();
   }
 
+  async expectCorrectForm(){
+    await expect(this.page.getByRole('heading', { name: 'Confirmation' })).toBeVisible();
+  }
 } 

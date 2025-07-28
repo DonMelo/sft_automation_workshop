@@ -1,12 +1,10 @@
 import { AgilewayLogin } from "../pom/agileway/agilewayLogin.page";
-import { test, expect } from "playwright/test";
 import { AgilewayStart } from "../pom/agileway/agilewayStart.page";
 import { AgilewayDetails } from "../pom/agileway/agilewayDetails.page";
-import {AgilewayPayment} from "../pom/agileway/agilewayPayment.page"
+import { AgilewayPayment } from "../pom/agileway/agilewayPayment.page"
+import { test} from "playwright/test";
 
 let agilewayPayment: AgilewayPayment;
-
-
 test.beforeEach(async ({page}) => {
   let login = new AgilewayLogin(page);
   let start = new AgilewayStart(page);
@@ -18,8 +16,18 @@ test.beforeEach(async ({page}) => {
   await details.fullInput('first','last');
 });
 
-test('All fields payment', async ({ page }) => {
+test('All fields payment master card', async ({ page }) => {
+  await agilewayPayment.useMastercard();
   await agilewayPayment.fullPayment('1234123412341234','06','2026');
+  
+  // Assert
+  await agilewayPayment.expectCorrectForm();
+});
 
-  await expect(page.getByRole('heading', { name: 'Confirmation' })).toBeVisible();
+test('All fields payment visa', async ({ page }) => {
+  await agilewayPayment.useVisa();
+  await agilewayPayment.fullPayment('1234123412341234','06','2026');
+  
+  // Assert
+  await agilewayPayment.expectCorrectForm();
 });

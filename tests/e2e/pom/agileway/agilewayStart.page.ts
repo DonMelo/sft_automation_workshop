@@ -1,7 +1,7 @@
 import { Locator, Page } from "playwright";
+import { Basepage } from "./basePage.page";
 
-export class AgilewayStart{
-  readonly page: Page;
+export class AgilewayStart extends Basepage{
   readonly radioButtonOneWay: Locator;
   readonly radioButtonReturning: Locator;
   readonly selectFromPort: Locator;
@@ -12,10 +12,10 @@ export class AgilewayStart{
   readonly selectReturnMonth: Locator;
   readonly radioButtonTime: Locator;
   readonly buttonContinue: Locator;
-  static readonly startUrl = 'https://travel.agileway.net/flights/start';
+  static readonly startUrl = '/flights/start';
 
   constructor(page: Page){
-    this.page = page;
+    super(page);
     this.radioButtonReturning = page.locator('input[type="radio"][value="return"]');
     this.radioButtonOneWay = page.locator('input[type="radio"][value="oneway"]');
     this.selectFromPort = page.locator('select[name="fromPort"]');
@@ -27,7 +27,6 @@ export class AgilewayStart{
     this.radioButtonTime = page.getByRole('checkbox');
     this.buttonContinue = page.getByRole('button', { name: 'Continue' });
   }
- 
   
   async fullOnewayFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string){
     await this.radioButtonOneWay.check();
@@ -49,5 +48,7 @@ export class AgilewayStart{
     await this.radioButtonTime.nth(nthCheckbox).check();
     await this.buttonContinue.click();
   }
-
+  async continue(){
+    await this.buttonContinue.click();
+  }
 }

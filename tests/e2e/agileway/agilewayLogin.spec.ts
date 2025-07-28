@@ -1,6 +1,5 @@
-import { expect, test } from "playwright/test";
-import {AgilewayLogin} from "../pom/agileway/agilewayLogin.page"
-import {AgilewayStart} from '../pom/agileway/agilewayStart.page'
+import { test } from "playwright/test";
+import { AgilewayLogin } from "../pom/agileway/agilewayLogin.page"
 
 let agilewayLogin: AgilewayLogin;
 test.beforeEach(async ({page}) =>{
@@ -8,29 +7,29 @@ test.beforeEach(async ({page}) =>{
   await agilewayLogin.gotoPage();
 });
 
-test.describe("Successful logins", () => {
-  test('Succesful login', async ({page}) => {
-    await agilewayLogin.fullLogin('agileway','testW1se');
+const invalidCredentials = [
+  {title: 'Incorrect username', username: 'wrongUsername', password: 'testW1se'},
+  {title: 'Incorrect password', username: 'agileway', password: 'wrongPassword'},
+  {title: 'Incorrect username and password', username: 'wrongUsername', password: 'wrongPassword'},
+]
 
-    await expect(page).toHaveURL(AgilewayStart.startUrl);
-  });
+test.describe('Invalid tests', () => {
+
+  for(const{title,username,password} of invalidCredentials){
+    test(title, async ({page}) =>{
+      await agilewayLogin.fullLogin(username,password);
+      
+      // Assert
+      await agilewayLogin.expectLoginAlertVisible();
+    });
+  }
 });
 
-test.describe("Failed logins", () => {  
-  test('Incorrect username ', async ({page}) =>{
-    await agilewayLogin.fullLogin('wrongUsername','testW1se');
+test.describe('Valid tests', () => {
+  test('Succesful login', async ({page}) => {
+    await agilewayLogin.fullLogin('agileway','testW1se');
     
-    await agilewayLogin.expectLoginAlertVisible();
+    // Assert
+    await agilewayLogin.expectSuccessURL();
   });
-  test('Incorrect password', async ({page}) =>{
-    await agilewayLogin.fullLogin('agileway','wrongPassword');
-
-    await agilewayLogin.expectLoginAlertVisible();
-  });
-  test('Incorrect username and password ', async ({page}) =>{
-    await agilewayLogin.fullLogin('wrongUsername','wrongPassword');
-
-    await agilewayLogin.expectLoginAlertVisible();
-  });
-  
 });

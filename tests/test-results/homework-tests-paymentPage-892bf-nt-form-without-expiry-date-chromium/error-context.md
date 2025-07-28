@@ -12,18 +12,18 @@
     - 'row "Card type: Visa Master"':
       - cell "Card type:"
       - cell "Visa Master":
-        - radio
+        - radio [checked]
         - text: Visa
         - radio
         - text: Master
-    - 'row "Card holder''s name: Doe"':
+    - 'row "Card holder''s name: Jane Doe"':
       - cell "Card holder's name:"
-      - cell "Doe":
-        - textbox: Doe
-    - row "Card number:":
+      - cell "Jane Doe":
+        - textbox: Jane Doe
+    - 'row "Card number: 12345678"':
       - cell "Card number:"
-      - cell:
-        - textbox
+      - cell "12345678":
+        - textbox: "12345678"
     - 'row "Expiry in : 01 / 2025"':
       - cell "Expiry in :"
       - cell "01 / 2025":

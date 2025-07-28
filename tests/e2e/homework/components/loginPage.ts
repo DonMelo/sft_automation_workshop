@@ -14,7 +14,7 @@ export class Login {
     }
 
     async goToPage() {
-        await this.page.goto('https://travel.agileway.net/')
+        await this.page.goto('/');
         await this.page.waitForLoadState('networkidle');
     }
 

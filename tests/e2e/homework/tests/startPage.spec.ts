@@ -35,24 +35,23 @@ test.describe('Happy path', () => {
     });
 });
 
+
+const testCases = [
+    ['', variables.arriveTo, variables.departDay, variables.departMonth, variables.returnDay, variables.returnMonth],
+    [variables.departFrom, '', variables.departDay, variables.departMonth, variables.returnDay, variables.returnMonth],
+    [variables.departFrom, variables.arriveTo, variables.departDay, variables.invalidDepartYear, variables.returnDay, variables.invalidReturnYear],
+];
+
 test.describe('Negative tests', () => {
-    test('User selecting return trip without selecting From', async ({page}) => {
-            await pageManager.startPage.returnTrip('', variables.arriveTo, variables.departDay, variables.departMonth, variables.returnDay, variables.returnMonth);
-            await expect(page.locator(`text=${errorMessage}`)).toBeVisible();
-    });
-
-    test('User selecting return trip without selecting To', async ({page}) => {
-            await pageManager.startPage.returnTrip(variables.departFrom, '', variables.departDay, variables.departMonth, variables.returnDay, variables.returnMonth);
-            await expect(page.locator(`text=${errorMessage}`)).toBeVisible();
-    });
-
-    test('User selecting return trip with date in the past', async ({page}) => {
-            await pageManager.startPage.returnTrip(variables.departFrom, variables.arriveTo, variables.departDay, variables.invalidDepartYear, variables.returnDay, variables.invalidReturnYear);
-            await expect(page.locator(`text=${errorMessage}`)).toBeVisible();
-    });
-
+    for(const [from, to, dDay, dMonth, rDay, rMonth] of testCases) {
+            test(`Booking trip without required details: '${from}', '${to}', '${dDay}', '${dMonth}', ${rDay}, ${rMonth}`, async ({page}) => {
+                await pageManager.startPage.returnTrip(from, to, dDay, dMonth, rDay, rMonth);
+                await expect(page.locator(`text=${errorMessage}`)).toBeVisible();
+                });
+            }
     test('User selecting one way trip without selecting Time', async ({page}) => {
             await pageManager.startPage.timeNotSelected(variables.departFrom, variables.arriveTo, variables.departDay, variables.departMonth);
             await expect(page.locator(`text=${errorMessage}`)).toBeVisible();
     });
+    
 });

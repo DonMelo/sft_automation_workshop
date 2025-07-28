@@ -10,25 +10,36 @@ test.beforeEach('Go to page', async({page}) => {
     await pageManager.startPage.oneWayTrip(variables.departFrom, variables.arriveTo, variables.departDay, variables.departMonth);
 });
 
+
 test('Continue with valid user details', async ({page}) => {
     await pageManager.passengerDetailsPage.enterPassengerDetails(variables.passengerFirstName, variables.passengerLastName);
-    await expect(page.locator('h2')).toContainText('Pay by Credit Card');
+    await expect(pageManager.paymentPage.header).toBeVisible();
+
+    const headerText = await pageManager.paymentPage.verifyPageHeader();
+    expect(headerText).toBe('Pay by Credit Card');
 });
+
+const testCases = [
+    ['', ''],
+    [variables.validUsername, ''],
+    [variables.validUsername, variables.invalidPassword],
+    [variables.invalidUsername, variables.validPassword],
+];
 
 test.describe('Negative tests', () => {
 
-    test('Continue without filling out first and last name', async () => {
-        await pageManager.passengerDetailsPage.enterPassengerDetails('', ''); 
-        await expect(pageManager.passengerDetailsPage.errorAlert).toBeVisible();
-    });
-    
-    test('Continue without first name', async () => {
-        await pageManager.passengerDetailsPage.enterPassengerDetails('', variables.passengerLastName);
-        await expect(pageManager.passengerDetailsPage.errorAlert).toBeVisible();
-    });
-    
-    test('Continue without last name', async () => {
-        await pageManager.passengerDetailsPage.enterPassengerDetails(variables.passengerFirstName, '');
-        await expect(pageManager.passengerDetailsPage.errorAlert).toBeVisible();
+    const testCases = [
+        ['', ''],
+        ['', variables.passengerLastName],
+        [variables.passengerFirstName, ''],
+    ];
+
+test.describe('Negative tests', () => {
+    for (const [passengerFirstName, passengerLastName] of testCases) {
+        test(`Booking trip without passenger details '${passengerFirstName}', '${passengerLastName}'`, async () => {
+            await pageManager.passengerDetailsPage.enterPassengerDetails(passengerFirstName, passengerLastName);
+            await expect(pageManager.passengerDetailsPage.errorAlert).toBeVisible();
+        });
+    }
     });
 });

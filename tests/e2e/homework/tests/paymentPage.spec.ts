@@ -20,24 +20,23 @@ test('Happy Path', async() => {
     await expect(pageManager.paymentPage.passengerDetails).toContainText(`Passenger Details: ${variables.passengerFirstName} ${variables.passengerLastName}`);
 });
 
-test.describe('Negative tests', () => {
-    test('Fill out payment form without selecting card type', async() => {
+test('Fill out payment form without selecting card type', async() => {
         await pageManager.paymentPage.paymentFormWithoutCardType(variables.creditCardName, variables.creditCardNumber, variables.creditCardMonth, variables.creditCardYear);
         await expect(pageManager.paymentPage.confirmation).not.toBeVisible(); 
     });
 
-    test('Fill out payment form without card holders name', async() => {
-        await pageManager.paymentPage.fillPaymentForm('', variables.creditCardNumber, variables.creditCardMonth, variables.creditCardYear);
-        await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
-    });
 
-    test('Fill out payment form without card number', async() => {
-        await pageManager.paymentPage.fillPaymentForm(variables.creditCardName, '', variables.creditCardMonth, variables.creditCardYear);
-        await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
-    });
+    const testCases = [
+        ['', variables.creditCardNumber, variables.creditCardMonth, variables.creditCardYear],
+        [variables.creditCardName, '', variables.creditCardMonth, variables.creditCardYear],
+        [variables.creditCardName, variables.creditCardNumber, '', '']
+    ];
 
-    test('Fill out payment form without expiry date', async() => {
-        await pageManager.paymentPage.fillPaymentForm(variables.creditCardName, variables.creditCardNumber, '', '');
-        await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
-    });
-})
+test.describe('Fill out payment form without required details', () => {
+        for (const [cardName, cardNumber, cardMonth, cardYear] of testCases) {
+            test(`Payment attempt with details: '${cardName}', '${cardNumber}', '${cardMonth}', '${cardYear}'`, async () => {
+                await pageManager.paymentPage.fillPaymentForm(cardName, cardNumber, cardMonth, cardYear);
+                await expect(pageManager.paymentPage.confirmation).not.toBeVisible();
+            });
+        }
+});

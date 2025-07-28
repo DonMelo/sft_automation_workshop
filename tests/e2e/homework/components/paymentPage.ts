@@ -13,6 +13,7 @@ export class PaymentPage {
     readonly confirmation: Locator;
     readonly tripDetails: Locator;
     readonly passengerDetails: Locator;
+    readonly header: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -27,6 +28,7 @@ export class PaymentPage {
         this.bookingNumber = page.locator('#booking_number');
         this.tripDetails = page.locator('i');
         this.passengerDetails = page.locator('label');
+        this.header = page.locator('h2');
     }
 
     async fillPaymentForm(name: string, cardNr: string, month: string, year: string) {
@@ -45,4 +47,8 @@ export class PaymentPage {
         await this.expiryYear.selectOption(year);
         await this.payNowButton.click();
     }  
+
+    async verifyPageHeader() {
+        return await this.header.textContent();
+    }
 }

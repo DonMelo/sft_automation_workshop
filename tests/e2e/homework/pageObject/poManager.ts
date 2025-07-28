@@ -4,6 +4,7 @@ import { StartPage } from '../components/startPage';
 import { PassengerDetailsPage } from '../components/passengerDetailsPage';
 import { SignOff } from '../components/signOff';
 import { PaymentPage } from '../components/paymentPage';
+import { BasePage } from '../components/basePage';
 
 export class PageManager {
     readonly page: Page;
@@ -12,6 +13,7 @@ export class PageManager {
     readonly passengerDetailsPage: PassengerDetailsPage;
     readonly signOff: SignOff;
     readonly paymentPage: PaymentPage;
+    readonly basePage: BasePage;
 
     constructor (page: Page) {
         this.page = page;
@@ -20,5 +22,6 @@ export class PageManager {
         this.passengerDetailsPage = new PassengerDetailsPage(this.page);
         this.signOff = new SignOff(this.page);
         this.paymentPage = new PaymentPage(this.page);
+        this.basePage = new BasePage(this.page);
     }
 }

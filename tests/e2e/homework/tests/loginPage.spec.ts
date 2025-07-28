@@ -13,24 +13,19 @@ test.beforeEach('Go to page', async({page}) => {
         await expect(page.locator('#flash_notice')).toBeVisible();
     });
 
+
+const testCases = [
+    ['', variables.validPassword],
+    [variables.validUsername, ''],
+    [variables.validUsername, variables.invalidPassword],
+    [variables.invalidUsername, variables.validPassword],
+];
+
 test.describe('Negative login scenarios', () => {
-    test('Login without username', async ({page}) => {
-        await pageManager.login.loginUser('', variables.validPassword);
-        await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+    for (const [username, password] of testCases) {
+    test(`Login attempt with username: "${username}" and password: "${password}"`, async () => {
+        await pageManager.login.loginUser(username, password);
+        await expect(pageManager.basePage.loginError).toBeVisible();
     });
-
-    test('Login without password', async ({page}) => {
-        await pageManager.login.loginUser(variables.validUsername, '');
-        await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
-    });
-
-    test('Login with invalid password', async ({page}) => {
-        await pageManager.login.loginUser(variables.validUsername, variables.invalidPassword);
-        await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
-    });
-
-    test('Login with invalid username', async ({page}) => {
-        await pageManager.login.loginUser(variables.invalidUsername, variables.validPassword);
-        await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
-    });
+    }
 });

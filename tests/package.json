@@ -2,7 +2,9 @@
   "name": "tests",
   "version": "1.0.0",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "test:mytodoapp": "npx playwright test mytodoapp.spec.ts",
+    "test:travel-page": "npx playwright test e2e/travel-page.spec.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0"

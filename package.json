@@ -9,7 +9,8 @@
   "scripts": {
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "npm run test -w src",
-    "test:e2e": "npm run test -w tests"
+    "test:e2e": "npm run test -w tests",
+    "test:travel": "npm run test:travel-page -w tests"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",

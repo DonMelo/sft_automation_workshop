@@ -5,6 +5,7 @@ export class AgilewayLogin{
   readonly loginButton: Locator;
   readonly usernameInputField: Locator;
   readonly passwordInputField: Locator;
+  readonly loginURL = 'https://travel.agileway.net/login';
 
   constructor(page: Page) {
     this.page = page;
@@ -13,7 +14,7 @@ export class AgilewayLogin{
     this.passwordInputField= this.page.locator('#password');
   }
   async gotoPage(){
-    await this.page.goto('https://travel.agileway.net/login');
+    await this.page.goto(this.loginURL);
   }
   async fullLogin(username:string,pass:string ) {
     await this.usernameInputField.fill(username);

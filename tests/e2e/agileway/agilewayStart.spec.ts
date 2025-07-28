@@ -5,13 +5,11 @@ import { test, expect } from "playwright/test";
 let agilewayStart: AgilewayStart;
 
 test.beforeEach(async ({page}) => {
-agilewayStart = new AgilewayStart(page);
-let login = new AgilewayLogin(page);
-await login.gotoPage();
-await login.fullLogin('agileway','testW1se');
+  agilewayStart = new AgilewayStart(page);
+  let login = new AgilewayLogin(page);
+  await login.gotoPage();
+  await login.fullLogin('agileway','testW1se');
 });
-// Invalid booking not implemented so no invalid test regression (wouldn't be regression testing)
-
 test.describe("Oneway booking", () => {
   test('One way flight booking', async ({ page }) => {
     await agilewayStart.fullOnewayFlight('New York','Sydney','07','October 2026');

@@ -1,7 +1,8 @@
 import { AgilewayLogin } from "../pom/agileway/agilewayLogin.page";
 import { AgilewayStart } from "../pom/agileway/agilewayStart.page";
-import { test, expect } from "playwright/test";
 import {AgilewayDetails} from "../pom/agileway/agilewayDetails.page"
+import { AgilewayPayment } from "../pom/agileway/agilewayPayment.page";
+import { test, expect } from "playwright/test";
 
 let agilewayDetails: AgilewayDetails;
 test.beforeEach(async ({page}) => {
@@ -18,13 +19,13 @@ test.describe('Correct details', () => {
   test('full correct information', async ({ page }) => {
     await agilewayDetails.fullInput('first','last');
     
-    await expect(page).toHaveURL('https://travel.agileway.net/flights/passenger');
+    await expect(page).toHaveURL(AgilewayPayment.paymentURL);
   });
 
   test('No firstname', async ({ page }) => {
     await agilewayDetails.fullInput('','last');
     
-    await expect(page).toHaveURL('https://travel.agileway.net/flights/passenger');
+    await expect(page).toHaveURL(AgilewayPayment.paymentURL);
   });
 });
 test.describe('Incorrect details', () => {

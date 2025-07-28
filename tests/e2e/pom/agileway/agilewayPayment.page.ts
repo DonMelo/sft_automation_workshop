@@ -8,6 +8,8 @@ export class AgilewayPayment{
   readonly fieldCardExpiryYear: Locator;
   readonly payment: Locator;
   readonly cardTypes: Locator;
+  static readonly paymentURL = 'https://travel.agileway.net/flights/passenger';
+
   constructor(page: Page) {
     this.page = page;
     this.fieldCardHolder = page.locator('input[name="holder_name"]');

@@ -12,6 +12,7 @@ export class AgilewayStart{
   readonly selectReturnMonth: Locator;
   readonly radioButtonTime: Locator;
   readonly buttonContinue: Locator;
+  static readonly startUrl = 'https://travel.agileway.net/flights/start';
 
   constructor(page: Page){
     this.page = page;

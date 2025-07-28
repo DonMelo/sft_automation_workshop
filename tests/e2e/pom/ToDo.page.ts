@@ -23,7 +23,7 @@ export class ToDoPage {
     };
     async validateInput(input: string) {
         await expect(this.todoItem.last()).toContainText(input);
-    };
+    }; 
     async editTodo() {
         await this.todoItem.dblclick();
     };

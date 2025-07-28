@@ -18,8 +18,8 @@ export class AgilewayPayment{
     this.fieldCardExpiryMonth = page.locator('select[name="expiry_month"]');
     this.fieldCardExpiryYear = page.locator('select[name="expiry_year"]');
     this.payment = page.getByRole('button', { name: 'Pay now' });
-    this.cardTypeMaster =  page.getByRole('radio', {name: "master"});;
-    this.cardTypeVisa =  page.getByRole('radio', {name: "visa"});;
+    this.cardTypeMaster =  page.locator('input[type="radio"][value="master"]');
+    this.cardTypeVisa =  page.locator('input[type="radio"][value="visa"]');
   }
   async useMastercard(){
     await this.cardTypeMaster.check();

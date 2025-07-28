@@ -32,12 +32,13 @@ test.describe('Incorrect details', () => {
   test('No firstname or lastname', async ({ page }) => {
     await agilewayDetails.fullInput('','');
     
-    await expect(page.locator('#flash_alert')).toBeVisible();
+    await agilewayDetails.expectLastNameAlertVisible();
   });
   test('No lastname', async ({ page }) => {
     await agilewayDetails.fullInput('first','');
     
-    await expect(page.locator('#flash_alert')).toBeVisible();
+    // await expect(page.getByText("Must provide last name")).toBeVisible();
+    await agilewayDetails.expectLastNameAlertVisible();
   });
 
 });

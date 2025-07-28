@@ -16,8 +16,8 @@ export class AgilewayStart{
 
   constructor(page: Page){
     this.page = page;
-    this.radioButtonReturning = page.getByRole('radio', {name: "return"});
-    this.radioButtonOneWay = page.getByRole('radio', {name: "oneway"});
+    this.radioButtonReturning = page.locator('input[type="radio"][value="return"]');
+    this.radioButtonOneWay = page.locator('input[type="radio"][value="oneway"]');
     this.selectFromPort = page.locator('select[name="fromPort"]');
     this.selectToPort = page.locator('select[name="toPort"]');
     this.selectDepartDay = page.locator('#departDay');

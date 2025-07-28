@@ -8,17 +8,16 @@ let agilewayPayment: AgilewayPayment;
 
 
 test.beforeEach(async ({page}) => {
-let login = new AgilewayLogin(page);
-let start = new AgilewayStart(page);
-let details = new AgilewayDetails(page);
-agilewayPayment = new AgilewayPayment(page);
-await login.gotoPage();
-await login.fullLogin('agileway','testW1se');
-await start.fullOnewayFlight('New York','Sydney','07','October 2026');
-await details.fullInput('first','last');
+  let login = new AgilewayLogin(page);
+  let start = new AgilewayStart(page);
+  let details = new AgilewayDetails(page);
+  agilewayPayment = new AgilewayPayment(page);
+  await login.gotoPage();
+  await login.fullLogin('agileway','testW1se');
+  await start.fullOnewayFlight('New York','Sydney','07','October 2026');
+  await details.fullInput('first','last');
 });
 
-// invalid payment not implemented, so no invalid test regression
 test('All fields payment', async ({ page }) => {
   await agilewayPayment.fullPayment('1234123412341234','06','2026');
 

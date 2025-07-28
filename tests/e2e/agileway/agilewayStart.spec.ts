@@ -24,7 +24,6 @@ test.describe("Returning booking", () => {
     await expect(page.locator('h2')).toContainText('Passenger Details');
   });
     
-  //may need to be changed in future
   test('Default flight booking', async ({ page }) => {
     await agilewayStart.fullReturningFlight('','','','','','',0);
 

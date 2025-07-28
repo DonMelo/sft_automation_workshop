@@ -4,7 +4,7 @@ import { AgilewayStart } from "../pom/agileway/agilewayStart.page";
 import { AgilewayDetails } from "../pom/agileway/agilewayDetails.page";
 import {AgilewayPayment} from "../pom/agileway/agilewayPayment.page"
 
-let agilewayPayment;
+let agilewayPayment: AgilewayPayment;
 test.beforeEach(async ({page}) => {
 let login = new AgilewayLogin(page);
 let start = new AgilewayStart(page);

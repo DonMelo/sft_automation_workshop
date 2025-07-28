@@ -2,7 +2,7 @@ import { AgilewayLogin } from "../pom/agileway/agilewayLogin.page";
 import { AgilewayStart } from "../pom/agileway/agilewayStart.page";
 import { test, expect } from "playwright/test";
 
-let agilewayStart;
+let agilewayStart: AgilewayStart;
 
 test.beforeEach(async ({page}) => {
 agilewayStart = new AgilewayStart(page);

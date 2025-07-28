@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import {ToDoPage} from './pom/ToDo.page'
 
-let todopage; 
+let todopage : ToDoPage; 
 
 test.beforeEach(async ({page}) =>{
   todopage = new ToDoPage(page);

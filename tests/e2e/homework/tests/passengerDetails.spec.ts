@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { SelectFlightPage } from '../pages/SelectFlight.page';
 import { PassengerDetailsPage } from '../pages/PassengerDetails.page';
+import { LoginPage } from '../pages/Login.page';
 
 let passengerDetailsPage:PassengerDetailsPage;
 
@@ -15,10 +16,9 @@ const flightIndex = 0;
 
 test.beforeEach('Login', async({page})=> 
 {
-    const selectFlightPage = new SelectFlightPage(page);
-    await selectFlightPage.gotoTravelPage();
-    await selectFlightPage.logInToTravelPage();
-    await page.waitForLoadState('networkidle');
+    const loginPage = new LoginPage(page);
+    await loginPage.gotoTravelPage();
+    const selectFlightPage = await loginPage.logInToTravelPage();
     await selectFlightPage.checkTripType(tripType);
     await selectFlightPage.chooseFromPort(fromCity);
     await selectFlightPage.chooseToPort(toCity);
@@ -37,7 +37,7 @@ test('Trip type is the same as chosen', async ({page})=>{
     await expect(foundTripType).toBeVisible();
 });
 
-test.only('Depart date is the same as chosen', async ({page})=>{
+test('Depart date is the same as chosen', async ({page})=>{
     const fullDate = new Date(`${departMonth} ${departDay}`);
     const formatDate = fullDate.toLocaleDateString('en-CA');
 

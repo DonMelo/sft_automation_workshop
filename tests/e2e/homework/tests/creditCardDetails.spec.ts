@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { SelectFlightPage } from '../pages/SelectFlight.page';
 import { PassengerDetailsPage } from '../pages/PassengerDetails.page';
 import { CreditCardDetailsPage } from '../pages/CreditCardDetails.page';
+import { LoginPage } from '../pages/Login.page';
 
 let creditCardDetailsPage:CreditCardDetailsPage;
 
@@ -18,10 +19,9 @@ const lastName = 'Pavarde';
 
 test.beforeEach('Login', async({page})=> 
 {
-    const selectFlightPage = new SelectFlightPage(page);
-    await selectFlightPage.gotoTravelPage();
-    await selectFlightPage.logInToTravelPage();
-    await page.waitForLoadState('networkidle');
+    const loginPage = new LoginPage(page);
+    await loginPage.gotoTravelPage();
+    const selectFlightPage = await loginPage.logInToTravelPage();
     await selectFlightPage.checkTripType(tripType);
     await selectFlightPage.chooseFromPort(fromCity);
     await selectFlightPage.chooseToPort(toCity);
@@ -258,7 +258,7 @@ test('Confirmation field shows correct trip type', async ({page})=>{
     expect(confirmatipnTripType.includes(tripType)).toBe(true);
 });
 
-test('Confirmation field shows correct passenger details', async ({page})=>{
+test.only('Confirmation field shows correct passenger details', async ({page})=>{
     
     const expectedName = firstName + ' ' + lastName;
 

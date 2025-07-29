@@ -4,9 +4,9 @@ import { PassengerDetailsPage } from "./PassengerDetails.page";
 
 export class SelectFlightPage {
     readonly page: Page;
-    readonly usernameInput: Locator;
-    readonly passwordInput: Locator;
-    readonly loginButton: Locator;
+    //readonly usernameInput: Locator;
+    //readonly passwordInput: Locator;
+    //readonly loginButton: Locator;
     readonly tripType: Locator;
     readonly fromPort: Locator;
     readonly toPort: Locator;
@@ -21,9 +21,9 @@ export class SelectFlightPage {
 
     constructor(page: Page){
         this.page = page;
-        this.usernameInput = page.locator('#username');
-        this.passwordInput = page.locator('#password');
-        this.loginButton = page.getByRole('button', { name: 'Sign in' })
+        //this.usernameInput = page.locator('#username');
+        //this.passwordInput = page.locator('#password');
+       // this.loginButton = page.getByRole('button', { name: 'Sign in' })
         this.tripType = page.locator('input[name="tripType"]');
         this.fromPort = page.locator('[name="fromPort"]');
         this.toPort = page.locator('[name="toPort"]');
@@ -37,7 +37,7 @@ export class SelectFlightPage {
         
     }
     
-    async gotoTravelPage(){
+    /*async gotoTravelPage(){
         this.page.goto('https://travel.agileway.net/login');
     }
 
@@ -45,7 +45,7 @@ export class SelectFlightPage {
         await this.usernameInput.fill('agileway');
         await this.passwordInput.fill('testW1se');
         await this.loginButton.click();
-    }
+    }*/
 
     async checkTripTypeReturn(){
         await this.tripType.first().check();

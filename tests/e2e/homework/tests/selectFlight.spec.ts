@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { SelectFlightPage } from '../pages/SelectFlight.page';
+import { LoginPage } from '../pages/Login.page';
 
 let selectFlightPage:SelectFlightPage;
 
 test.beforeEach('Login', async({page})=> 
 {
-    selectFlightPage = new SelectFlightPage(page);
-    await selectFlightPage.gotoTravelPage();
-    await selectFlightPage.logInToTravelPage();
-    await page.waitForLoadState('networkidle');
+    const loginPage = new LoginPage(page);
+    await loginPage.gotoTravelPage();
+    selectFlightPage = await loginPage.logInToTravelPage();
 })
 
 ///Trip type field test
@@ -172,7 +172,7 @@ test('Cannot continue without selected flight time', async ({page})=>{
     await expect(page).toHaveURL(urlBefore);
 });
 
-test.only('Can continue with selected flight time', async ({page})=>{
+test('Can continue with selected flight time', async ({page})=>{
     await selectFlightPage.checkTripTypeOneWay();
     await selectFlightPage.chooseFromPort('New York');
     await selectFlightPage.chooseToPort('Sydney');

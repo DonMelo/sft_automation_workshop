@@ -38,6 +38,6 @@ export class AgilewayPayment extends Basepage{
   }
 
   async verifyConfirmationHeaderAppears(){
-    await expect(this.page.getByRole('heading', { name: 'Confirmation' })).toBeVisible();
+    await expect(this.header.getByText('Confirmation')).toBeVisible();
   }
 } 

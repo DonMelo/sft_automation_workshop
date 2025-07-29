@@ -7,14 +7,12 @@ export class AgilewayDetails extends Basepage{
   readonly firstName: Locator;
   readonly lastName: Locator;
   readonly buttonNext: Locator;
-  readonly header: Locator;
   
   constructor(page: Page) {
     super(page);
     this.firstName = page.locator('input[name="passengerFirstName"]');
     this.lastName = page.locator('input[name="passengerLastName"]');
     this.buttonNext = page.getByRole('button', { name: 'Next' });
-    this.header = this.page.locator('h2');
   }
   
   async fullInput(firstName: string, lastName: string){

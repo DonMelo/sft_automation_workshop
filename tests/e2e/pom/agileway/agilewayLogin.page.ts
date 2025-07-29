@@ -4,6 +4,7 @@ import { Basepage } from "./basePage.page";
 export class AgilewayLogin extends Basepage{
   readonly usernameInputField: Locator;
   readonly passwordInputField: Locator;
+  readonly signupLink: Locator;
   readonly loginURL = '/login';
   readonly buttonNameSignIn = 'Sign in'
 
@@ -11,6 +12,10 @@ export class AgilewayLogin extends Basepage{
     super(page);
     this.usernameInputField = this.page.locator('#username');
     this.passwordInputField= this.page.locator('#password');
+    this.signupLink =  this.page.getByRole('link', { name: 'Register' });
+  }
+  async clickSignup(){
+    this.signupLink.click();
   }
   async gotoPage(){
     await this.page.goto(this.loginURL);

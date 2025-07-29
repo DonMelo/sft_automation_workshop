@@ -1,13 +1,7 @@
-const {it, expect} = require('@jest/globals');
+const { it, expect } = require('@jest/globals');
 const multiplesOf = require('../exercise/Exercise');
 
-/*it.each([[1, 2, 3], ['a', 'b', undefined]])( 'should add two numbers and not add letters', async(first, second, ans) => {
-    expect(addition(first, second)).toBe(ans);
-})*/
 
-/*it('should find multiples', async() => {
-    expect(multiplesOf(3, 2)).toBe(12);
-})*/
 it.each([[3, 2, 32], [3, 10, 18], [10, 3, 18]])('should find multiples', async(first, second, ans) => {
     expect(multiplesOf(first, second)).toBe(ans);
 })

@@ -1,0 +1,56 @@
+# Page snapshot
+
+```yaml
+- link "Register":
+  - /url: /users/new
+- text: "|"
+- link "Login":
+  - /url: /login
+- heading [level=1]
+- heading "Pay by Credit Card" [level=2]
+- text: "Fare (return New York to Sydney): $1,249.00"
+- table:
+  - rowgroup:
+    - 'row "Card type: Visa Master"':
+      - cell "Card type:"
+      - cell "Visa Master":
+        - radio [checked]
+        - text: Visa
+        - radio
+        - text: Master
+    - 'row "Card holder''s name: John Smith"':
+      - cell "Card holder's name:"
+      - cell "John Smith":
+        - textbox: John Smith
+    - 'row "Card number: 1234567890"':
+      - cell "Card number:"
+      - cell "1234567890":
+        - textbox: "1234567890"
+    - 'row "Expiry in : 01 / 2027"':
+      - cell "Expiry in :"
+      - cell "01 / 2027":
+        - combobox:
+          - option "01" [selected]
+          - option "02"
+          - option "03"
+          - option "04"
+          - option "05"
+          - option "06"
+          - option "07"
+          - option "08"
+          - option "09"
+          - option "10"
+          - option "11"
+          - option "12"
+        - text: /
+        - combobox:
+          - option "2025"
+          - option "2026"
+          - option "2027" [selected]
+          - option "2028"
+          - option "2016"
+          - option "2021"
+- paragraph:
+  - button "Pay now"
+  - img
+```

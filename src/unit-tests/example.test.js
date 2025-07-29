@@ -1,4 +1,4 @@
-const {it, expect} = require('@jest/globals');
+const { it, expect } = require('@jest/globals');
 const addition = require('../example/Example');
 
 it('should add two numbers', async() => {

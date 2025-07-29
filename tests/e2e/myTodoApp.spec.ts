@@ -29,7 +29,3 @@ test('pazymeti todo', async ({ page }) => {
   await todoPage.checkItem();
   await todoPage.validateCheck();
 });
-/*
-css .klasespavadinimas #idpavadinimas 
-xpath /div[@id='idpavadinimas'] 
-*/

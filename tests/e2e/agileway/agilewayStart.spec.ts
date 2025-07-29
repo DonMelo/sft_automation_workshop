@@ -19,7 +19,7 @@ test.describe("Oneway booking", () => {
     await agilewayStart.fullOnewayFlight('New York','Sydney','07','October 2026');
     
     // Assert
-    await agilewayDetails.verifyHeaderIsVisible();
+    await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });
 });
 
@@ -28,13 +28,13 @@ test.describe("Returning booking", () => {
     await agilewayStart.fullReturningFlight('New York','Sydney','07','October 2026','20','December 2026',1);
 
     // Assert
-    await agilewayDetails.verifyHeaderIsVisible();
+    await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });
     
   test('Default flight booking', async ({ page }) => {
     await agilewayStart.continue();
     
     // Assert
-    await agilewayDetails.verifyHeaderIsVisible();
+    await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });
 });

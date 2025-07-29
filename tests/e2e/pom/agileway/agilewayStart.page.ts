@@ -50,4 +50,7 @@ export class AgilewayStart extends Basepage{
   async continue(){
     await this.clickButtonByName(this.buttonNameContinue);
   }
+  async verifySelectFlightHeaderAppears(){
+    await this.verifyHeaderContains('Select Flight');
+  }
 }

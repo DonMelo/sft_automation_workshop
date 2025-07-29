@@ -1,6 +1,5 @@
 import { Locator, Page } from "playwright";
 import { Basepage } from "./basePage.page";
-import { expect } from "playwright/test";
 
 export class AgilewayPayment extends Basepage{
   readonly fieldCardNumber: Locator;
@@ -9,7 +8,6 @@ export class AgilewayPayment extends Basepage{
   readonly fieldCardExpiryYear: Locator;
   readonly cardTypeMaster: Locator;
   readonly cardTypeVisa: Locator;
-  static readonly paymentURL = '/flights/passenger';
   readonly buttonNamePayNow = 'Pay now';
 
   constructor(page: Page) {
@@ -37,6 +35,9 @@ export class AgilewayPayment extends Basepage{
   }
 
   async verifyConfirmationHeaderAppears(){
-    await expect(this.header.getByText('Confirmation')).toBeVisible();
+    await this.verifyHeaderContains('Confirmation');
+  }
+  async verifyPayByCardHeaderAppears(){
+    await this.verifyHeaderContains('Pay by Credit Card');
   }
 } 

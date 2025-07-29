@@ -2,12 +2,16 @@ import { AgilewayLogin } from "../pom/agileway/agilewayLogin.page";
 import { AgilewayStart } from "../pom/agileway/agilewayStart.page";
 import { AgilewayDetails } from "../pom/agileway/agilewayDetails.page"
 import { test } from "playwright/test";
+import { AgilewayPayment } from "../pom/agileway/agilewayPayment.page";
 
 let agilewayDetails: AgilewayDetails;
+let agilewayPayment: AgilewayPayment;
+
 test.beforeEach(async ({page}) => {
   let login = new AgilewayLogin(page);
   let start = new AgilewayStart(page);
   agilewayDetails = new AgilewayDetails(page);
+  agilewayPayment = new AgilewayPayment(page);
   await login.gotoPage();
   await login.fullLogin('agileway','testW1se');
   await start.fullOnewayFlight('New York','Sydney','07','October 2026');
@@ -18,14 +22,14 @@ test.describe('Correct details', () => {
     await agilewayDetails.fullInput('first','last');
     
     // Assert
-    await agilewayDetails.verifyRedirectionToPayment();
+    await agilewayPayment.verifyPayByCardHeaderAppears();
   });
 
   test('No firstname', async ({ page }) => {
     await agilewayDetails.fullInput('','last');
     
     // Assert
-    await agilewayDetails.verifyRedirectionToPayment();
+    await agilewayPayment.verifyPayByCardHeaderAppears();
   });
 });
 test.describe('Incorrect details', () => {
@@ -33,12 +37,12 @@ test.describe('Incorrect details', () => {
     await agilewayDetails.fullInput('','');
     
     // Assert
-    await agilewayDetails.verifytLastNameAlertIsVisible();
+    await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });
   test('No lastname', async ({ page }) => {
     await agilewayDetails.fullInput('first','');
     
     // Assert
-    await agilewayDetails.verifytLastNameAlertIsVisible();
+    await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });
 });

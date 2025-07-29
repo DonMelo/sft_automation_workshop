@@ -1,6 +1,5 @@
 import { Locator, Page } from "playwright";
 import { Basepage } from "./basePage.page";
-import { AgilewayStart } from "./agilewayStart.page";
 
 export class AgilewayLogin extends Basepage{
   readonly usernameInputField: Locator;
@@ -25,7 +24,8 @@ export class AgilewayLogin extends Basepage{
   async verifyLoginAlertIsDisplayed(){
     await this.verifyAlertIsVisible("Invalid email or password");
   }
-  async verifyRedirectionToStart() {
-    await this.verifyURLContains(AgilewayStart.startUrl);
+ 
+  async verifyHeaderAppears(){
+    await this.verifyHeaderContains('Agile Travel');
   }
 }

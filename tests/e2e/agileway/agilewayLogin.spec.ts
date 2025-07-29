@@ -1,9 +1,12 @@
 import { test } from "playwright/test";
 import { AgilewayLogin } from "../pom/agileway/agilewayLogin.page"
+import { AgilewayStart } from "../pom/agileway/agilewayStart.page";
 
 let agilewayLogin: AgilewayLogin;
+let agilewayStart: AgilewayStart;
 test.beforeEach(async ({page}) =>{
   agilewayLogin = new AgilewayLogin(page);
+  agilewayStart = new AgilewayStart(page);
   await agilewayLogin.gotoPage();
 });
 
@@ -30,6 +33,6 @@ test.describe('Valid tests', () => {
     await agilewayLogin.fullLogin('agileway','testW1se');
     
     // Assert
-    await agilewayLogin.verifyRedirectionToStart();
+    await agilewayStart.verifySelectFlightHeaderAppears();
   });
 });

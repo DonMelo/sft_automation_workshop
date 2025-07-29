@@ -16,7 +16,7 @@ test.beforeEach('go to page', async({page})=>{
 test('valid Passenger Details', async({page})=>{
     const passengerDetails = new PassengerDetails(page);
     await passengerDetails.passengerDetailsInput('Test', 'Testaitis');
-    await expect(page.locator('h2')).toBeVisible();
+    await expect(page.locator('h2')).toHaveText('Pay by Credit Card');
 })
 
 test.describe('invalid Passenger Details', () => {    

@@ -9,7 +9,7 @@ export class PassengerDetails {
 constructor (page: Page) {
   this.page = page;
   this.firstname = page.locator('[name="passengerFirstName"]');
-  this.lastname = page.locator('[passengerLastName]');
+  this.lastname = page.locator('[name="passengerLastName"]');
   this.nextButton = page.locator('[value="Next"]');
 }
 

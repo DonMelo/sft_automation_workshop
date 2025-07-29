@@ -19,7 +19,7 @@ test.beforeEach('go to main site', async ({ page }) => {
 })
 
 for (const data of datasetReturn) {
-    test(`input all fields, two-way return type from ${data.fromCity} - ${data.toCity}, ${data.departDay} ${data.departMonth}, ${data.returnDay} ${data.returnMonth}`, async ( {page} ) => {
+    test(`select flight, two-way return type | ${data.fromCity} - ${data.toCity} | ${data.departDay} ${data.departMonth}, ${data.returnDay} ${data.returnMonth}`, async ( {page} ) => {
         const selectFlight = new SelectFlightPage(page);
         await selectFlight.selectTripType('Return');
         if (data.fromCity) await selectFlight.selectFromCity(data.fromCity);
@@ -57,7 +57,7 @@ for (const data of datasetReturn) {
     })
 }
 for (const data of datasetOneWay) {
-    test(`input all fields, one-way return type from ${data.fromCity} - ${data.toCity}, ${data.departDay} ${data.departMonth}`, async ( {page} ) => {
+    test(`select flight, one-way return type | ${data.fromCity} - ${data.toCity} | ${data.departDay} ${data.departMonth}`, async ( {page} ) => {
         const selectFlight = new SelectFlightPage(page);
         await selectFlight.selectTripType('One way');
         if (data.fromCity) await selectFlight.selectFromCity(data.fromCity);

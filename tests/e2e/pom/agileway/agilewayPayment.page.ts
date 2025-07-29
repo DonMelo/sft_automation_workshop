@@ -7,10 +7,10 @@ export class AgilewayPayment extends Basepage{
   readonly fieldCardHolder: Locator;
   readonly fieldCardExpiryMonth: Locator;
   readonly fieldCardExpiryYear: Locator;
-  readonly payment: Locator;
   readonly cardTypeMaster: Locator;
   readonly cardTypeVisa: Locator;
   static readonly paymentURL = '/flights/passenger';
+  readonly buttonNamePayNow = 'Pay now';
 
   constructor(page: Page) {
     super(page);
@@ -18,7 +18,6 @@ export class AgilewayPayment extends Basepage{
     this.fieldCardNumber = page.locator('input[name="card_number"]');
     this.fieldCardExpiryMonth = page.locator('select[name="expiry_month"]');
     this.fieldCardExpiryYear = page.locator('select[name="expiry_year"]');
-    this.payment = page.getByRole('button', { name: 'Pay now' });
     this.cardTypeMaster =  page.locator('input[type="radio"][value="master"]');
     this.cardTypeVisa =  page.locator('input[type="radio"][value="visa"]');
   }
@@ -34,7 +33,7 @@ export class AgilewayPayment extends Basepage{
     await this.fieldCardNumber.fill(cardNumber);
     await this.fieldCardExpiryMonth.selectOption(cardExpiryMonth);
     await this.fieldCardExpiryYear.selectOption(cardExpiryYear);
-    await this.payment.click();
+    await this.clickButtonByName(this.buttonNamePayNow);
   }
 
   async verifyConfirmationHeaderAppears(){

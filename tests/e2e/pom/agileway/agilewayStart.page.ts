@@ -11,8 +11,8 @@ export class AgilewayStart extends Basepage{
   readonly selectReturnDay: Locator;
   readonly selectReturnMonth: Locator;
   readonly radioButtonTime: Locator;
-  readonly buttonContinue: Locator;
   static readonly startUrl = '/flights/start';
+  readonly buttonNameContinue = 'Continue';
 
   constructor(page: Page){
     super(page);
@@ -25,7 +25,6 @@ export class AgilewayStart extends Basepage{
     this.selectReturnDay = page.locator('#returnDay');
     this.selectReturnMonth= page.locator('#returnMonth');
     this.radioButtonTime = page.getByRole('checkbox');
-    this.buttonContinue = page.getByRole('button', { name: 'Continue' });
   }
   
   async fullOnewayFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string){
@@ -34,7 +33,7 @@ export class AgilewayStart extends Basepage{
     await this.selectToPort.selectOption(toPort);
     await this.selectDepartDay.selectOption(dayDepart);
     await this.selectDepartMonth.selectOption(monthYearDepart);
-    await this.buttonContinue.click();
+    await this.clickButtonByName(this.buttonNameContinue);
   }
 
   async fullReturningFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string, dayReturn: string, monthYearReturn: string, nthCheckbox: number){
@@ -46,9 +45,9 @@ export class AgilewayStart extends Basepage{
     await this.selectReturnDay.selectOption(dayReturn);
     await this.selectReturnMonth.selectOption(monthYearReturn);
     await this.radioButtonTime.nth(nthCheckbox).check();
-    await this.buttonContinue.click();
+    await this.clickButtonByName(this.buttonNameContinue);
   }
   async continue(){
-    await this.buttonContinue.click();
+    await this.clickButtonByName(this.buttonNameContinue);
   }
 }

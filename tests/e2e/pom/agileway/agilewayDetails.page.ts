@@ -6,19 +6,17 @@ export class AgilewayDetails extends Basepage{
 
   readonly firstName: Locator;
   readonly lastName: Locator;
-  readonly buttonNext: Locator;
-  
+  readonly buttonNameNext = 'Next';  
   constructor(page: Page) {
     super(page);
     this.firstName = page.locator('input[name="passengerFirstName"]');
     this.lastName = page.locator('input[name="passengerLastName"]');
-    this.buttonNext = page.getByRole('button', { name: 'Next' });
   }
   
   async fullInput(firstName: string, lastName: string){
     await this.lastName.fill(lastName);
     await this.firstName.fill(firstName);
-    await this.buttonNext.click();
+    await this.clickButtonByName(this.buttonNameNext);
   }
   async verifyRedirectionToPayment(){
     await this.verifyURLContains(AgilewayPayment.paymentURL)

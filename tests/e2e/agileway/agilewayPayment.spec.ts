@@ -21,7 +21,7 @@ test('All fields payment master card', async ({ page }) => {
   await agilewayPayment.fullPayment('1234123412341234','06','2026');
   
   // Assert
-  await agilewayPayment.expectCorrectForm();
+  await agilewayPayment.verifyConfirmationHeaderAppears();
 });
 
 test('All fields payment visa', async ({ page }) => {
@@ -29,5 +29,5 @@ test('All fields payment visa', async ({ page }) => {
   await agilewayPayment.fullPayment('1234123412341234','06','2026');
   
   // Assert
-  await agilewayPayment.expectCorrectForm();
+  await agilewayPayment.verifyConfirmationHeaderAppears();
 });

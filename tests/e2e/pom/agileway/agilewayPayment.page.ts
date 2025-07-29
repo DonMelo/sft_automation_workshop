@@ -37,7 +37,7 @@ export class AgilewayPayment extends Basepage{
     await this.payment.click();
   }
 
-  async expectCorrectForm(){
+  async verifyConfirmationHeaderAppears(){
     await expect(this.page.getByRole('heading', { name: 'Confirmation' })).toBeVisible();
   }
 } 

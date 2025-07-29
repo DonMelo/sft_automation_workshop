@@ -18,14 +18,14 @@ test.describe('Correct details', () => {
     await agilewayDetails.fullInput('first','last');
     
     // Assert
-    await agilewayDetails.expectSuccessURL();
+    await agilewayDetails.verifyRedirectionToPayment();
   });
 
   test('No firstname', async ({ page }) => {
     await agilewayDetails.fullInput('','last');
     
     // Assert
-    await agilewayDetails.expectSuccessURL();
+    await agilewayDetails.verifyRedirectionToPayment();
   });
 });
 test.describe('Incorrect details', () => {
@@ -33,12 +33,12 @@ test.describe('Incorrect details', () => {
     await agilewayDetails.fullInput('','');
     
     // Assert
-    await agilewayDetails.expectLastNameAlertVisible();
+    await agilewayDetails.verifytLastNameAlertIsVisible();
   });
   test('No lastname', async ({ page }) => {
     await agilewayDetails.fullInput('first','');
     
     // Assert
-    await agilewayDetails.expectLastNameAlertVisible();
+    await agilewayDetails.verifytLastNameAlertIsVisible();
   });
 });

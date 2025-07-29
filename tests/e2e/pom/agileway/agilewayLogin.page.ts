@@ -23,10 +23,10 @@ export class AgilewayLogin extends Basepage{
     await this.loginButton.click();  
   }
 
-  async expectLoginAlertVisible(){
-    await this.expectAlertVisible("Invalid email or password");
+  async verifyLoginAlertIsDisplayed(){
+    await this.verifyAlertIsVisible("Invalid email or password");
   }
-  async expectSuccessURL() {
-    this.expectURL(AgilewayStart.startUrl);
+  async verifyRedirectionToStart() {
+    this.verifyURLContains(AgilewayStart.startUrl);
   }
 }

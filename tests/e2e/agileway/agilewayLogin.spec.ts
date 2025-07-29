@@ -20,7 +20,7 @@ test.describe('Invalid tests', () => {
       await agilewayLogin.fullLogin(username,password);
       
       // Assert
-      await agilewayLogin.expectLoginAlertVisible();
+      await agilewayLogin.verifyLoginAlertIsDisplayed();
     });
   }
 });
@@ -30,6 +30,6 @@ test.describe('Valid tests', () => {
     await agilewayLogin.fullLogin('agileway','testW1se');
     
     // Assert
-    await agilewayLogin.expectSuccessURL();
+    await agilewayLogin.verifyRedirectionToStart();
   });
 });

@@ -10,11 +10,12 @@ export class Basepage{
     this.alert = page.locator('#flash_alert');
   }
 
-  async expectAlertVisible(alertMessage: string){
-    await expect(this.page.getByText(alertMessage)).toBeVisible();
+  async verifyAlertIsVisible(alertMessage: string){
+    await expect(this.alert).toBeVisible();
+    await expect(this.alert).toContainText(alertMessage);
   }
   
-  async expectURL(Url: string){
+  async verifyURLContains(Url: string){
     await expect(this.page).toHaveURL(Url);
   }
 }

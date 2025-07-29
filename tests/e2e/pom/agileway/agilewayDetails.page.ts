@@ -22,15 +22,15 @@ export class AgilewayDetails extends Basepage{
     await this.firstName.fill(firstName);
     await this.buttonNext.click();
   }
-  async expectSuccessURL(){
-    await this.expectURL(AgilewayPayment.paymentURL)
+  async verifyRedirectionToPayment(){
+    await this.verifyURLContains(AgilewayPayment.paymentURL)
   }
 
-  async expectLastNameAlertVisible(){
-    await this.expectAlertVisible("Must provide last name");
+  async verifytLastNameAlertIsVisible(){
+    await this.verifyAlertIsVisible("Must provide last name");
   }
 
-  async expectHeader(){
+  async verifyHeaderIsVisible(){
     await expect(this.header).toContainText('Passenger Details');
   }
 } 

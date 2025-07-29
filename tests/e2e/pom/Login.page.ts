@@ -6,8 +6,6 @@ export class LoginPage {
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
     readonly logoutButton: Locator;
-    readonly errorMessage: Locator;
-    readonly welcomeMessage: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -15,13 +13,10 @@ export class LoginPage {
         this.passwordInput = page.locator('#password');
         this.loginButton = page.getByRole('button', { name: 'Sign in' });
         this.logoutButton = page.locator('a[href="/logout"]');
-        this.errorMessage = page.locator('#flash_alert');
-        this.welcomeMessage = page.locator('text=Welcome');
     }
 
     async goto() {
-        await this.page.goto('https://travel.agileway.net/');
-        await expect(this.usernameInput).toBeVisible();
+        await this.page.goto('/');
     }
 
     async login(username: string, password: string) {
@@ -32,6 +27,5 @@ export class LoginPage {
 
     async logout(){
         await this.logoutButton.click();
-        await expect(this.page).toHaveURL(/.*login/);
     }
 }

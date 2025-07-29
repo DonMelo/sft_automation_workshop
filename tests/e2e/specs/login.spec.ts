@@ -1,30 +1,35 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pom/Login.page';
-
-
+import { users, messages } from '../data/testData';
+import { PageManager } from '../pom/PageManager';
 
 /*
  * Login Functionality Tests
-
+ *
  * This feature is critical because all users must authenticate before accessing any other functionality.
  * Tests cover both successful and invalid login.
  */
 
+  test('should log in successfully with valid credentials', async ({ page }) => {
+    const pageManager = new PageManager(page);
 
-test.describe('Login functionality', () => {
-    test('should log in successfully with valid credentials', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-        
-        await loginPage.goto();
-        await loginPage.login('agileway', 'testW1se');
-        await expect(loginPage.welcomeMessage).toBeVisible();
-    });
+    await pageManager.loginPage.goto();
+    await pageManager.loginPage.login(users.valid.username, users.valid.password);
+    await expect(pageManager.basePage.successMessage).toHaveText('Signed in!');
+  });
 
-    test('should display an error message with invalid credentials', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-        
-        await loginPage.goto();
-        await loginPage.login('notauser', 'notapass');
-        await expect(loginPage.errorMessage).toBeVisible();
+const invalidCases = [
+  { name: 'invalid username and password', user: users.invalid },
+  { name: 'blank username', user: users.blank_username },
+  { name: 'blank password', user: users.blank_password },
+  { name: 'both fields blank', user: users.blank_both }
+];
+test.describe('Login functionality - negative cases', () => {
+  invalidCases.forEach(({ name, user }) => {
+    test(`should show error for ${name}`, async ({ page }) => {
+      const pageManager = new PageManager(page);
+      await pageManager.loginPage.goto();
+      await pageManager.loginPage.login(user.username, user.password);
+      await expect(pageManager.basePage.errorMessage).toHaveText(messages.invalidLogin);
     });
+  });
 });

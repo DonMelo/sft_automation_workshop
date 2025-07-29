@@ -12,8 +12,8 @@ test.beforeEach('go to page', async({page})=>{
 test('valid One Way Flight Selection', async({page})=>{
     const flightPage = new FlightPage(page);
     await flightPage.flightSelection('New York', 'Sydney', '30', 'July 2025');
-    await expect(page.locator('h2')).toBeVisible();
-})
+    await expect(page.locator('h2')).toHaveText('Passenger Details');
+   })
 test.describe('invalid One Way Flight Selection', () => {
 
 test('same from to data selected for One Way Flight', async({page})=>{

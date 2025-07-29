@@ -13,7 +13,7 @@ constructor (page: Page) {
   this.signIn = page.locator('[type="submit"]');
 }
 async goToPage() {
-    await this.page.goto('https://travel.agileway.net');
+    await this.page.goto('/');
 }
 
 async login (username: string, password: string){

@@ -11,7 +11,6 @@ export class AgilewayStart extends Basepage{
   readonly selectReturnDay: Locator;
   readonly selectReturnMonth: Locator;
   readonly radioButtonTime: Locator;
-  static readonly startUrl = '/flights/start';
   readonly buttonNameContinue = 'Continue';
 
   constructor(page: Page){

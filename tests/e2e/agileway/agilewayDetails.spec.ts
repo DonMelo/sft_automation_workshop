@@ -38,11 +38,13 @@ test.describe('Incorrect details', () => {
     
     // Assert
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
+    await agilewayDetails.verifytLastNameAlertIsVisible();
   });
   test('No lastname', async ({ page }) => {
     await agilewayDetails.fullInput('first','');
     
     // Assert
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
+    await agilewayDetails.verifytLastNameAlertIsVisible();
   });
 });

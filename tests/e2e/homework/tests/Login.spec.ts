@@ -9,71 +9,41 @@ test.beforeEach(async ({ page }) => {
     await loginPage.goto();
 });
 
+// Base case to ensure the login page loads correctly and the user is able to login with correct credentials
 test('Login with correct credentials', async ({ page }) => {
     await loginPage.enterUsername(vars.correct_username);
     await loginPage.enterPassword(vars.correct_password);
     await loginPage.submitSignIn();
 
-    await expect(page.locator('#flash_notice')).toBeVisible();
+    await loginPage.expectNoticeVisible();
 });
 
+// Tests to ensure the login page handles incorrect credentials properly
 test.describe('Login with incorrect credentials', () => {
-	test('Login with incorrect credentials', async ({ page }) => {
-		await loginPage.enterUsername(vars.incorrect_username);
-		await loginPage.enterPassword(vars.incorrect_password);
-		await loginPage.submitSignIn();
+	[
+		{ "username": vars.incorrect_username, "password": vars.incorrect_password },
+		{ "username": vars.correct_username, "password": vars.incorrect_password },
+		{ "username": vars.incorrect_username, "password": vars.correct_password },
+		{ "username": vars.correct_username, "password": "" },
+		{ "username": "", "password": vars.correct_password },
+		{ "username": "", "password": "" },
+	].forEach(({ username, password }) => {
+		test(`Login with username: "${username}" and password: "${password}"`, async ({ page }) => {
+			await loginPage.enterUsername(username);
+			await loginPage.enterPassword(password);
+			await loginPage.submitSignIn();
 
-		await expect(page.locator('#flash_alert')).toBeVisible();
-	})
-	test('Login with empty credentials', async ({ page }) => {
-		await loginPage.enterUsername('');
-		await loginPage.enterPassword('');
-		await loginPage.submitSignIn();
-
-		await expect(page.locator('#flash_alert')).toBeVisible();
-	});
-	test('Login with only username', async ({ page }) => {
-		await loginPage.enterUsername(vars.correct_username);
-		await loginPage.enterPassword('');
-		await loginPage.submitSignIn();
-
-		await expect(page.locator('#flash_alert')).toBeVisible();
-	});
-	test('Login with only password', async ({ page }) => {
-		await loginPage.enterUsername('');
-		await loginPage.enterPassword(vars.correct_password);
-		await loginPage.submitSignIn();
-
-		await expect(page.locator('#flash_alert')).toBeVisible();
-	});
-	test('Login with incorrect username and correct password', async ({ page }) => {
-		await loginPage.enterUsername(vars.incorrect_username);
-		await loginPage.enterPassword(vars.correct_password);
-		await loginPage.submitSignIn();
-
-		await expect(page.locator('#flash_alert')).toBeVisible();
-	});
-	test('Login with correct username and incorrect password', async ({ page }) => {
-		await loginPage.enterUsername(vars.correct_username);
-		await loginPage.enterPassword(vars.incorrect_password);
-		await loginPage.submitSignIn();
-
-		await expect(page.locator('#flash_alert')).toBeVisible();
-	});
-	test('Login with incorrect username and password', async ({ page }) => {
-		await loginPage.enterUsername(vars.incorrect_username);
-		await loginPage.enterPassword(vars.incorrect_password);
-		await loginPage.submitSignIn();
-
-		await expect(page.locator('#flash_alert')).toBeVisible();
+			await loginPage.expectErrorVisible();
+		});
 	});
 });
 
+// Test to ensure the user can sign out successfully
 test('Sign out', async ({ page }) => {
 	await loginPage.enterUsername(vars.correct_username);
 	await loginPage.enterPassword(vars.correct_password);
 	await loginPage.submitSignIn();
 
 	await loginPage.signOut();
-	await expect(page.locator('#flash_notice')).toContainText('Signed out!');
+	await loginPage.expectNoticeContainText('Signed out!');
 });

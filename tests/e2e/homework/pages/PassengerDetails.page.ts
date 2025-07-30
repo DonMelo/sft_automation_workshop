@@ -1,30 +1,27 @@
 import { Page, expect, Locator, test } from '@playwright/test';
 import { vars } from '../others/constants';
+import { BasePage } from './BasePage.page';
 import { SelectFlightPage } from './SelectFlight.page';
 
-export class PassengerPage {
-    readonly page: Page;
-    readonly SelectFlightPage: SelectFlightPage;
+export class PassengerPage extends BasePage {
+    readonly selectFlightPage: SelectFlightPage;
 
     readonly passengeFirstName: Locator;
     readonly passengerLastName: Locator;
     readonly nextButton: Locator;
-    readonly alerts: Locator;
 
     constructor(page: Page){
-        this.page = page;
-        this.SelectFlightPage = new SelectFlightPage(page);
+        super(page);
+        this.selectFlightPage = new SelectFlightPage(page);
 
         this.passengeFirstName = page.locator('[name="passengerFirstName"]');
         this.passengerLastName = page.locator('[name="passengerLastName"]');
         this.nextButton = page.locator('[value="Next"]');
-        this.alerts = page.locator('#flash_alert');
     }
 
     async goto() {
-        await this.SelectFlightPage.goto();
-        await this.SelectFlightPage.filloutDetailsDefault();
-        await this.SelectFlightPage.continueToNextStep();
+        await this.selectFlightPage.goto();
+        await this.selectFlightPage.filloutDefaultDetails();
     }
 
     async enterPassengerName(name: string){

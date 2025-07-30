@@ -1,10 +1,10 @@
 import { Page, expect, Locator, test } from '@playwright/test';
-import { LoginPage } from './Login.page';
 import { vars } from '../others/constants';
+import { BasePage } from './BasePage.page';
+import { LoginPage } from './Login.page';
 
-export class SelectFlightPage {
-    readonly page: Page;
-    readonly Loginpage: LoginPage;
+export class SelectFlightPage extends BasePage {
+    readonly loginPage: LoginPage;
 
     // Buttons and Inputs locators
     readonly tripTypeButtonReturn: Locator;
@@ -23,8 +23,8 @@ export class SelectFlightPage {
     readonly selectFlightButton: Locator;
 
     constructor(page: Page){
-        this.page = page;
-        this.Loginpage = new LoginPage(page);
+        super(page);
+        this.loginPage = new LoginPage(page);
         
         this.tripTypeButtonReturn = page.locator('[value="return"]');
         this.tripTypeButtonOneWay = page.locator('[value="oneway"]');
@@ -39,10 +39,7 @@ export class SelectFlightPage {
     }
 
     async goto() {
-        await this.Loginpage.goto();
-        await this.Loginpage.enterUsername(vars.correct_username);
-        await this.Loginpage.enterPassword(vars.correct_password);
-        await this.Loginpage.submitSignIn();
+        await this.loginPage.loginWithBaseCredentials();
     }
 
     async selectTripType(type: 'return' | 'oneway') {
@@ -80,11 +77,48 @@ export class SelectFlightPage {
     }
 
     // Default fillout method for the flight selection
-    async filloutDetailsDefault(){
+    async filloutDefaultDetails(){
         await this.selectFromAirport(vars.flight_from);
         await this.selectToAirport(vars.flight_to);
         await this.selectDepartDate(vars.depart_day, vars.depart_month);
         await this.selectReturnDate(vars.return_day, vars.return_month);
         await this.selectFlight();
+        await this.continueToNextStep();
+    }
+
+    async expectAllFieldsVisible() {
+        await expect(this.selectFrom).toBeVisible();
+        await expect(this.selectTo).toBeVisible();
+        await expect(this.selectDepartDay).toBeVisible();
+        await expect(this.selectDepartMonth).toBeVisible();
+        await expect(this.selectReturnDay).toBeVisible();
+        await expect(this.selectReturnMonth).toBeVisible();
+        await expect(this.continueButton).toBeVisible();
+    }
+
+    async expectFromAirportValue(value: string) {
+        await expect(this.selectFrom).toHaveValue(value);
+    }
+
+    async expectToAirportValue(value: string) {
+        await expect(this.selectTo).toHaveValue(value);
+    }
+
+    async expectDepartDateValue(day: string, month: string) {
+        await expect(this.selectDepartDay).toHaveValue(day);
+        await expect(this.selectDepartMonth).toHaveValue(month);
+    }
+
+    async expectReturnDateValue(day: string, month: string) {
+        await expect(this.selectReturnDay).toHaveValue(day);
+        await expect(this.selectReturnMonth).toHaveValue(month);
+    }
+
+    async expectContinueButtonEnabled(enabled: boolean) {
+        if (enabled) {
+            await expect(this.continueButton).toBeEnabled();
+        } else {
+            await expect(this.continueButton).toBeDisabled();
+        }
     }
 }

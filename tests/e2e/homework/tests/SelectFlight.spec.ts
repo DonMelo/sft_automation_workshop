@@ -8,19 +8,7 @@ let selectFlightPage: SelectFlightPage;
 test.beforeEach(async ({ page }) => {
     selectFlightPage = new SelectFlightPage(page);
     await selectFlightPage.goto();
-});
-
-// Initial test to ensure the page loads correctly
-test('All page elements are visible', async () => {
-    await expect(selectFlightPage.tripTypeButtonReturn).toBeVisible();
-    await expect(selectFlightPage.tripTypeButtonOneWay).toBeVisible();
-    await expect(selectFlightPage.selectFrom).toBeVisible();
-    await expect(selectFlightPage.selectTo).toBeVisible();
-    await expect(selectFlightPage.selectDepartDay).toBeVisible();
-    await expect(selectFlightPage.selectDepartMonth).toBeVisible();
-    await expect(selectFlightPage.selectReturnDay).toBeVisible();
-    await expect(selectFlightPage.selectReturnMonth).toBeVisible();
-    await expect(selectFlightPage.continueButton).toBeVisible();
+    await selectFlightPage.expectAllFieldsVisible();
 });
 
 test('Select return trip', async () => {
@@ -72,6 +60,34 @@ test('Select one-way trip', async () => {
     await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText(vars.flight_to);
 });
 
+
+
+test.describe('Incorrect flight selection', () => {
+    [
+        { "tripType": 'oneway', "from": vars.flight_from, "to": vars.flight_to, "departDay": vars.depart_day, "departMonth": vars.depart_month, "returnDay": '', "returnMonth": '' },
+        { "tripType": 'return', "from": vars.flight_from, "to": vars.flight_to, "departDay": vars.depart_day, "departMonth": vars.depart_month, "returnDay": '', "returnMonth": '' },
+        { "tripType": 'return', "from": vars.flight_from, "to": vars.flight_to, "departDay": vars.depart_day, "departMonth": vars.depart_month, "returnDay": vars.return_day, "returnMonth": vars.return_month },
+    ].forEach(({ tripType, from, to, departDay, departMonth, returnDay, returnMonth }) => {
+        test(`${tripType} trip from ${from} to ${to}, departure on ${departDay}/${departMonth}, return on ${returnDay}/${returnMonth}`, async ({ page }) => {
+            if(tripType === 'return') {
+                await selectFlightPage.selectTripType('return');
+                await selectFlightPage.selectFromAirport(from);
+                await selectFlightPage.selectToAirport(to);
+                await selectFlightPage.selectDepartDate(departDay, departMonth);
+                await selectFlightPage.selectReturnDate(returnDay, returnMonth);
+            }
+            else {
+                await selectFlightPage.selectTripType('oneway');
+                await selectFlightPage.selectFromAirport(from);
+                await selectFlightPage.selectToAirport(to);
+                await selectFlightPage.selectDepartDate(departDay, departMonth);
+            }
+            await selectFlightPage.expectContinueButtonEnabled(false);
+        });
+    });
+});
+
+
 test.describe('Incorrect flight selection', () => {
     test('Select flight without selecting "from" airport', async () => {
         await selectFlightPage.selectTripType('return');
@@ -79,9 +95,7 @@ test.describe('Incorrect flight selection', () => {
         await selectFlightPage.selectDepartDate(vars.depart_day, vars.depart_month);
         await selectFlightPage.selectReturnDate(vars.return_day, vars.return_month);
 
-        await expect(selectFlightPage.selectFrom).toHaveValue('');
-        await expect(selectFlightPage.continueButton).toBeDisabled();
-        // This throws an error, I believe the button should be disabled if the "from"airport is not selected.
+        await selectFlightPage.expectFromAirportValue('');
     });
     test('Select flight without selecting "to" airport', async () => {
         await selectFlightPage.selectTripType('return');

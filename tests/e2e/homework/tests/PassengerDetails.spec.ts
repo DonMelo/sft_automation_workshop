@@ -23,7 +23,7 @@ test.describe('Enter invalid passenger details', () => {
         await passengerPage.enterPassengerSurname(vars.passenger_surname);
         await passengerPage.submitPassengerDetails();
 
-        await expect(passengerPage.alerts).toBeVisible();
+        await passengerPage.expectErrorVisible();
         // This fails, since apparently only surname is required, I believe this is a bug in the application.
         // await expect(passengerPage.alerts).toBeHidden();
     });
@@ -33,7 +33,7 @@ test.describe('Enter invalid passenger details', () => {
         await passengerPage.enterPassengerSurname('');
         await passengerPage.submitPassengerDetails();
 
-        await expect(passengerPage.alerts).toBeVisible();
+        await passengerPage.expectErrorVisible();
     });
 
     test('Enter both fields empty', async ({ page }) => {
@@ -41,6 +41,6 @@ test.describe('Enter invalid passenger details', () => {
         await passengerPage.enterPassengerSurname('');
         await passengerPage.submitPassengerDetails();
 
-        await expect(passengerPage.alerts).toBeVisible();
+        await passengerPage.expectErrorVisible();
     });
 });

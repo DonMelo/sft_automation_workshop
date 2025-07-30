@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { SelectFlightPage } from '../pages/SelectFlight.page';
 import { PassengerDetailsPage } from '../pages/PassengerDetails.page';
 import { LoginPage } from '../pages/Login.page';
 
@@ -30,42 +29,34 @@ test.beforeEach('Login', async({page})=>
     passengerDetailsPage = await selectFlightPage.continueWithSelectedFlight();
 })
 
-
 test('Trip type is the same as chosen', async ({page})=>{
-
-    const foundTripType = await page.locator('p', { hasText: tripType });
+    const foundTripType = page.locator('p', { hasText: tripType });
     await expect(foundTripType).toBeVisible();
 });
 
 test('Depart date is the same as chosen', async ({page})=>{
-    const fullDate = new Date(`${departMonth} ${departDay}`);
-    const formatDate = fullDate.toLocaleDateString('en-CA');
+    const formattedDate = await passengerDetailsPage.getFormattedDate(departMonth, departDay);
+    const actualText = await passengerDetailsPage.getDateTextFromPage(formattedDate);
 
-    const actualDateFromPage =  page.locator(`text=${formatDate}`);
-    const actualText = await actualDateFromPage.innerText();
-
-    expect(actualText?.includes(formatDate)).toBeTruthy();
+    expect(actualText?.includes(formattedDate)).toBeTruthy();
 });
 
 test('Return date is the same as chosen', async ({page})=>{
-    const fullDate = new Date(`${returnMonth} ${returnDay}`);
-    const formatDate = fullDate.toLocaleDateString('en-CA');
-    
-    const actualDateFromPage =  page.locator(`text=${formatDate}`);
-    const actualText = await actualDateFromPage.innerText();
+    const formattedDate = await passengerDetailsPage.getFormattedDate(departMonth, departDay);
+    const actualText = await passengerDetailsPage.getDateTextFromPage(formattedDate);
 
-    expect(actualText?.includes(formatDate)).toBeTruthy();
+    expect(actualText?.includes(formattedDate)).toBeTruthy();
 });
 
 test('Depart city is the same as chosen', async ({page})=>{
-
     const foundCity = page.locator('b', { hasText: fromCity }).first();
+
     await expect(foundCity).toBeVisible();
 });
 
 test('Return city is the same as chosen', async ({page})=>{
-
     const foundCity = page.locator('b', { hasText: toCity }).last();
+    
     await expect(foundCity).toBeVisible();
 });
 

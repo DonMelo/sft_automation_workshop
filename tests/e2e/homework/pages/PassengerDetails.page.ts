@@ -1,4 +1,4 @@
-import {Locator, Page, expect} from "@playwright/test";
+import { Locator, Page} from "@playwright/test";
 import { CreditCardDetailsPage } from "./CreditCardDetails.page";
 
 export class PassengerDetailsPage {
@@ -7,7 +7,6 @@ export class PassengerDetailsPage {
     readonly passengerLastName: Locator;
     readonly nextButton: Locator;
     readonly flashAlert: Locator;
-
 
     constructor(page: Page){
         this.page = page;
@@ -30,4 +29,13 @@ export class PassengerDetailsPage {
         return new CreditCardDetailsPage(this.page); 
     }
 
+    async getFormattedDate(month: string, day: string): Promise<string> {
+        const fullDate = new Date(`${month} ${day}`);
+        return fullDate.toLocaleDateString('en-CA');
+    }
+      
+    async getDateTextFromPage(formattedDate: string): Promise<string> {
+        const dateLocator = this.page.locator(`text=${formattedDate}`);
+        return await dateLocator.innerText();
+    }
 }

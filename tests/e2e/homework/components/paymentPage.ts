@@ -1,7 +1,7 @@
 import {Page, Locator} from '@playwright/test';
+import { BasePage } from './basePage';
 
-export class PaymentPage {
-    readonly page: Page;
+export class PaymentPage extends BasePage {
     readonly cardVisa: Locator;
     readonly cardMaster: Locator;
     readonly cardHolderName: Locator;
@@ -13,10 +13,9 @@ export class PaymentPage {
     readonly confirmation: Locator;
     readonly tripDetails: Locator;
     readonly passengerDetails: Locator;
-    readonly header: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.cardVisa = page.locator('[value="visa"]');
         this.cardMaster = page.locator('[value="master"]');
         this.cardHolderName = page.locator('[name="holder_name"]');
@@ -28,7 +27,6 @@ export class PaymentPage {
         this.bookingNumber = page.locator('#booking_number');
         this.tripDetails = page.locator('i');
         this.passengerDetails = page.locator('label');
-        this.header = page.locator('h2');
     }
 
     async fillPaymentForm(name: string, cardNr: string, month: string, year: string) {
@@ -49,6 +47,6 @@ export class PaymentPage {
     }  
 
     async verifyPageHeader() {
-        return await this.header.textContent();
+        return await this.pageHeader.textContent();
     }
 }

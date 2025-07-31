@@ -25,6 +25,7 @@ test('Fill out payment form without selecting card type', async() => {
         await expect(pageManager.paymentPage.confirmation).not.toBeVisible(); 
     });
 
+test.describe('Fill out payment form without required details', () => {
 
     const testCases = [
         ['', variables.creditCardNumber, variables.creditCardMonth, variables.creditCardYear],
@@ -32,7 +33,6 @@ test('Fill out payment form without selecting card type', async() => {
         [variables.creditCardName, variables.creditCardNumber, '', '']
     ];
 
-test.describe('Fill out payment form without required details', () => {
         for (const [cardName, cardNumber, cardMonth, cardYear] of testCases) {
             test(`Payment attempt with details: '${cardName}', '${cardNumber}', '${cardMonth}', '${cardYear}'`, async () => {
                 await pageManager.paymentPage.fillPaymentForm(cardName, cardNumber, cardMonth, cardYear);

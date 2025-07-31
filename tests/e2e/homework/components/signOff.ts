@@ -1,14 +1,12 @@
 import {Page, Locator} from '@playwright/test';
+import { BasePage } from './basePage';
 
-export class SignOff {
-    readonly page: Page;
+export class SignOff extends BasePage {
     readonly logOut: Locator;
-    readonly logOutSuccess: Locator;
 
     constructor (page: Page) {
-        this.page = page;
+        super(page);
         this.logOut = page.locator("a[href='/logout']");
-        this.logOutSuccess = page.locator('#flash_notice');
     }
 
     async signOut() {

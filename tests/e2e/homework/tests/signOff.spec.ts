@@ -9,5 +9,5 @@ test('Sign off', async ({page}) => {
     await pageManager.login.goToPage();
     await pageManager.login.loginUser(variables.validUsername, variables.validPassword);
     await pageManager.signOff.signOut();
-    await expect(pageManager.signOff.logOutSuccess).toContainText('Signed out!');
+    await expect(pageManager.successAlert).toContainText('Signed out!');
 });

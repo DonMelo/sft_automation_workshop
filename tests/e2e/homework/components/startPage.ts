@@ -1,7 +1,7 @@
 import {Page, Locator} from '@playwright/test';
+import { BasePage } from './basePage';
 
-export class StartPage {
-    readonly page: Page;
+export class StartPage extends BasePage {
     readonly radioButtonReturn: Locator;
     readonly radioButtonOneWay: Locator;
     readonly selectFrom: Locator;
@@ -10,11 +10,10 @@ export class StartPage {
     readonly selectDepartMonth: Locator;
     readonly selectReturnDay: Locator;
     readonly selectReturnMonth: Locator;
-    readonly continueButton: Locator;
     readonly timeRadioButton: Locator;
 
     constructor (page: Page) {
-        this.page = page;
+        super(page);
         this.radioButtonReturn = page.locator('[value="return"]');
         this.radioButtonOneWay = page.locator('[value="oneway"]');
         this.selectFrom = page.locator('[name="fromPort"]');
@@ -23,7 +22,6 @@ export class StartPage {
         this.selectDepartMonth = page.locator('#departMonth');
         this.selectReturnDay = page.locator('#returnDay');
         this.selectReturnMonth = page.locator('#returnMonth');
-        this.continueButton = page.locator('[type="submit"]');
         this.timeRadioButton = page.locator('[type="checkbox"]');
     }
 
@@ -35,7 +33,7 @@ export class StartPage {
         await this.selectReturnDay.selectOption(returnDay);
         await this.selectReturnMonth.selectOption(returnMonth);
         await this.timeRadioButton.first().check();
-        await this.continueButton.click();
+        await this.button.click();
     }
 
     async oneWayTrip(from: string, to: string, departDay: string, departMonth: string) {
@@ -45,7 +43,7 @@ export class StartPage {
         await this.selectDepartDay.selectOption(departDay);
         await this.selectDepartMonth.selectOption(departMonth);
         await this.timeRadioButton.first().check();
-        await this.continueButton.click();
+        await this.button.click();
     }
 
     async timeNotSelected(from: string, to: string, departDay: string, departMonth: string) {
@@ -54,6 +52,6 @@ export class StartPage {
         await this.selectTo.selectOption(to);
         await this.selectDepartDay.selectOption(departDay);
         await this.selectDepartMonth.selectOption(departMonth);
-        await this.continueButton.click();
+        await this.button.click();
     }
 }

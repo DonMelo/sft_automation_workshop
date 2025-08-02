@@ -20,10 +20,6 @@ export class TravelPage {
     await this.page.locator('input[type=submit]', { hasText: 'Sign in' }).click();
   }
 
-  async verifyThatUserLoggedIn() {
-    await expect(this.page.locator('#flash_notice')).toHaveText('Signed in!');
-  }
-
   async fillOneWayFlightInformation(from: string, to: string, departingDay: string, departingMonth: string) {
     await this.page.locator('[name="fromPort"]').selectOption(from);
     await this.page.locator('[name="toPort"]').selectOption(to);
@@ -67,16 +63,17 @@ export class TravelPage {
   async signOff() {
     await this.page.locator('#user_nav > a', { hasText: 'Sign off' }).click();
   }
-
-  async verifyThatUserSignedOff() {
-    await expect(this.page.locator('#flash_notice')).toHaveText('Signed out!');
+  
+  async getFlashAlertText() {
+    return this.page.locator('#flash_alert').textContent();
   }
-
-  async verifyThatLastNameRequired() {
-    await expect(this.page.locator('#flash_alert')).toHaveText('Must provide last name');
-  }
-   async selectTripType(tripType: string){
+  
+  async selectTripType(tripType: string){
     await this.page.locator(`input[type="radio"][name="tripType"][value="${tripType}"]`).check();
+  }
+
+  async getFlashNoticeText() {
+    return this.page.locator('#flash_notice').textContent();
   }
   
 }

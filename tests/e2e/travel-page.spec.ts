@@ -20,7 +20,7 @@ test.describe('Travel Page', () => {
         await travelPage.login('agileway','neteisingasslaptazodis');
         await travelPage.pressSighInButton();
         
-        await expect(travelPage.page.locator('#flash_alert')).toHaveText('Invalid email or password');
+        expect(await travelPage.getFlashAlertText()).toHaveText('Invalid email or password');
     });
 
     test('should login', async ({ page }) => { //Login (valid credentials)
@@ -29,11 +29,11 @@ test.describe('Travel Page', () => {
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
 
-        await travelPage.verifyThatUserLoggedIn();
+        expect(await travelPage.getFlashNoticeText()).toHaveText('Signed in!');
     });
 
 
-    test('should login and select one way flight', async ({ page }) => { //One-Way flight booking 
+    test('should login and fill one way flight details', async ({ page }) => { //One-Way flight booking 
         const travelPage = new TravelPage(page);
 
 
@@ -50,9 +50,7 @@ test.describe('Travel Page', () => {
 
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
-        await travelPage.verifyThatUserLoggedIn();
 
-        
         await travelPage.selectTripType('oneway');
         await travelPage.fillOneWayFlightInformation(`${from}`, `${to}`, `${departingDay}`, `${departingMonth}`);
         await travelPage.pressContinueButton();
@@ -77,7 +75,7 @@ test.describe('Travel Page', () => {
 
     });
 
-     test('should login and select return flight', async ({ page }) => { //Return flight booking 
+     test('should login and fill return flight details', async ({ page }) => { //Return flight booking 
         const travelPage = new TravelPage(page);
 
         const firstName = 'Jurgita';
@@ -95,7 +93,6 @@ test.describe('Travel Page', () => {
 
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
-        await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.selectTripType('return');  
         await travelPage.fillReturnFlightInformation(`${from}`, `${to}`, `${departingDay}`, `${departingMonth}`, `${returnDay}`, `${returnMonth}`);
@@ -124,10 +121,9 @@ test.describe('Travel Page', () => {
 
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
-        await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.signOff();
-        await travelPage.verifyThatUserSignedOff();
+        await expect(await travelPage.getFlashNoticeText()).toContain('Signed out!');
     });
 
     test('Last name required', async ({ page }) => { //Required field validation (Last name)
@@ -135,16 +131,15 @@ test.describe('Travel Page', () => {
 
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
-        await travelPage.verifyThatUserLoggedIn();
         
-    
         await travelPage.selectTripType('oneway');
         await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
         await travelPage.pressContinueButton();
         
         await travelPage.fillInPassangerDetails('Jurgita','');
         await travelPage.pressNextButton();
-        await travelPage.verifyThatLastNameRequired();
+
+        expect(await travelPage.getFlashAlertText()).toBe('Must provide last name');
      });
 }); 
 

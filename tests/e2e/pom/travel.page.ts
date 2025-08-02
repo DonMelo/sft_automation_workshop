@@ -14,7 +14,6 @@ export class TravelPage {
   async login(username: string, password: string) {
     await this.page.locator('#username').fill(username);
     await this.page.locator('#password').fill(password);
-    await this.pressSighInButton();
   }
 
   async pressSighInButton() {
@@ -30,7 +29,6 @@ export class TravelPage {
     await this.page.locator('[name="toPort"]').selectOption(to);
     await this.page.locator('[name="departDay"]').selectOption(departingDay);
     await this.page.locator('[name="departMonth"]').selectOption(departingMonth);
-    await this.pressContinueButton();
   }
 
   async fillReturnFlightInformation(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string) {
@@ -40,7 +38,6 @@ export class TravelPage {
     await this.page.locator('[name="departMonth"]').selectOption(departingMonth);
     await this.page.locator('[name="returnDay"]').selectOption(returnDay);
     await this.page.locator('[name="returnMonth"]').selectOption(returnMonth);
-    await this.pressContinueButton();
   }
 
   async pressContinueButton() {
@@ -50,7 +47,6 @@ export class TravelPage {
   async fillInPassangerDetails(firstName: string, lastName: string) {
     await this.page.locator('[name="passengerFirstName"]').fill(firstName);
     await this.page.locator('[name="passengerLastName"]').fill(lastName);
-    await this.pressNextButton();
   }
 
   async pressNextButton() {
@@ -62,7 +58,6 @@ export class TravelPage {
     await this.page.locator('[name="card_number"]').fill(cardNumber);
     await this.page.locator('[name="expiry_month"]').selectOption(expireDay);
     await this.page.locator('[name="expiry_year"]').selectOption(expireYear);
-    await this.pressPayNow();
   }
 
   async pressPayNow() {

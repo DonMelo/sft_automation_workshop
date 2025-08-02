@@ -18,6 +18,7 @@ test.describe('Travel Page', () => {
         const travelPage = new TravelPage(page);
 
         await travelPage.login('agileway','neteisingasslaptazodis');
+        await travelPage.pressSighInButton();
         
         await expect(travelPage.page.locator('#flash_alert')).toHaveText('Invalid email or password');
     });
@@ -26,6 +27,7 @@ test.describe('Travel Page', () => {
         const travelPage = new TravelPage(page);
         
         await travelPage.login('agileway','testW1se');
+        await travelPage.pressSighInButton();
 
         await travelPage.verifyThatUserLoggedIn();
     });
@@ -35,14 +37,18 @@ test.describe('Travel Page', () => {
         const travelPage = new TravelPage(page);
 
         await travelPage.login('agileway','testW1se');
+        await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="oneway"]').check();
         await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
+        await travelPage.pressContinueButton();
         
         await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
+        await travelPage.pressNextButton();
   
         await travelPage.fillInCreditCardForm('visa', '1234 1234', '02', '2028');
+        await travelPage.pressPayNow();
         
         await travelPage.verifyBookingInformationOneWay('New York', 'Sydney', '02', '072025', 'Jurgita', 'Lizdene');
 
@@ -53,17 +59,21 @@ test.describe('Travel Page', () => {
         const travelPage = new TravelPage(page);
 
         await travelPage.login('agileway','testW1se');
+        await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="return"]').check();
         await travelPage.fillReturnFlightInformation('New York', 'Sydney', '02', '072025', '03', '082025');
+        await travelPage.pressContinueButton();
         
         await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
+        await travelPage.pressNextButton();
   
         await travelPage.fillInCreditCardForm('visa', '1234 1234', '02', '2028');
+        await travelPage.pressPayNow();
         
         await travelPage.verifyBookingInformationReturn('New York', 'Sydney', '02', '072025', '03', '082025', 'Jurgita', 'Lizdene');
-
+        
 
     });
 
@@ -71,6 +81,7 @@ test.describe('Travel Page', () => {
         const travelPage = new TravelPage(page);
 
         await travelPage.login('agileway','testW1se');
+        await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.signOff();
@@ -81,12 +92,15 @@ test.describe('Travel Page', () => {
         const travelPage = new TravelPage(page);
 
         await travelPage.login('agileway','testW1se');
+        await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
         
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="oneway"]').check();
         await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
+        await travelPage.pressContinueButton();
         
         await travelPage.fillInPassangerDetails('Jurgita','');
+        await travelPage.pressNextButton();
         await travelPage.verifyThatLastNameRequired();
      });
 }); 

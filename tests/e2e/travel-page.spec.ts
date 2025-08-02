@@ -36,21 +36,43 @@ test.describe('Travel Page', () => {
     test('should login and select one way flight', async ({ page }) => { //One-Way flight booking 
         const travelPage = new TravelPage(page);
 
+
+        const firstName = 'Jurgita';
+        const lastName = 'Lizdene';
+        const departingDay = '02'; 
+        const departingMonth = '072025'; 
+        const from = 'New York';
+        const to = 'Sydney';
+        const cardType = 'visa';
+        const cardNumber = '1234 1234';
+        const expireDay = '02';
+        const expireYear = '2028';
+
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
 
-        await travelPage.page.locator('input[type="radio"][name="tripType"][value="oneway"]').check();
-        await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
+        
+        await travelPage.selectTripType('oneway');
+        await travelPage.fillOneWayFlightInformation(`${from}`, `${to}`, `${departingDay}`, `${departingMonth}`);
         await travelPage.pressContinueButton();
         
-        await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
+        await travelPage.fillInPassangerDetails(`${firstName}`, `${lastName}`);
         await travelPage.pressNextButton();
   
-        await travelPage.fillInCreditCardForm('visa', '1234 1234', '02', '2028');
+        await travelPage.fillInCreditCardForm(`${cardType}`, `${cardNumber}`, `${expireDay}`, `${expireYear}`);
         await travelPage.pressPayNow();
-        
-        await travelPage.verifyBookingInformationOneWay('New York', 'Sydney', '02', '072025', 'Jurgita', 'Lizdene');
+              
+        await expect(travelPage.page.locator('#booking_number')).toBeVisible();
+        const confirmationText = await travelPage.page.locator('#confirmation').innerText();
+            
+        const departureYear = departingMonth.slice(2, 6);
+        const departureMonth = departingMonth.slice(0, 2);
+        const departDate = `${departureYear}-${departureMonth}-${departingDay}`;
+
+        await expect(confirmationText).toContain('(oneway Trip)');
+        await expect(confirmationText).toContain(`${departDate} ${from} to ${to}`);
+        await expect(confirmationText).toContain(`Passenger Details: ${firstName} ${lastName}`);
 
 
     });
@@ -62,7 +84,7 @@ test.describe('Travel Page', () => {
         await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
 
-        await travelPage.page.locator('input[type="radio"][name="tripType"][value="return"]').check();
+        await travelPage.selectTripType('return');  
         await travelPage.fillReturnFlightInformation('New York', 'Sydney', '02', '072025', '03', '082025');
         await travelPage.pressContinueButton();
         
@@ -95,7 +117,8 @@ test.describe('Travel Page', () => {
         await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
         
-        await travelPage.page.locator('input[type="radio"][name="tripType"][value="oneway"]').check();
+    
+        await travelPage.selectTripType('oneway');
         await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
         await travelPage.pressContinueButton();
         

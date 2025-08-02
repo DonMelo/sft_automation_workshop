@@ -64,18 +64,6 @@ export class TravelPage {
     await this.page.locator('input[type=submit]', { hasText: 'Pay now' }).click();
   }
 
-  async verifyBookingInformationOneWay(from: string, to: string, departingDay: string, departingMonth: string, firstName: string, lastName: string) {
-    await expect(this.page.locator('#booking_number')).toBeVisible();
-    const confirmationText = await this.page.locator('#confirmation').innerText();
-
-    const departureYear = departingMonth.slice(2, 6);
-    const departureMonth = departingMonth.slice(0, 2);
-    const departDate = `${departureYear}-${departureMonth}-${departingDay}`;
-
-    await expect(confirmationText).toContain('(oneway Trip)');
-    await expect(confirmationText).toContain(`${departDate} ${from} to ${to}`);
-    await expect(confirmationText).toContain(`Passenger Details: ${firstName} ${lastName}`);
-  }
 
   async verifyBookingInformationReturn(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string, firstName: string, lastName: string) {
     await expect(this.page.locator('#booking_number')).toBeVisible();
@@ -101,4 +89,8 @@ export class TravelPage {
   async verifyThatLastNameRequired() {
     await expect(this.page.locator('#flash_alert')).toHaveText('Must provide last name');
   }
+   async selectTripType(tripType: string){
+    await this.page.locator(`input[type="radio"][name="tripType"][value="${tripType}"]`).check();
+  }
+  
 }

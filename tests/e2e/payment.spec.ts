@@ -24,7 +24,7 @@ test("should complete booking and show booking number after valid Visa credit ca
   let expiryYear = "2026";
 
   await paymentPage.paymentInfo(0, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).toBeVisible();
+  await expect(paymentPage.bookingNumber).toBeVisible();
 });
 
 test("should complete booking and show booking number after valid Master credit card payment", async ({ page }) => {
@@ -33,16 +33,14 @@ test("should complete booking and show booking number after valid Master credit 
   let expiryYear = "2026";
 
   await paymentPage.paymentInfo(1, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).toBeVisible();
+  await expect(paymentPage.bookingNumber).toBeVisible();
 });
 
 test("should not complete booking after empty payment info", async ({ page }) => {
-  let cardNumber = "";
-  let expiryMonth = "";
-  let expiryYear = "";
-
-  await paymentPage.paymentInfo(-1, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).not.toBeVisible();
+  await page.getByRole("button", { name: "Pay now" }).click();
+  await page.waitForTimeout(5000);
+  const isVisible = await paymentPage.bookingNumber.isVisible();
+  expect(isVisible).toBeFalsy();
 }); 
 
 test("should not complete booking after expired card", async ({ page }) => {
@@ -51,7 +49,8 @@ test("should not complete booking after expired card", async ({ page }) => {
   let expiryYear = "2025";
 
   await paymentPage.paymentInfo(0, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).not.toBeVisible();
+  const isVisible = await paymentPage.bookingNumber.isVisible();
+  expect(isVisible).toBeFalsy();
 });
 
 test("should not complete booking when and card number is too short", async ({ page }) => {
@@ -60,9 +59,19 @@ test("should not complete booking when and card number is too short", async ({ p
   let expiryYear = "2026";
 
   await paymentPage.paymentInfo(0, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).not.toBeVisible();
+  const isVisible = await paymentPage.bookingNumber.isVisible();
+  expect(isVisible).toBeFalsy();
 });
 
+test("should not complete booking when card number is too long", async ({ page }) => {
+  let cardNumber = "123456789012345678901234567890";
+  let expiryMonth = "06";
+  let expiryYear = "2026";
+
+  await paymentPage.paymentInfo(0, cardNumber, expiryMonth, expiryYear);
+  const isVisible = await paymentPage.bookingNumber.isVisible();
+  expect(isVisible).toBeFalsy();
+});
 
 test("should not complete booking when card number has invalid characters", async ({ page }) => {
   let cardNumber = "1234@@@@abcd";
@@ -70,7 +79,8 @@ test("should not complete booking when card number has invalid characters", asyn
   let expiryYear = "2026";
   
   await paymentPage.paymentInfo(0, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).not.toBeVisible();
+  const isVisible = await paymentPage.bookingNumber.isVisible();
+  expect(isVisible).toBeFalsy();
 });
 
 test("should not complete booking when card type is not selected", async ({ page }) => {
@@ -79,5 +89,6 @@ test("should not complete booking when card type is not selected", async ({ page
   let expiryYear = "2026";
   
   await paymentPage.paymentInfo(-1, cardNumber, expiryMonth, expiryYear);
-  await expect(page.locator("#booking_number")).not.toBeVisible();
+  const isVisible = await paymentPage.bookingNumber.isVisible();
+  expect(isVisible).toBeFalsy();
 });

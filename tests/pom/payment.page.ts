@@ -7,6 +7,7 @@ export class PaymentPage{
     readonly expiryYear:Locator;
     readonly payNow:Locator;
     readonly cardType:Locator;
+    readonly bookingNumber:Locator;
 
     constructor(page:Page){
         this.page = page;
@@ -15,14 +16,18 @@ export class PaymentPage{
         this.expiryMonth = page.locator('select[name="expiry_month"]');
         this.expiryYear = page.locator('select[name="expiry_year"]');
         this.payNow = page.getByRole("button", { name: "Pay now" });
+        this.bookingNumber = page.locator("#booking_number");
     }
 
     async paymentInfo(cardType: number, cardNumber: string, expiryMonth: string, expiryYear: string){
+        if (cardType >= 0) {
         await this.cardType.nth(cardType).check();
+        }
         await this.cardNumber.fill(cardNumber);
         await this.expiryMonth.selectOption(expiryMonth);
         await this.expiryYear.selectOption(expiryYear);
         await this.payNow.click();
+        await this.page.waitForTimeout(5000);
     }
 
 }

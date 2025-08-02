@@ -1,0 +1,20 @@
+import { test, expect } from '@playwright/test';
+import { ToDoPage } from 'e2e-tests/pom/todo.page';
+
+let todoPage: ToDoPage
+
+test.beforeEach('setup', async ({page}) => {
+    todoPage = new ToDoPage(page);
+
+    await todoPage.goTo();
+})
+
+test('adding first todo', async ({ page }) => {
+
+  let input = 'add new todo';
+  await todoPage.enterANewToDo(input);
+
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).press('Enter');
+
+  expect(page.getByTestId('todo-title')).toContainText(input);
+});

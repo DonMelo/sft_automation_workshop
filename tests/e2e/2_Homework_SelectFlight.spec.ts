@@ -1,91 +1,104 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from 'tests/POM/1_Homework_Login.page';
+import { SelectFlightsPage} from 'tests/POM/2_Homework_SelectFlight.page';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('https://travel.agileway.net/flights/start');
+let loginPage : LoginPage;
+let selectflightsPage : SelectFlightsPage;
+
+const username = 'agileway';
+const password = 'testW1se';
+
+
+test('Login before booking flights', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.Login(username, password);
+  await loginPage.assertLogin();
 });
 
-test('Trip Type Toggle finctionality', async ({ page }) => {
-  await page.getByRole('radio').nth(1).check();
-  expect(page.locator('#returnTrip')).not.toBeVisible;
-  await page.getByRole('radio').nth(0).check();
-  expect(page.locator('#returnTrip')).toBeVisible;
+test.beforeEach('Go to flights page', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.goto();
 });
 
-test('Valid one way trip', async ({ page }) => {
-  await page.getByRole('radio').nth(1).check();
-  await page.locator('select[name="fromPort"]').selectOption('San Francisco');
-  await page.locator('select[name="toPort"]').selectOption('Sydney');
-  await page.locator('#departDay').selectOption('07');
-  await page.locator('#departMonth').selectOption('042026');
-  expect(page.locator('#flights')).toBeVisible;
-  await page.getByRole('row', { name: ':30 VA23 Virgin Australia' }).getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Continue' }).click();
-  expect(page.getByRole('heading', { name: 'Passenger Details' })).toBeVisible;
+test('Toggle one way trip - assert return field is hidden', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.onewayTripToggle();
+  await selectflightsPage.notvisibleReturnTripFiels();
 });
 
-test('Valid return trip', async ({ page }) => {
-  await page.getByRole('radio').nth(0).check();
-  await page.locator('select[name="fromPort"]').selectOption('San Francisco');
-  await page.locator('select[name="toPort"]').selectOption('Sydney');
-  await page.locator('#departDay').selectOption('07');
-  await page.locator('#departMonth').selectOption('042026');
-  await page.locator('#returnDay').selectOption('08');
-  await page.locator('#returnMonth').selectOption('072026');
-  expect(page.locator('#flights')).toBeVisible;
-  await page.getByRole('row', { name: ':30 VA23 Virgin Australia' }).getByRole('checkbox').check();
-  await page.getByRole('button', { name: 'Continue' }).click();
-  expect(page.getByRole('heading', { name: 'Passenger Details' })).toBeVisible;
+test('Toggle return trip - assert return field is visible', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.returnTripToggle();
+  await selectflightsPage.visibleReturnTripFiels();
 });
 
-test('Invalid one way trip', async ({ page }) => {
-  await page.getByRole('radio').nth(1).check();
-  await page.locator('select[name="fromPort"]').selectOption('Sydney');
-  await page.locator('select[name="toPort"]').selectOption('Sydney');
-  await page.locator('#departDay').selectOption('07');
-  await page.locator('#departMonth').selectOption('042026');
-  expect(page.locator('#flights')).not.toBeVisible;
-  await page.getByRole('button', { name: 'Continue' }).click();
-  expect(page.getByRole('heading', { name: 'Passenger Details' })).not.toBeVisible;
-  expect(page.locator('#flash_alert')).toBeVisible;
+test('Flyght booking for one way trip with valid data', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.onewayTripToggle();
+  await selectflightsPage.fromSanFrancisco();
+  await selectflightsPage.toSydney();
+  await selectflightsPage.departureDate('07','August 2026');
+  await selectflightsPage.airline(':30 VA23 Virgin Australia');
+  await selectflightsPage.clickContinue();
+  await selectflightsPage.visiblePassengerDetails();
+});
+
+test('Flyght booking for return trip with valid data', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.returnTripToggle();
+  await selectflightsPage.fromSanFrancisco();
+  await selectflightsPage.toSydney();
+  await selectflightsPage.departureDate('07','August 2026');
+  await selectflightsPage.returnDate('08', 'July 2026');
+  await selectflightsPage.airline(':30 VA23 Virgin Australia');
+  await selectflightsPage.clickContinue();
+  await selectflightsPage.visiblePassengerDetails();
+});
+
+test('Flyght booking for one way trip with invalid data', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.onewayTripToggle();
+  await selectflightsPage.fromSydney();
+  await selectflightsPage.toSydney();
+  await selectflightsPage.departureDate('07','January 2025');
+  await selectflightsPage.clickContinue();
+  await selectflightsPage.notvisiblePassengerDetails();
+  await selectflightsPage.visibleFlashAlert();
 });
 // Should be a BUG -> The system allows go to Sidney form Sidney on the same day, though currently there is only one airport.
 // But the test passes
-// FALSE POSITIVE!!!
 
-test('Invalid return trip - Duplicate selections', async ({ page }) => {
-  await page.getByRole('radio').nth(0).check();
-  await page.locator('select[name="fromPort"]').selectOption('Sydney');
-  await page.locator('select[name="toPort"]').selectOption('Sydney');
-  await page.locator('#departDay').selectOption('07');
-  await page.locator('#departMonth').selectOption('042026');
-  await page.locator('#returnDay').selectOption('07');
-  await page.locator('#returnMonth').selectOption('042026');
-  expect(page.locator('#flights')).not.toBeVisible;
-  await page.getByRole('button', { name: 'Continue' }).click();
-  expect(page.getByRole('heading', { name: 'Passenger Details' })).not.toBeVisible;
-  expect(page.locator('#flash_alert')).toBeVisible;
+test('Flyght booking for return trip with invalid data - duplicate selections', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.returnTripToggle();
+  await selectflightsPage.fromSydney();
+  await selectflightsPage.toSydney();
+  await selectflightsPage.departureDate('07','August 2026');
+  await selectflightsPage.departureDate('07','January 2025');
+  await selectflightsPage.clickContinue();
+  await selectflightsPage.notvisiblePassengerDetails();
+  await selectflightsPage.visibleFlashAlert();
 });
 // Should be a BUG -> The system allows go to Sidney form Sidney on the same day, though currently there is only one airport.
 // But the test passes
-// FALSE POSITIVE!!!
 
-test('Empty firlds in one way trip', async ({ page }) => {
-  await page.getByRole('radio').nth(1).check();
-  expect(page.locator('#flights')).not.toBeVisible;
-  await page.getByRole('button', { name: 'Continue' }).click();
-  expect(page.getByRole('heading', { name: 'Passenger Details' })).not.toBeVisible;
-  expect(page.locator('#flash_alert')).toBeVisible;
+test('Flyght booking for one way trip with empty fields', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.onewayTripToggle();
+  await selectflightsPage.clickContinue();
+  await selectflightsPage.notvisiblePassengerDetails();
+  await selectflightsPage.visibleFlashAlert();
 });
-//Should be a BUG -> system allows leaving destination and origin fields empty with past dates (by default).
+// Should be a BUG -> system allows leaving destination and origin fields empty with past dates (by default).
 // But the test passes
-// FALSE POSITIVE!!!
-test('Empty firlds in return trip', async ({ page }) => {
-  await page.getByRole('radio').nth(0).check();
-  expect(page.locator('#flights')).not.toBeVisible;
-  await page.getByRole('button', { name: 'Continue' }).click();
-  expect(page.getByRole('heading', { name: 'Passenger Details' })).not.toBeVisible;
-  expect(page.locator('#flash_alert')).toBeVisible;
+
+test('Flyght booking for return trip with empty fields', async ({ page }) => {
+  selectflightsPage = new SelectFlightsPage(page);
+  await selectflightsPage.returnTripToggle();
+  await selectflightsPage.clickContinue();
+  await selectflightsPage.notvisiblePassengerDetails();
+  await selectflightsPage.visibleFlashAlert();
 });
-//Should be a BUG -> system allows leaving destination and origin fields empty with past dates (by default).
+// Should be a BUG -> system allows leaving destination and origin fields empty with past dates (by default).
 // But the test passes
-// FALSE POSITIVE!!!

@@ -1,70 +1,63 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from 'tests/POM/1_Homework_Login.page';
 
-const userName = 'agileway';
+let loginPage : LoginPage;
+
+const username = 'agileway';
 const password = 'testW1se';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('https://travel.agileway.net/login');
+test.beforeEach('Go to page', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.goto();
 });
 
 test('Valid Login', async ({ page }) => {
-  await page.locator('#username').fill(userName);
-  await page.locator('#password').fill(password);
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page.locator('#flash_notice')).toHaveText('Signed in!');
-
-  await page.getByRole('link', { name: 'Sign off (agileway)' }).click();
-  await expect(page.locator('#flash_notice')).toHaveText('Signed out!');
+  loginPage = new LoginPage(page);
+  await loginPage.Login(username, password);
+  await loginPage.assertLogin();
 });
 
-test('Invalid Login - Invalid username', async ({ page }) => {
-  await page.locator('#username').fill('agilewayyy');
-  await page.locator('#password').fill(password);
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+test('Logout after valid login', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.Login(username, password);
+  await loginPage.logout();
+  await loginPage.assertLogout();
+})
+test('Invalid Login with invalid username', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.Login('agilewayyy', password);
+  await loginPage.assertLoginFailed();
 });
 
-test('Invalid Login - Invalid password', async ({ page }) => {
-  await page.locator('#username').fill(userName);
-  await page.locator('#password').fill('test$W1se');
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+test('Invalid Login with invalid password', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.Login(username, 'testW1seeee');
+  await loginPage.assertLoginFailed();
 });
 
-test('Invalid Login - empty username', async ({ page }) => {
-  await page.locator('#username').fill('');
-  await page.locator('#password').fill(password);
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+test('Invalid Login with empty username', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.Login('', password);
+  await loginPage.assertLoginFailed();
 });
 
-test('Invalid Login - empty password', async ({ page }) => {
-  await page.locator('#username').fill(userName);
-  await page.locator('#password').fill('');
-  await page.getByRole('button', { name: 'Sign in' }).click();
-
-  await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+test('Invalid Login with empty password', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.Login(username, '');
+  await loginPage.assertLoginFailed();
 });
 
-test('Remember me', async ({ page }) => {
-  await page.locator('#username').fill(userName);
-  await page.locator('#password').fill(password);
-  await page.locator('#remember_me').check();
-  await page.getByRole('button', { name: 'Sign in' }).click();
+test('"Remember me" with valid login and check if it works after logging out', async ({ page }) => {
+  loginPage = new LoginPage(page);
+  await loginPage.rememberme();
+  await loginPage.Login(username, password);
+  await loginPage.assertLogin();
 
-  await expect(page.locator('#flash_notice')).toHaveText('Signed in!');
+  await loginPage.logout();
+  await loginPage.assertLogout();
 
-  await page.getByRole('link', { name: 'Sign off (agileway)' }).click();
-  await expect(page.locator('#flash_notice')).toHaveText('Signed out!');
-
-  await page.goto('https://travel.agileway.net/login');
-  await Promise.all([
-    expect(page.locator('#username')).toHaveValue(userName),
-    expect(page.locator('#password')).toHaveValue(password),
-  ]);
+  await loginPage.goto();
+  await expect(page.locator('#username')).toHaveValue(username);
+  await expect(page.locator('#password')).toHaveValue(password);
 });
 // BUG -> "Remember me" functionality is not working

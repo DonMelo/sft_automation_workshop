@@ -31,7 +31,7 @@ test.describe('Travel Page', () => {
     });
 
 
-    test('should login and select oneway flight', async ({ page }) => { //One-Way flight booking 
+    test('should login and select one way flight', async ({ page }) => { //One-Way flight booking 
         const travelPage = new TravelPage(page);
 
         await travelPage.login('agileway','testW1se');
@@ -56,7 +56,7 @@ test.describe('Travel Page', () => {
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="return"]').check();
-        await travelPage.selectreturnFlight('New York', 'Sydney', '02', '072025', '03', '082025');
+        await travelPage.selectReturnFlight('New York', 'Sydney', '02', '072025', '03', '082025');
         
         await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
   
@@ -73,8 +73,8 @@ test.describe('Travel Page', () => {
         await travelPage.login('agileway','testW1se');
         await travelPage.verifyThatUserLoggedIn();
 
-        await travelPage.signoff();
-        await travelPage.verifyThatUsersignedoff();
+        await travelPage.signOff();
+        await travelPage.verifyThatUserSignedOff();
     });
 
     test('Last name required', async ({ page }) => { //Required field validation (Last name)

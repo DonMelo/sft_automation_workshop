@@ -14,10 +14,10 @@ export class TravelPage {
   async login(username: string, password: string) {
     await this.page.locator('#username').fill(username);
     await this.page.locator('#password').fill(password);
-    await this.pressSighinButton();
+    await this.pressSighInButton();
   }
 
-  async pressSighinButton() {
+  async pressSighInButton() {
     await this.page.locator('input[type=submit]', { hasText: 'Sign in' }).click();
   }
 
@@ -33,7 +33,7 @@ export class TravelPage {
     await this.pressContinueButton();
   }
 
-  async selectreturnFlight(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string) {
+  async selectReturnFlight(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string) {
     await this.page.locator('[name="fromPort"]').selectOption(from);
     await this.page.locator('[name="toPort"]').selectOption(to);
     await this.page.locator('[name="departDay"]').selectOption(departingDay);
@@ -50,10 +50,10 @@ export class TravelPage {
   async fillInPassangerDetails(firstName: string, lastName: string) {
     await this.page.locator('[name="passengerFirstName"]').fill(firstName);
     await this.page.locator('[name="passengerLastName"]').fill(lastName);
-    await this.pressnextButton();
+    await this.pressNextButton();
   }
 
-  async pressnextButton() {
+  async pressNextButton() {
     await this.page.locator('input[type=submit]', { hasText: 'Next' }).click();
   }
 
@@ -62,10 +62,10 @@ export class TravelPage {
     await this.page.locator('[name="card_number"]').fill(cardNumber);
     await this.page.locator('[name="expiry_month"]').selectOption(expireDay);
     await this.page.locator('[name="expiry_year"]').selectOption(expireYear);
-    await this.presspaynow();
+    await this.pressPayNow();
   }
 
-  async presspaynow() {
+  async pressPayNow() {
     await this.page.locator('input[type=submit]', { hasText: 'Pay now' }).click();
   }
 
@@ -95,11 +95,11 @@ export class TravelPage {
     await expect(confirmationText).toContain(`Passenger Details: ${firstName} ${lastName}`);
   }
 
-  async signoff() {
+  async signOff() {
     await this.page.locator('#user_nav > a', { hasText: 'Sign off' }).click();
   }
 
-  async verifyThatUsersignedoff() {
+  async verifyThatUserSignedOff() {
     await expect(this.page.locator('#flash_notice')).toHaveText('Signed out!');
   }
 

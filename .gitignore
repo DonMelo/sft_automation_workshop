@@ -9,10 +9,14 @@ yarn-error.log*
 .pnp.js
 
 .vscode/*
+node_modules/
 
 # Playwright
-node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/tests/playwright-report/
+/tests/test-results/
+/tests/playwright-report/.last-run.json
+/tests/test-results/.last-run.json

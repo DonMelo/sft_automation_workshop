@@ -38,7 +38,7 @@ test.describe('Travel Page', () => {
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="oneway"]').check();
-        await travelPage.selectOneWayFlight('New York', 'Sydney', '02', '072025');
+        await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
         
         await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
   
@@ -56,7 +56,7 @@ test.describe('Travel Page', () => {
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="return"]').check();
-        await travelPage.selectReturnFlight('New York', 'Sydney', '02', '072025', '03', '082025');
+        await travelPage.fillReturnFlightInformation('New York', 'Sydney', '02', '072025', '03', '082025');
         
         await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
   
@@ -84,7 +84,7 @@ test.describe('Travel Page', () => {
         await travelPage.verifyThatUserLoggedIn();
         
         await travelPage.page.locator('input[type="radio"][name="tripType"][value="oneway"]').check();
-        await travelPage.selectOneWayFlight('New York', 'Sydney', '02', '072025');
+        await travelPage.fillOneWayFlightInformation('New York', 'Sydney', '02', '072025');
         
         await travelPage.fillInPassangerDetails('Jurgita','');
         await travelPage.verifyThatLastNameRequired();

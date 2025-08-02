@@ -25,7 +25,7 @@ export class TravelPage {
     await expect(this.page.locator('#flash_notice')).toHaveText('Signed in!');
   }
 
-  async selectOneWayFlight(from: string, to: string, departingDay: string, departingMonth: string) {
+  async fillOneWayFlightInformation(from: string, to: string, departingDay: string, departingMonth: string) {
     await this.page.locator('[name="fromPort"]').selectOption(from);
     await this.page.locator('[name="toPort"]').selectOption(to);
     await this.page.locator('[name="departDay"]').selectOption(departingDay);
@@ -33,7 +33,7 @@ export class TravelPage {
     await this.pressContinueButton();
   }
 
-  async selectReturnFlight(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string) {
+  async fillReturnFlightInformation(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string) {
     await this.page.locator('[name="fromPort"]').selectOption(from);
     await this.page.locator('[name="toPort"]').selectOption(to);
     await this.page.locator('[name="departDay"]').selectOption(departingDay);

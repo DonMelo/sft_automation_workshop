@@ -1,5 +1,5 @@
 {
-  "name": "SFT Automation workshop",
+  "name": "sft-automation-workshop",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
@@ -14,5 +14,26 @@
   "devDependencies": {
     "@types/node": "^20.14.9",
     "typescript": "^5.5.2"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.54.1",
+    "tests": "^1.0.0",
+    "unit-tests": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonMelo/sft_automation_workshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonMelo/sft_automation_workshop/issues"
+  },
+  "homepage": "https://github.com/DonMelo/sft_automation_workshop#readme",
+  "description": ""
 }

@@ -64,20 +64,6 @@ export class TravelPage {
     await this.page.locator('input[type=submit]', { hasText: 'Pay now' }).click();
   }
 
-
-  async verifyBookingInformationReturn(from: string, to: string, departingDay: string, departingMonth: string, returnDay: string, returnMonth: string, firstName: string, lastName: string) {
-    await expect(this.page.locator('#booking_number')).toBeVisible();
-    const confirmationText = await this.page.locator('#confirmation').innerText();
-
-    const departDate = `${departingMonth.slice(2, 6)}-${departingMonth.slice(0, 2)}-${departingDay}`;
-    const returnDate = `${returnMonth.slice(2, 6)}-${returnMonth.slice(0, 2)}-${returnDay}`;
-
-    await expect(confirmationText).toContain('(return Trip)');
-    await expect(confirmationText).toContain(`${departDate} ${from} to ${to}`);
-    await expect(confirmationText).toContain(`${returnDate} ${to} to ${from}`);
-    await expect(confirmationText).toContain(`Passenger Details: ${firstName} ${lastName}`);
-  }
-
   async signOff() {
     await this.page.locator('#user_nav > a', { hasText: 'Sign off' }).click();
   }

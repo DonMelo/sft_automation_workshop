@@ -64,8 +64,8 @@ test.describe('Travel Page', () => {
         await travelPage.pressPayNow();
               
         await expect(travelPage.page.locator('#booking_number')).toBeVisible();
+        
         const confirmationText = await travelPage.page.locator('#confirmation').innerText();
-            
         const departureYear = departingMonth.slice(2, 6);
         const departureMonth = departingMonth.slice(0, 2);
         const departDate = `${departureYear}-${departureMonth}-${departingDay}`;
@@ -80,22 +80,42 @@ test.describe('Travel Page', () => {
      test('should login and select return flight', async ({ page }) => { //Return flight booking 
         const travelPage = new TravelPage(page);
 
+        const firstName = 'Jurgita';
+        const lastName = 'Lizdene';
+        const departingDay = '02'; 
+        const departingMonth = '072025'; 
+        const returnDay = '03';
+        const returnMonth = '082025';
+        const from = 'New York';
+        const to = 'Sydney';
+        const cardType = 'visa';
+        const cardNumber = '1234 1234';
+        const expireDay = '02';
+        const expireYear = '2028';
+
         await travelPage.login('agileway','testW1se');
         await travelPage.pressSighInButton();
         await travelPage.verifyThatUserLoggedIn();
 
         await travelPage.selectTripType('return');  
-        await travelPage.fillReturnFlightInformation('New York', 'Sydney', '02', '072025', '03', '082025');
+        await travelPage.fillReturnFlightInformation(`${from}`, `${to}`, `${departingDay}`, `${departingMonth}`, `${returnDay}`, `${returnMonth}`);
         await travelPage.pressContinueButton();
         
-        await travelPage.fillInPassangerDetails('Jurgita', 'Lizdene');
+        await travelPage.fillInPassangerDetails(`${firstName}`, `${lastName}`);
         await travelPage.pressNextButton();
   
-        await travelPage.fillInCreditCardForm('visa', '1234 1234', '02', '2028');
+        await travelPage.fillInCreditCardForm(`${cardType}`, `${cardNumber}`, `${expireDay}`, `${expireYear}`);
         await travelPage.pressPayNow();
-        
-        await travelPage.verifyBookingInformationReturn('New York', 'Sydney', '02', '072025', '03', '082025', 'Jurgita', 'Lizdene');
-        
+
+        await expect(travelPage.page.locator('#booking_number')).toBeVisible();
+        const confirmationText = await travelPage.page.locator('#confirmation').innerText();
+        const departDate = `${departingMonth.slice(2, 6)}-${departingMonth.slice(0, 2)}-${departingDay}`;
+        const returnDate = `${returnMonth.slice(2, 6)}-${returnMonth.slice(0, 2)}-${returnDay}`;
+
+        await expect(confirmationText).toContain('(return Trip)');
+        await expect(confirmationText).toContain(`${departDate} ${from} to ${to}`);
+        await expect(confirmationText).toContain(`${returnDate} ${to} to ${from}`);
+        await expect(confirmationText).toContain(`Passenger Details: ${firstName} ${lastName}`);
 
     });
 

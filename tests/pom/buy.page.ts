@@ -66,7 +66,7 @@ export class FlightBookingPage {
     await this.page.goto(BASE_URL);
   }
 
-  async selectFlight({
+  async selectFlightAndContinue({
     from,
     to,
     departDay,
@@ -94,14 +94,14 @@ export class FlightBookingPage {
     await this.continueButton.click();    
   }
 
-  async fillPassengerDetails({firstName, lastName} : {firstName: string, lastName: string}): Promise<void> {
+  async fillPassengerDetailsAndContinue({firstName, lastName} : {firstName: string, lastName: string}): Promise<void> {
     await this.firstName.fill(firstName);
     await this.lastName.fill(lastName);
     await this.continueButton.click();    
   }
   
 
-  async fillPaymentDetails({
+  async fillPaymentDetailsAndPay({
     cardNumber,
     expiryMonth,
     expiryYear,

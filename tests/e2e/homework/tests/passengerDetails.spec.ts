@@ -24,12 +24,12 @@ test.describe('invalid Passenger Details', () => {
 test('no input added', async ({page}) => {
     const passengerDetails = new PassengerDetails(page);
     await passengerDetails.passengerDetailsInput('', '');
-    await expect(page.locator('#flash_alert')).toBeVisible(); 
+    await expect(page.locator('#flash_alert')).toHaveText('Must provide last name'); 
 })
 
 test('last name not added', async ({page}) => {
     const passengerDetails = new PassengerDetails(page);
     await passengerDetails.passengerDetailsInput('Test', '');
-    await expect(page.locator('#flash_alert')).toBeVisible();    
+    await expect(page.locator('#flash_alert')).toHaveText('Must provide last name');    
 })
 })

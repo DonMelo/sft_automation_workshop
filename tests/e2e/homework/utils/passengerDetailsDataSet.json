@@ -1,0 +1,10 @@
+[{
+    "label" : "Should pass to payment with only last name provided",
+    "firstName" : "",
+    "lastName" : "haha123"
+},
+{
+    "label" : "Should pass to payment with both, first and last name provided",
+    "firstName" : "haha123",
+    "lastName" : "haha123"
+}]

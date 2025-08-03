@@ -1,0 +1,37 @@
+[{
+    "label" : "Return trip with data",
+    "selector" : "first",
+    "fromPort" : "Sydney",
+    "toPort" : "New York",
+    "monthYearDepart" : "062025",
+    "monthYearReturn" : "072025",
+    "dayDepart" : "03",
+    "dayReturn" : "05",
+    "checkboxes": {
+      "firstCheck": true,
+      "secondCheck": false,
+      "thirdCheck": true
+    }
+},
+{
+    "label" : "One way with data",
+    "selector" : "last",
+    "fromPort" : "Sydney",
+    "toPort" : "New York",
+    "monthYearDepart" : "062025",
+    "dayDepart" : "03",
+    "checkboxes": {
+      "firstCheck": true,
+      "secondCheck": false,
+      "thirdCheck": true
+    }
+},
+{
+    "label" : "Return trip with no additional data",
+    "selector" : "first"
+},
+{
+    "label" : "One way trip with no additional data",
+    "selector" : "last"
+}
+]

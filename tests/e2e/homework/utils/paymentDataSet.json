@@ -1,0 +1,66 @@
+[{
+    "label" : "Visa card type with changed holder name",
+    "cardType" : "visa",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expMonth" : "03",
+    "expYear" : "2016"
+},
+{
+    "label" : "Visa card type with the same holder name",
+    "cardType" : "visa",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expMonth" : "03",
+    "expYear" : "2025"
+},
+{
+    "label" : "No card type selected with changed holder name",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expMonth" : "03",
+    "expYear" : "2025"
+},
+{
+    "label" : "No card type selected with the same holder name",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expMonth" : "03",
+    "expYear" : "2025"
+},
+{
+    "label" : "Visa card type with no holder name",
+    "cardType" : "visa",
+    "cardNum" : "123123",
+    "expMonth" : "03",
+    "expYear" : "2025"
+},
+{
+    "label" : "Visa card type with no card number",
+    "cardType" : "visa",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expMonth" : "03",
+    "expYear" : "2025"
+},
+{
+    "label" : "Visa card type with default expiry month",
+    "cardType" : "visa",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expYear" : "2016"
+},
+{
+    "label" : "Visa card type with default expiry year",
+    "cardType" : "visa",
+    "holderName" : "haha123",
+    "cardNum" : "123123",
+    "expMonth" : "03"
+},
+{
+    "label" : "Visa card type with no provided card number",
+    "cardType" : "visa",
+    "holderName" : "haha123",
+    "expMonth" : "03",
+    "expYear" : "2016"
+}]

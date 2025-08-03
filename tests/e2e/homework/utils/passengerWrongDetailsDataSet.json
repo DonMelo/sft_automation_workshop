@@ -1,0 +1,10 @@
+[{
+    "label" : "Shouldn't pass to payment, wrong credentials (no first name and last name provided)",
+    "firstName" : "",
+    "lastName" : ""
+},
+{
+    "label" : "Shouldn't pass to payment, wrong credentials (only first name provided)",
+    "firstName" : "haha123",
+    "lastName" : ""
+}]

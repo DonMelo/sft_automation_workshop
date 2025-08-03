@@ -1,0 +1,16 @@
+[{
+    "label" : "Wrong username, correct password",
+    "username" : "haha123",
+    "password" : "testW1se"
+ },
+ {
+    "label" : "Correct username, wrong password",
+    "username" : "agileway",
+    "password" : "haha123"
+ },
+ {
+    "label" : "Wrong username, wrong password",
+    "username" : "haha123",
+    "password" : "haha123"
+ }
+]

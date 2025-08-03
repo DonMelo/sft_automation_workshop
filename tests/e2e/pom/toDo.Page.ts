@@ -8,7 +8,7 @@ export class ToDoPage {
         this.page = page;
         this.WhatNeedsToBeDoneTextBox = page.locator(".new-todo");
         this.todoItem = page.getByTestId('todo-title');
-        this.editItem = page.locator('type=checkbox');
+        this.editItem = page.locator('input.edit');
     }
     async gotoTodoPage(){
         await this.page.goto('https://demo.playwright.dev/todomvc/#/');

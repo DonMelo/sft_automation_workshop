@@ -21,6 +21,6 @@ test('login with invalid password', async ({page}) => {
         const login = new Login(page);
         await login.goToPage();
         await login.login(login.defaultUsername, 'testW1seQA');
-        await expect(page.locator('#flash_alert')).toBeVisible();
+        await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
     })
 })

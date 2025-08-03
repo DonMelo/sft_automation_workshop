@@ -1,6 +1,8 @@
 import {Page, Locator} from "@playwright/test";
 
 export class Login {
+ readonly defaultUsername = 'agileway';
+ readonly defaultPassword = 'testW1se';
  readonly page: Page;
  readonly username: Locator;
  readonly password: Locator;

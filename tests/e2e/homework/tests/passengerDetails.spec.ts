@@ -9,8 +9,8 @@ test.beforeEach('go to page', async({page})=>{
     login = new Login (page);
     flightPage = new FlightPage (page);
     await login.goToPage();
-    await login.login('agileway', 'testW1se');
-    await flightPage.flightSelection('New York', 'Sydney', '30', 'July 2025');
+    await login.login(login.defaultUsername, login.defaultPassword);
+    await flightPage.flightSelection('New York', 'Sydney', '30', 'August 2025');
 })
 
 test('valid Passenger Details', async({page})=>{

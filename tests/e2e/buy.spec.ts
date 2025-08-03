@@ -19,8 +19,6 @@ test.describe('Travel Agileway E2E Tests', () => {
   })
 
   test('Purchase a reservation', async ({ page }) => {
-    const flightBookingPage = new FlightBookingPage(page);
-    
     await flightBookingPage.selectFlight(FLIGHT_DETAILS);
     await flightBookingPage.fillPassengerDetails(PASSENGER_DETAILS);
     await flightBookingPage.fillPaymentDetails(CARD_DETAILS);

@@ -18,7 +18,7 @@ test.describe('Travel Agileway E2E Tests', () => {
       await expect(page.locator('h2')).toContainText('Select Flight');
   })
 
-  test('Purchase a reservation', async ({ page }) => {
+  test('Complete flight booking flow - select flight, fill passenger details, and process payment', async ({ page }) => {
     await flightBookingPage.selectFlightAndContinue(FLIGHT_DETAILS);
     await flightBookingPage.fillPassengerDetailsAndContinue(PASSENGER_DETAILS);
     await flightBookingPage.fillPaymentDetailsAndPay(CARD_DETAILS);

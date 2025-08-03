@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://travel.agileway.net/';
 
-export const LOGIN_DETAILS = {
+export const VALID_LOGIN_DETAILS = {
   username: 'agileway',
   password: 'testW1se'
 }

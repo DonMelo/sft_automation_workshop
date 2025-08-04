@@ -21,7 +21,8 @@ export class Basepage{
     await expect(this.alert).toBeVisible();
     await expect(this.alert).toContainText(alertMessage);
   }
-  async verifyHeaderContains(headerName: string){
-    await expect(this.header.getByText(headerName)).toBeVisible();
+  async verifyHeaderContains(headerMessage: string){
+    await expect(this.header).toBeVisible();
+    await expect(this.header).toContainText(headerMessage);
   }
 }

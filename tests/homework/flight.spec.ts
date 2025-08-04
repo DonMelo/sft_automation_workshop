@@ -4,7 +4,7 @@ import { FlightPage } from './pom/flight.page';
 import { CustomerPage } from './pom/customer.page';
 import { PaymentPage } from './pom/payment.page';
 
-test('pasirinkti skrydzius', async ({ page }) => {
+test('Book a flight to New York', async ({ page }) => {
 
 const loginPage = new LoginPage(page);
 await loginPage.gotoFlightPage();

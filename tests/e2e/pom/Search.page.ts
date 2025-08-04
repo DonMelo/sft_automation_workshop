@@ -25,7 +25,7 @@ export class SearchPage {
         this.flightOptions = page.locator('input[type="checkbox"]');
     }
 
-    async selectTripType(type: 'oneway' | 'return') {
+    async selectTripType(type: string) {
         const radio = this.page.locator(`input[name="tripType"][value="${type}"]`);
         await radio.check();
     }
@@ -35,21 +35,20 @@ export class SearchPage {
         await this.toSelect.selectOption(to);
     }
 
-    async setDepartureDate(day: string, monthYear: string) {
-        await this.departingDay.selectOption(day);
-        await this.departingMonthYear.selectOption(monthYear);
+    async setTo(to: string){
+        await this.toSelect.selectOption(to);
     }
 
-    async setReturnDate(day: string, monthYear: string) {
-        await this.returningDay.selectOption(day);
-        await this.returningMonthYear.selectOption(monthYear);
+    async setDate(day: string, monthYear: string) {
+        await this.departingDay.selectOption(day);
+        await this.departingMonthYear.selectOption(monthYear);
     }
 
     async submitSearch() {
         await this.submitButton.click();
     }
 
-    async selectFirstFlightOption() {
-        await this.flightOptions.first().check();
+    async selectFlightOption(number: number) {
+        await this.flightOptions.nth(number).check();
     }
 }

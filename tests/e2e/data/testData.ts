@@ -1,3 +1,5 @@
+import { PassengerDetailsPage } from "../pom/PassengerDetails.page";
+
 export const users = {
   valid: { username: 'agileway', password: 'testW1se' },
   invalid: { username: 'wrong', password: 'wrongpass' },
@@ -8,20 +10,56 @@ export const users = {
 
 export const messages = {
   invalidLogin: 'Invalid email or password',
-  loginSuccess: 'Signed in!'
+  loginSuccess: 'Signed in!',
+  logoutSuccess: 'Signed out!',
+  lastNameRequired: 'Must provide last name'
 };
 
+export const headers = {
+  registerPage: 'Heading New staff',
+  searchPage: 'Select Flight',
+  PassengerDetailsPage: 'Passenger Details',
+  paymentPage: 'Pay by Credit Card',
+  confirmation: 'Confirmation'
+
+};
+
+export const tripType = {
+  return: 'return',
+  oneWay: 'oneway'
+}
+
+export const cities = {
+  newYork: 'New York',
+  sydney: 'Sydney',
+  sanFrancisco: 'San Francisco'
+
+}
+
 export const flightDates = {
-  depart: { day: '07', month: 'January 2026' },
-  return: { day: '15', month: 'May 2026' },
+  valid: {
+    depart: { day: '10', monthYear: '082025' },
+    return: { day: '20', monthYear: '082025' },
+  },
+  departAfterReturn: {
+    depart: { day: '25', monthYear: '082025' },
+    return: { day: '15', monthYear: '082025' },
+  },
+  sameDayTrip: {
+    depart: { day: '12', monthYear: '082025' },
+    return: { day: '12', monthYear: '082025' },
+  },
 };
 
 export const passenger = {
   firstName: 'Marcus',
-  lastName: 'Aurelius'
+  lastName: 'Aurelius',
+  firstNameBlank: '',
+  lastNameBlank: ''
 };
 
 export const creditCard = {
+  type: 'visa',
   name: 'Marcus Aurelius',
   number: '12345678',
   expiryMonth: '07',

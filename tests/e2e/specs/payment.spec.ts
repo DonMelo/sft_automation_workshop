@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pom/Login.page';
-import { SearchPage } from '../pom/Search.page';
-import { PassengerDetailsPage } from '../pom/PassengerDetails.page';
-import { PaymentPage } from '../pom/Payment.page';
-
+import { users, tripType, cities, flightDates, headers, passenger, creditCard } from '../data/testData';
+import { PageManager } from '../pom/PageManager';
 
 /*
  * Payment and Confirmation Tests
@@ -13,53 +10,46 @@ import { PaymentPage } from '../pom/Payment.page';
  * If this step fails, it directly impacts revenue.
  */
 
-test.describe.configure({ mode: 'serial' });
+let pageManager: PageManager;
 
-test.beforeEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const searchPage = new SearchPage(page);
-  const passengerDetailsPage = new PassengerDetailsPage(page);
-
-  await loginPage.goto();
-  await loginPage.login('agileway', 'testW1se');
-  await searchPage.selectTripType('return');
-  await searchPage.setFromTo('Sydney', 'New York');
-  await searchPage.setDepartureDate('01', '012025');
-  await searchPage.setReturnDate('02', '012025');
-  await searchPage.flightOptions.first().check();
-  await searchPage.submitSearch();
-  await passengerDetailsPage.fillAndSubmitPassengerDetails('John', 'Jones');
-});
-
-test.afterEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.logout();
-});
+  test.beforeEach(async ({page}) => {
+    pageManager = new PageManager(page);
+    await pageManager.basePage.goto();
+    await pageManager.loginPage.login(users.valid.username, users.valid.password);
+    await pageManager.searchPage.selectTripType(tripType.return);
+    await pageManager.searchPage.setFromTo(cities.sydney, cities.newYork);
+    await pageManager.searchPage.setDate(flightDates.valid.depart.day, flightDates.valid.depart.monthYear);
+    await pageManager.searchPage.setDate(flightDates.valid.return.day, flightDates.valid.return.monthYear);
+    await pageManager.searchPage.selectFlightOption(1);
+    await pageManager.searchPage.submitSearch();
+    await pageManager.passengerDetailsPage.fillAndSubmitPassengerDetails(passenger.firstName,passenger.lastName);
+  })
 
 test('User can see fare and fill payment details', async ({ page }) => {
-  const paymentPage = new PaymentPage(page);
+  await expect(pageManager.paymentPage.fare).toBeVisible();
+  await pageManager.paymentPage.selectCardType(creditCard.type);
+  await pageManager.paymentPage.fillCardHolderName(creditCard.name);
+  await pageManager.paymentPage.fillCardNumber(creditCard.number);
+  await pageManager.paymentPage.selectExpiryMonth(creditCard.expiryMonth);
+  await pageManager.paymentPage.selectExpiryYear(creditCard.expiryYear);
+  await pageManager.paymentPage.submitPayment();
+  await pageManager.basePage.waitForPageHeading(headers.confirmation);
+  await expect(pageManager.paymentPage.bookingNumber).toBeVisible();
 
-  await expect(paymentPage.fare).toBeVisible();
-  await paymentPage.selectCardType('visa');
-  await paymentPage.fillCardHolderName('John Doe');
-  await paymentPage.fillCardNumber('4111111111111111');
-  await paymentPage.selectExpiryMonth('12');
-  await paymentPage.selectExpiryYear('2025');
-  await paymentPage.submitPayment();
-
-  await expect(paymentPage.confirmationSection).toBeVisible();
-  await expect(paymentPage.bookingNumber).toBeVisible();
-  await expect(paymentPage.flightConfirmation).toBeVisible();
-  await expect(paymentPage.passengerDetails).toBeVisible();
 });
 
-
-// Cant test with 0 validation...
+// Should display an error when user submits form without card number
 test('User cannot submit with empty card details', async ({ page }) => {
-  const paymentPage = new PaymentPage(page);
 
-  await paymentPage.selectCardType('visa');
-  await paymentPage.submitPayment();
+  await pageManager.paymentPage.selectCardType('visa');
+  await pageManager.paymentPage.submitPayment();
+  await expect(pageManager.basePage.errorMessage).toBeVisible();
+});
 
-  // await expect(paymentPage.errorMessage).toBeVisible();
+// Should display an error when card type is not selected
+test('User cannot submit withouth seletcing card type', async ({ page }) => {
+
+  await pageManager.paymentPage.fillCardNumber(creditCard.number);
+  await pageManager.paymentPage.submitPayment();
+  await expect(pageManager.basePage.errorMessage).toBeVisible();
 });

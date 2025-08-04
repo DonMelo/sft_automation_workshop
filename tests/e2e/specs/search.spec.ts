@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pom/Login.page';
-import { SearchPage } from '../pom/Search.page';
-
+import { users, messages, tripType, cities, flightDates, headers } from '../data/testData';
+import { PageManager } from '../pom/PageManager';
 
 /*
  * Flight Search Tests
@@ -11,76 +10,90 @@ import { SearchPage } from '../pom/Search.page';
  * and correct handling of invalid values like identical origin and destination.
  */
 
-test.describe.configure({ mode: 'serial' });
+let pageManager: PageManager;
 
-test.beforeEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login('agileway', 'testW1se');
-  await expect(loginPage.welcomeMessage).toBeVisible();
-});
+ test.describe.configure({ mode: 'serial' });
 
-test.afterEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.logout();
-});
-
-test.describe('Positive tests', () => {
-  test('Return trip search works', async ({ page }) => {
-    const searchPage = new SearchPage(page);
-
-    await searchPage.selectTripType('return');
-    await searchPage.setFromTo('Sydney', 'New York');
-    await searchPage.setDepartureDate('15', '082025');
-    await searchPage.setReturnDate('15', '092025');
-    await expect(searchPage.flightOptions.first()).toBeVisible();
-    await searchPage.selectFirstFlightOption();
-    await searchPage.submitSearch();
-    await expect(page).toHaveURL(/.*flights\/select_date/);
+  test.beforeEach(async ({ page }) => {
+    pageManager = new PageManager(page);
+    await pageManager.basePage.goto();
+    await pageManager.loginPage.login(users.valid.username, users.valid.password);
+    await expect(pageManager.basePage.successMessage).toHaveText(messages.loginSuccess);
   });
 
-  test('One way trip search works', async ({ page }) => {
-    const searchPage = new SearchPage(page);
+  test.describe('Positive tests', () => {
+    test('Return trip search works', async () => {
+      await pageManager.searchPage.selectTripType(tripType.return);
+      await pageManager.searchPage.setFromTo(cities.sydney, cities.newYork);
+      await pageManager.searchPage.setDate(flightDates.valid.depart.day, flightDates.valid.depart.monthYear);
+      await pageManager.searchPage.setDate(flightDates.valid.return.day, flightDates.valid.return.monthYear);
+      await expect(pageManager.searchPage.flightOptions.first()).toBeVisible();
+      await pageManager.searchPage.selectFlightOption(1);
+      await pageManager.searchPage.submitSearch();
+      await pageManager.basePage.waitForPageHeading(headers.PassengerDetailsPage);
+    });
 
-    await searchPage.selectTripType('oneway');
-    await searchPage.setFromTo('Sydney', 'New York');
-    await searchPage.setDepartureDate('15', '082025');
-    await searchPage.selectFirstFlightOption();
-    await searchPage.submitSearch();
-    await expect(page).toHaveURL(/.*flights\/select_date/);
-  });
-});
-
-test.describe('Negative tests', () => {
-  // This test fails because form allows submition while empty.
-  test('User cannot submit search with missing fields', async ({ page }) => {
-    const searchPage = new SearchPage(page);
-    await searchPage.selectTripType('return');
-    await searchPage.submitSearch();
-    await expect(page).not.toHaveURL(/.*flights\/select_date/);
-  });
-
-  // This test fails because form allows same origin/destination.
-  test('Same origin/destination not allowed', async ({ page }) => {
-    const searchPage = new SearchPage(page);
-    await searchPage.selectTripType('return');
-    await searchPage.setFromTo('Sydney', 'Sydney');
-    await searchPage.setDepartureDate('15', '082025');
-    await searchPage.setReturnDate('15', '092025');
-    await searchPage.selectFirstFlightOption();
-    await searchPage.submitSearch();
-    await expect(page).not.toHaveURL(/.*flights\/select_date/);
+    test('One way trip search works', async () => {
+      await pageManager.searchPage.selectTripType(tripType.oneWay);
+      await pageManager.searchPage.setTo(cities.sydney);
+      await pageManager.searchPage.setDate(flightDates.valid.depart.day, flightDates.valid.depart.monthYear);
+      await expect(pageManager.searchPage.flightOptions.first()).toBeVisible();
+      await pageManager.searchPage.selectFlightOption(1);
+      await pageManager.searchPage.submitSearch();
+      await pageManager.basePage.waitForPageHeading(headers.PassengerDetailsPage);
+    });
   });
 
-  // This test fails because form allows earlier return date than departure date.
-  test('Departure cannot be after return date', async ({ page }) => {
-    const searchPage = new SearchPage(page);
-    await searchPage.selectTripType('return');
-    await searchPage.setFromTo('Sydney', 'New York');
-    await searchPage.setDepartureDate('15', '092025');
-    await searchPage.setReturnDate('15', '082025');
-    await searchPage.selectFirstFlightOption();
-    await searchPage.submitSearch();
-    await expect(page).not.toHaveURL(/.*flights\/select_date/);
+  test.describe('Negative tests', () => {
+    // This test fails because user is able to continue without filling any info
+    test('User cannot submit search with missing fields', async () => {
+      await expect(pageManager.basePage.errorMessage).toBeVisible();
+    });
+
+    // This test fails because user is able to select same destination as origin
+    test('Same origin/destination not allowed', async () => {
+      await pageManager.searchPage.selectTripType(tripType.return);
+      await pageManager.searchPage.setFromTo(cities.newYork, cities.newYork);
+      await pageManager.searchPage.setDate(flightDates.valid.depart.day, flightDates.valid.depart.monthYear);
+      await pageManager.searchPage.setDate(flightDates.valid.return.day, flightDates.valid.return.monthYear);
+      await expect(pageManager.searchPage.flightOptions.first()).toBeVisible();
+      await pageManager.searchPage.selectFlightOption(1);
+      await pageManager.searchPage.submitSearch();
+      await expect(pageManager.basePage.errorMessage).toBeVisible();
+    });
+
+    // This test fails because user is able to select earlier arrival date that departure date
+    test('Departure cannot be after return date', async () => {
+      await pageManager.searchPage.selectTripType(tripType.return);
+      await pageManager.searchPage.setFromTo(cities.newYork, cities.newYork);
+      await pageManager.searchPage.setDate(flightDates.departAfterReturn.depart.day, flightDates.departAfterReturn.depart.monthYear);
+      await pageManager.searchPage.setDate(flightDates.departAfterReturn.return.day, flightDates.departAfterReturn.return.monthYear);
+      await expect(pageManager.searchPage.flightOptions.first()).toBeVisible();
+      await pageManager.searchPage.selectFlightOption(1);
+      await pageManager.searchPage.submitSearch();
+      await expect(pageManager.basePage.errorMessage).toBeVisible();
+    });
+
+    //This test fails because user is able to continue without selecting a flight option
+      test('User cannot continue without selecting flight option', async () => {
+      await pageManager.searchPage.selectTripType(tripType.return);
+      await pageManager.searchPage.setFromTo(cities.newYork, cities.newYork);
+      await pageManager.searchPage.setDate(flightDates.departAfterReturn.depart.day, flightDates.departAfterReturn.depart.monthYear);
+      await pageManager.searchPage.setDate(flightDates.departAfterReturn.return.day, flightDates.departAfterReturn.return.monthYear);
+      await expect(pageManager.searchPage.flightOptions.first()).toBeVisible();
+      await pageManager.searchPage.submitSearch();
+      await expect(pageManager.basePage.errorMessage).toBeVisible();
+    });
+        //This test fails because user is able to continue with two flight options selected
+      test('User cannot continue with two flight options selected', async () => {
+      await pageManager.searchPage.selectTripType(tripType.return);
+      await pageManager.searchPage.setFromTo(cities.newYork, cities.newYork);
+      await pageManager.searchPage.setDate(flightDates.departAfterReturn.depart.day, flightDates.departAfterReturn.depart.monthYear);
+      await pageManager.searchPage.setDate(flightDates.departAfterReturn.return.day, flightDates.departAfterReturn.return.monthYear);
+      await expect(pageManager.searchPage.flightOptions.first()).toBeVisible();
+      await pageManager.searchPage.selectFlightOption(1);
+      await pageManager.searchPage.selectFlightOption(2);
+      await pageManager.searchPage.submitSearch();
+      await expect(pageManager.basePage.errorMessage).toBeVisible();
+    });
   });
-});

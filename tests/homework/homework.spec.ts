@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { homework } from './homework.page';
+
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://travel.agileway.net/login');
+  const landingPage = new homework(page);
 });
 
 

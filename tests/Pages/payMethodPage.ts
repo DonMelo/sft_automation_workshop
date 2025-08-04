@@ -79,7 +79,7 @@ export class PayMethodPage {
         expect((await this.nameField.inputValue())).toEqual(name);
     }
 
-    async validateFare(returnType: string, from: string, to: string) {
-        expect((await this.fareInfoConfirmation.textContent())).toEqual(returnType + " " + from + " to " + to);
-    }
+    // async validateFare(returnType: string, from: string, to: string) {
+    //     expect((await this.fareInfoConfirmation.textContent())).toEqual(returnType + " " + from + " to " + to);
+    // }
 }

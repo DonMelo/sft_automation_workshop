@@ -5,223 +5,56 @@
 - link "Sign off (agileway)":
   - /url: /logout
 - heading [level=1]
-- heading "Select Flight" [level=2]
+- heading "Pay by Credit Card" [level=2]
+- text: "Fare (return San Francisco to Sydney): $1,249.00"
 - table:
   - rowgroup:
-    - 'row "Trip type: Return One way"':
-      - cell "Trip type:"
-      - cell "Return One way":
+    - 'row "Card type: Visa Master"':
+      - cell "Card type:"
+      - cell "Visa Master":
         - radio [checked]
-        - text: Return
+        - text: Visa
         - radio
-        - text: One way
-    - 'row "From: San Francisco"':
-      - cell "From:"
-      - cell "San Francisco":
+        - text: Master
+    - 'row "Card holder''s name: John Smith"':
+      - cell "Card holder's name:"
+      - cell "John Smith":
+        - textbox: John Smith
+    - 'row "Card number: 1234567890"':
+      - cell "Card number:"
+      - cell "1234567890":
+        - textbox: "1234567890"
+    - 'row "Expiry in : 01 / 2027"':
+      - cell "Expiry in :"
+      - cell "01 / 2027":
         - combobox:
-          - option "Origin"
-          - option "New York"
-          - option "Sydney"
-          - option "San Francisco" [selected]
-    - 'row "To: Sydney"':
-      - cell "To:"
-      - cell "Sydney":
+          - option "01" [selected]
+          - option "02"
+          - option "03"
+          - option "04"
+          - option "05"
+          - option "06"
+          - option "07"
+          - option "08"
+          - option "09"
+          - option "10"
+          - option "11"
+          - option "12"
+        - text: /
         - combobox:
-          - option "Destination"
-          - option "New York"
-          - option "Sydney" [selected]
-- paragraph
+          - option "2025"
+          - option "2026"
+          - option "2027" [selected]
+          - option "2028"
+          - option "2016"
+          - option "2021"
 - paragraph:
-  - text: "Departing:"
-  - combobox:
-    - option "01" [selected]
-    - option "02"
-    - option "03"
-    - option "04"
-    - option "05"
-    - option "06"
-    - option "07"
-    - option "08"
-    - option "09"
-    - option "10"
-    - option "11"
-    - option "12"
-    - option "13"
-    - option "14"
-    - option "15"
-    - option "16"
-    - option "17"
-    - option "18"
-    - option "19"
-    - option "20"
-    - option "21"
-    - option "22"
-    - option "23"
-    - option "24"
-    - option "25"
-    - option "26"
-    - option "27"
-    - option "28"
-    - option "29"
-    - option "30"
-    - option "31"
-  - combobox:
-    - option "January 2025"
-    - option "Feburary 2025"
-    - option "March 2025"
-    - option "April 2025"
-    - option "May 2025"
-    - option "June 2025"
-    - option "July 2025"
-    - option "August 2025"
-    - option "September 2025"
-    - option "October 2025"
-    - option "November 2025" [selected]
-    - option "December 2025"
-    - option "January 2026"
-    - option "Feburary 2026"
-    - option "March 2026"
-    - option "April 2026"
-    - option "May 2026"
-    - option "June 2026"
-    - option "July 2026"
-    - option "August 2026"
-    - option "September 2026"
-    - option "October 2026"
-    - option "November 2026"
-    - option "December 2026"
-    - option "January 2016"
-    - option "Feburary 2016"
-    - option "March 2016"
-    - option "April 2016"
-    - option "May 2016"
-    - option "June 2016"
-    - option "July 2016"
-    - option "August 2016"
-    - option "September 2016"
-    - option "October 2016"
-    - option "November 2016"
-    - option "December 2016"
-    - option "January 2021"
-    - option "Feburary 2021"
-    - option "March 2021"
-    - option "April 2021"
-    - option "May 2021"
-    - option "June 2021"
-    - option "July 2021"
-    - option "August 2021"
-    - option "September 2021"
-    - option "October 2021"
-    - option "November 2021"
-    - option "December 2021"
-- paragraph
-- text: "Returning:"
-- combobox:
-  - option "01" [selected]
-  - option "02"
-  - option "03"
-  - option "04"
-  - option "05"
-  - option "06"
-  - option "07"
-  - option "08"
-  - option "09"
-  - option "10"
-  - option "11"
-  - option "12"
-  - option "13"
-  - option "14"
-  - option "15"
-  - option "16"
-  - option "17"
-  - option "18"
-  - option "19"
-  - option "20"
-  - option "21"
-  - option "22"
-  - option "23"
-  - option "24"
-  - option "25"
-  - option "26"
-  - option "27"
-  - option "28"
-  - option "29"
-  - option "30"
-  - option "31"
-- combobox:
-  - option "January 2025" [selected]
-  - option "Feburary 2025"
-  - option "March 2025"
-  - option "April 2025"
-  - option "May 2025"
-  - option "June 2025"
-  - option "July 2025"
-  - option "August 2025"
-  - option "September 2025"
-  - option "October 2025"
-  - option "November 2025"
-  - option "December 2025"
-  - option "January 2026"
-  - option "Feburary 2026"
-  - option "March 2026"
-  - option "April 2026"
-  - option "May 2026"
-  - option "June 2026"
-  - option "July 2026"
-  - option "August 2026"
-  - option "September 2026"
-  - option "October 2026"
-  - option "November 2026"
-  - option "December 2026"
-  - option "January 2016"
-  - option "Feburary 2016"
-  - option "March 2016"
-  - option "April 2016"
-  - option "May 2016"
-  - option "June 2016"
-  - option "July 2016"
-  - option "August 2016"
-  - option "September 2016"
-  - option "October 2016"
-  - option "November 2016"
-  - option "December 2016"
-  - option "January 2021"
-  - option "Feburary 2021"
-  - option "March 2021"
-  - option "April 2021"
-  - option "May 2021"
-  - option "June 2021"
-  - option "July 2021"
-  - option "August 2021"
-  - option "September 2021"
-  - option "October 2021"
-  - option "November 2021"
-  - option "December 2021"
-- table:
-  - rowgroup:
-    - row "Time Flight No. Airline":
-      - cell
-      - cell "Time"
-      - cell "Flight No."
-      - cell "Airline"
-  - rowgroup:
-    - row "8:00 QF821 Qantas":
-      - cell:
-        - checkbox
-      - cell "8:00"
-      - cell "QF821"
-      - cell "Qantas"
-    - row "8:30 VA23 Virgin Australia":
-      - cell:
-        - checkbox
-      - cell "8:30"
-      - cell "VA23"
-      - cell "Virgin Australia"
-    - row "9:00 QF983 Qantas":
-      - cell:
-        - checkbox
-      - cell "9:00"
-      - cell "QF983"
-      - cell "Qantas"
-- button "Continue"
+  - button "Pay now"
+- heading "Confirmation" [level=2]
+- paragraph: "Booking number: 86339"
+- paragraph:
+  - strong: Flights
+  - text: (return Trip)
+- text: 2025-11-11 San Francisco to Sydney 2025-12-03 Sydney to San Francisco
+- paragraph: "Passenger Details: John Smith"
 ```

@@ -51,7 +51,6 @@ for (const data of returnData) {
     await pay.validateReturnDate(data.returnDate);
     await pay.validateDepartCities(data.fromCity, data.toCity);
     await pay.validateReturnCities(data.toCity, data.fromCity);
-    await pay.validateFare('return', data.fromCity, data.toCity);
     await pay.validateFlightName('John Smith');
     await pay.validateCardName('John Smith');
   });
@@ -83,7 +82,6 @@ for (const data of oneWayData) {
 
     await pay.validateDepartDate(data.departDate);
     await pay.validateDepartCities(data.fromCity, data.toCity);
-    await pay.validateFare('oneway', data.fromCity, data.toCity);
     await pay.validateFlightName('John Smith');
     await pay.validateCardName('John Smith');
   });

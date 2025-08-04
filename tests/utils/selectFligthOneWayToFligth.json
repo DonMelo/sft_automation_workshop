@@ -21,7 +21,7 @@
         "departDay" : "01",
         "departMonth" : "November 2025",
         "departDate" : "2025-11-01",
-        "flightIndex" : -1
+        "flightIndex" : 1
     },
     {
         "fromCity" : "Sydney",
@@ -43,7 +43,7 @@
         "fromCity" : "San Francisco",
         "toCity" : "Sydney",
         "departDay" : "01",
-        "departMonth" : "",
+        "departMonth" : "January 2025",
         "departDate" : "2025-01-01",
         "flightIndex" : -1
     },

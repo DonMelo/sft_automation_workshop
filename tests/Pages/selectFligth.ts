@@ -49,7 +49,7 @@ export class SelectFlightPage {
     }
 
     async selectDepartDay(day: string) {
-    const formattedDay = day.padStart(2, '0');
+    const formattedDay = day.padStart(2, '1');
     await this.departDay.selectOption(formattedDay);
     }
 

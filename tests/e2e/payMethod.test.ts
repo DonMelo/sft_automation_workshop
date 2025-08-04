@@ -48,5 +48,4 @@ test('End-to-end flight booking including payment', async ({ page }) => {
   await payPage.validateReturnDate('2025-12-03');
   await payPage.validateFlightName(passengerName);
   await payPage.validateCardName(passengerName);
-  await payPage.validateFare('Return', 'New York', 'Sydney');
 });

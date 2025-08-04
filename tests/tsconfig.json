@@ -4,5 +4,5 @@
     "composite": true,
     "outDir": "dist"
   },
-  "include": ["**/*.ts", "e2e/agileway.spec.js"]
+  "include": ["**/*.ts"]
 }

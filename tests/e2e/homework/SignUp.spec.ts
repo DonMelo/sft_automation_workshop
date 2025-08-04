@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
 import { POM } from '../POM Homework/POM';
+
 test('Should succesfully download "Terms and Conditions"', async ({page}) => {
     const POManager = new POM(page);
     let homeworkPage = POManager.getHomeworkPage();

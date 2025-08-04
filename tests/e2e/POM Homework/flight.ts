@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test";
+
     interface FlightFormData {
     selector: string;
     fromPort?: string;
@@ -13,7 +14,9 @@ import { expect, type Locator, type Page } from "@playwright/test";
         thirdCheck?: boolean;
     };
     }
+
 export class flight{
+
     readonly tripType : Locator;
     readonly submitButton : Locator;
     readonly fromPort : Locator;
@@ -25,6 +28,7 @@ export class flight{
     readonly firstCheck : Locator;
     readonly secondCheck : Locator;
     readonly thirdCheck : Locator;
+
     constructor(page : Page){
         this.tripType = page.locator('td input[name=tripType]');
         this.submitButton = page.locator('input[type=submit]');
@@ -38,42 +42,51 @@ export class flight{
         this.secondCheck = page.locator('input[type=checkbox]').nth(1);
         this.thirdCheck = page.locator('input[type=checkbox]').nth(2);
     }
+
     async submit(){
         await this.submitButton.click();
     }
+
     async getTripTypeValue(locator : Locator){
         return await locator.getAttribute('value');
     }
+
     async fillFromDropDown(dropDownSelection : string){
         const dropDown = this.fromPort;
         await dropDown.waitFor();
         await dropDown.selectOption(dropDownSelection)
     }
+
     async fillToDropDown(dropDownSelection : string){
         const dropDown = this.toPort;
         await dropDown.waitFor();
         await dropDown.selectOption(dropDownSelection)
     }
+
     async selectDepartMonthYear(value : string){
         const dropDown = this.departingMonth;
         await dropDown.waitFor();
         await dropDown.selectOption(value);
     }
+
     async selectReturnMonthYear(value : string){
         const dropDown = this.returningMonth;
         await dropDown.waitFor();
         await dropDown.selectOption(value);
     }
+
     async selectDepartDay(value : string){
         const dropDown = this.departingDay;
         await dropDown.waitFor();
         await dropDown.selectOption(value);
     }
+
     async selectReturnDay(value : string){
         const dropDown = this.returningDay;
         await dropDown.waitFor();
         await dropDown.selectOption(value);
     }
+    
     async fillOutTheForm(data: FlightFormData){
         let tripTypeLocator: Locator;
             if (data.selector === 'first') {

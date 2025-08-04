@@ -1,4 +1,5 @@
 import { type Locator, type Page, expect } from "@playwright/test";
+
     interface PaymentFormData {
     cardType? : string;
     holderName? : string;
@@ -6,7 +7,9 @@ import { type Locator, type Page, expect } from "@playwright/test";
     expMonth? : string;
     expYear? : string;
     }
+
 export class Payment{
+
     readonly page : Page;
     readonly header : Locator;
     readonly cardType : Locator;
@@ -17,6 +20,7 @@ export class Payment{
     readonly confirmation : Locator;
     readonly bookingNumber : Locator;
     readonly payNowButton : Locator;
+
     constructor(page : Page){
         this.page = page;
         this.header = page.locator('h2');
@@ -29,12 +33,15 @@ export class Payment{
         this.bookingNumber = page.locator('#booking_number');
         this.payNowButton = page.locator('input[type="submit"]');
     }
+
     async payNowButtonClick(){
         await this.payNowButton.click();
     }
+
     async verifyPaymentHeader(){
         await expect(this.header).toHaveText('Pay by Credit Card');
     }
+
     async fillOutTheForm(data : PaymentFormData) {
         if(data.cardType){
             if(data.cardType === 'visa'){
@@ -58,6 +65,7 @@ export class Payment{
         }
         await this.payNowButtonClick();
     }
+    
     async verifyConfirmationAppears() {
         await expect(this.confirmation).toBeVisible();
         await expect(this.confirmation).toHaveText('Confirmation');

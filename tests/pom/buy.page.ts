@@ -21,6 +21,9 @@ export class FlightBookingPage {
     readonly expiryMonth: Locator;
     readonly expiryYear: Locator;
     readonly payButton: Locator;
+    readonly confirmation: Locator;
+    readonly bookingNumber: Locator;
+    readonly passengerDetails: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -41,6 +44,9 @@ export class FlightBookingPage {
     this.expiryMonth = page.locator('select[name="expiry_month"]');
     this.expiryYear = page.locator('select[name="expiry_year"]');
     this.payButton = page.locator('input[type="submit"][value="Pay now"]');
+    this.confirmation = page.locator('#confirmation > h2');
+    this.bookingNumber = page.locator('#booking_number');
+    this.passengerDetails = page.locator('label:has-text("Passenger Details")');
   }
 
   async goTo() {

@@ -1,0 +1,101 @@
+[
+    {
+        "fromCity" : "San Francisco",
+        "toCity" : "New York",
+        "departDay" : "01",
+        "departMonth" : "November 2025",
+        "departDate" : "2025-11-01",
+        "returnDay" : "03",
+        "returnMonth" : "December 2025",
+        "returnDate" : "2025-12-03",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "New York",
+        "toCity" : "New York",
+        "departDay" : "15",
+        "departMonth" : "March 2026",
+        "departDate" : "2026-03-15",
+        "returnDay" : "25",
+        "returnMonth" : "January 2026",
+        "returnDate" : "2026-01-25",
+        "flightIndex" : 1
+    },
+    {
+        "fromCity" : "",
+        "toCity" : "Sydney",
+        "departDay" : "01",
+        "departMonth" : "November 2025",
+        "departDate" : "2025-11-01",
+        "returnDay" : "03",
+        "returnMonth" : "December 2025",
+        "returnDate" : "2025-12-03",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "New York",
+        "toCity" : "",
+        "departDay" : "01",
+        "departMonth" : "November 2025",
+        "departDate" : "2025-11-01",
+        "returnDay" : "03",
+        "returnMonth" : "December 2025",
+        "returnDate" : "2025-12-03",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "San Francisco",
+        "toCity" : "Sydney",
+        "departDay" : "",
+        "departMonth" : "November 2025",
+        "departDate" : "2025-11-01",
+        "returnDay" : "03",
+        "returnMonth" : "December 2025",
+        "returnDate" : "2025-12-03",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "Sydney",
+        "toCity" : "New York",
+        "departDay" : "01",
+        "departMonth" : "",
+        "departDate" : "2025-01-01",
+        "returnDay" : "03",
+        "returnMonth" : "December 2025",
+        "returnDate" : "2025-12-03",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "New York",
+        "toCity" : "Sydney",
+        "departDay" : "01",
+        "departMonth" : "November 2025",
+        "departDate" : "2025-11-01",
+        "returnDay" : "",
+        "returnMonth" : "December 2025",
+        "returnDate" : "2025-12-01",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "New York",
+        "toCity" : "Sydney",
+        "departDay" : "01",
+        "departMonth" : "November 2025",
+        "departDate" : "2025-11-01",
+        "returnDay" : "03",
+        "returnMonth" : "",
+        "returnDate" : "2025-01-03",
+        "flightIndex" : 2
+    },
+    {
+        "fromCity" : "",
+        "toCity" : "",
+        "departDay" : "",
+        "departMonth" : "",
+        "departDate" : "",
+        "returnDay" : "",
+        "returnMonth" : "",
+        "returnDate" : "",
+        "flightIndex" : -1
+    }
+]

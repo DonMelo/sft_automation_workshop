@@ -1,8 +1,9 @@
 const multiplesOf = (firstNumber, secondNumber) => {
 
     let sum = 0;
+
     if ((firstNumber > 0) && (secondNumber > 0)) {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 3; i++) {
             if (i % firstNumber === 0) {
                 sum = i + sum;
             }

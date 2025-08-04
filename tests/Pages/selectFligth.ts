@@ -64,10 +64,19 @@ export class SelectFlightPage {
         await this.returnMonth.selectOption(month);
     }
 
-    async selectFlight(index: number){
-        const checkbox = this.flightsTable.getByRole('checkbox').nth(index);
-        await checkbox.check();
+    // inside SelectFlightPage.ts
+
+    async selectFlight(index: number = 0) {
+    const flightOptions = this.page.locator('input[type="radio"][name="flight"]');
+    const count = await flightOptions.count();
+
+    if (index >= count) {
+        throw new Error(`Flight option index ${index} is out of range. Only ${count} options available.`);
     }
+
+    await flightOptions.nth(index).check(); // .check() for radio buttons
+    }
+
     
     async pressContinueButton() {
         await this.continueButton.click();

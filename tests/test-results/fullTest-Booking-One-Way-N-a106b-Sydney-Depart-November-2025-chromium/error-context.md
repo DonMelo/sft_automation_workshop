@@ -1,11 +1,9 @@
 # Page snapshot
 
 ```yaml
-- link "Register":
-  - /url: /users/new
-- text: "|"
-- link "Login":
-  - /url: /login
+- text: Welcome agileway |
+- link "Sign off (agileway)":
+  - /url: /logout
 - heading [level=1]
 - heading "Select Flight" [level=2]
 - table:

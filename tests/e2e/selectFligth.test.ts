@@ -22,7 +22,7 @@ test('Select a return flight after login', async ({ page }) => {
   await selectFlight.selectDepartDay('01');
   await selectFlight.selectReturnMonth('December 2025');
   await selectFlight.selectReturnDay('03');
-  await selectFlight.selectFlight(1); // Select second flight option
+  await selectFlight.selectFlight(0); 
   await selectFlight.pressContinueButton();
 
   // Step 3: Validate passenger detail step is reached

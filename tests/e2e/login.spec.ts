@@ -6,6 +6,11 @@ test.use({ storageState: undefined});
 
 let loginPage: LoginPage;
 let startPage: StartPage;
+
+const validUsername = 'agileway';
+const validPassword = 'testW1se';
+const invalidUsername = 'wrongname';
+const invalidPassword = 'wrongpassword';
 test.beforeEach('setup', async ({page}) => {
     loginPage = new LoginPage(page);
     await loginPage.goTo();
@@ -16,12 +21,12 @@ async function assertInvalidLogin(username:string, password: string) {
   await expect(loginPage.errorMessage).toHaveText('Invalid email or password');
 }
 test('Login with correct credentials is successful', async ({ page }) => {
-  await loginPage.login('agileway', 'testW1se');
+  await loginPage.login(validUsername, validPassword);
   await expect(loginPage.successMessage).toHaveText('Signed in!');
 });
 
 test('Redirect to flights start page after login', async ({ page}) => {
-  await loginPage.login('agileway', 'testW1se');
+  await loginPage.login(validUsername, validPassword);
   await loginPage.assertRedirectToFlightsStartPage();
 })
 
@@ -30,23 +35,23 @@ test('Password type is "password"', async () => {
 })
 
 test('Login with incorrect credentials is invalid', async ({ page }) => {
-  await assertInvalidLogin('wrongname','wrongpassword');
+  await assertInvalidLogin(invalidUsername, invalidPassword);
 });
 
 test('Login with correct username and incorrect password is invalid', async ({ page }) => {
-  await assertInvalidLogin('agileway','wrongpassword');
+  await assertInvalidLogin(validUsername, invalidPassword);
 });
 
 test('Login with incorrect username and correct password is invalid', async ({ page }) => {
-  await assertInvalidLogin('wrongname','testW1se');
+  await assertInvalidLogin(invalidUsername, validPassword);
 });
 
 test('Login with empty username is invalid', async ({ page }) => {
-  await assertInvalidLogin('', 'testW1se');
+  await assertInvalidLogin('', validPassword);
 });
 
 test('Login with empty password is invalid', async ({ page }) => {
-  await assertInvalidLogin('agileway', '');
+  await assertInvalidLogin(validUsername, '');
 });
 
 test('Login with empty credentials is invalid', async ({ page }) => {
@@ -54,7 +59,7 @@ test('Login with empty credentials is invalid', async ({ page }) => {
 });
 
 test('User can logout successfully', async ({ page }) => {
-  await loginPage.login('agileway', 'testW1se');
+  await loginPage.login(validUsername, validPassword);
   await expect(loginPage.successMessage).toHaveText('Signed in!');
   startPage = new StartPage(page);
   await startPage.logoutButton.click();

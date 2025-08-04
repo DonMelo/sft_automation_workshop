@@ -12,6 +12,7 @@ let confirmationPage : ConfirmationPage;
 const passengerFirstName = 'John';
 const passengerLastName = 'Doe';
 const expectedName = passengerFirstName + ' ' + passengerLastName;
+const newName = 'Johnny Deo';
 const tripType = 'return';
 const fromPort = 'New York';
 const toPort = 'Sydney';
@@ -19,6 +20,14 @@ const departDay = '14';
 const departMonth = '032025';
 const returnDay = '21';
 const returnMonth = '032025';
+
+const cardTypeMaster = "master";
+const cardTypeVisa = "visa";
+const cardNumber = '12345567';
+const cardExpiryMonth = '02';
+const cardExpiryYear = '2026';
+
+
 
 test.beforeEach('setup', async ({page}) => {
     startPage = new StartPage(page);
@@ -32,9 +41,27 @@ test.beforeEach('setup', async ({page}) => {
 test('Card holders name is prefilled from the previous step', async ({ page }) => {
     await expect(paymentPage.cardHoldersName).toHaveValue(expectedName);
 })
-test('Clicking "Pay now" button after card details submission shows "Confirmation" section with passenger name from previous page', async ({ page }) => {
-    await paymentPage.fillPaymentInfo("master", null, '12345567', '02', '2026');
-    await page.getByRole('button', { name: 'Pay now' }).click();
+
+test('Card holders name can be edited', async ({ page }) => {
+    await paymentPage.cardHoldersName.fill('');
+    await paymentPage.cardHoldersName.fill(newName);
+})
+
+test('Master: Clicking "Pay now" button after card details submission shows "Confirmation" section with passenger name from Passenger Details page', async ({ page }) => {
+    await paymentPage.fillPaymentInfo(cardTypeMaster, null, cardNumber, cardExpiryMonth, cardExpiryYear);
+    await (paymentPage.payNowButton).click();
     confirmationPage = new ConfirmationPage(page);
     await expect(confirmationPage.passengerDetails).toHaveText('Passenger Details: ' + expectedName);
+})
+
+test('Visa: Clicking "Pay now" button after card details submission shows "Confirmation" section with passenger name from Passenger Details page', async ({ page }) => {
+    await paymentPage.fillPaymentInfo(cardTypeVisa, null, cardNumber, cardExpiryMonth, cardExpiryYear);
+    await (paymentPage.payNowButton).click();
+    confirmationPage = new ConfirmationPage(page);
+    await expect(confirmationPage.passengerDetails).toHaveText('Passenger Details: ' + expectedName);
+})
+
+test.skip('Pay now button is disabled if card information is empty', async ({ page }) => {
+    await paymentPage.fillPaymentInfo(null, null, '', '', '');
+    await expect(paymentPage.payNowButton).toBeDisabled();
 })

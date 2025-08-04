@@ -38,10 +38,6 @@ export class Payment{
         await this.payNowButton.click();
     }
 
-    async verifyPaymentHeader(){
-        await expect(this.header).toHaveText('Pay by Credit Card');
-    }
-
     async fillOutTheForm(data : PaymentFormData) {
         if(data.cardType){
             if(data.cardType === 'visa'){
@@ -64,12 +60,6 @@ export class Payment{
             await this.CardExpYear.selectOption(data.expYear);
         }
         await this.payNowButtonClick();
-    }
-    
-    async verifyConfirmationAppears() {
-        await expect(this.confirmation).toBeVisible();
-        await expect(this.confirmation).toHaveText('Confirmation');
-        await expect(this.bookingNumber).toBeVisible();
     }
 
 }

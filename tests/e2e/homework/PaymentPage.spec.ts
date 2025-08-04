@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect    } from '@playwright/test';
 import { POM } from '../POM Homework/POM';
 import paymentDataSet from './utils/paymentDataSet.json';
 
@@ -8,16 +8,30 @@ for(const {label, cardType, holderName, cardNum, expMonth, expYear} of paymentDa
     const homeworkPage = POManager.getHomeworkPage();
     await homeworkPage.goToPage();
     await homeworkPage.logIn('agileway', 'testW1se');
-    await homeworkPage.verifySuccSignIn();
+
+    //Assert
+    await expect(homeworkPage.notificationForSuccSignIn).toBeVisible();
+    await expect(homeworkPage.notificationForSuccSignIn).toHaveText('Signed in!');
+    console.log('✅ Prisijungta.');
+
     const flightDetailsPage = POManager.getFlightPage();
     await flightDetailsPage.submit();
     const passengerDetailsPage = POManager.getPassengerDetailsPage();
-    await passengerDetailsPage.verifyPassengerDetailsHeader();
+
+    //Assert
+    await expect (passengerDetailsPage.Header).toHaveText('Passenger Details');
+    
     await passengerDetailsPage.fillFirstAndLastNames('firstName', 'lastName');
     await passengerDetailsPage.clickSubmitButton();
     const paymentPage = POManager.getPaymentPage();
-    await paymentPage.verifyPaymentHeader();
+
+    //Assert
+    await expect(paymentPage.header).toHaveText('Pay by Credit Card');
     await paymentPage.fillOutTheForm({cardType, holderName, cardNum, expMonth, expYear});
-    await paymentPage.verifyConfirmationAppears();
+
+    //Assert
+    await expect(paymentPage.confirmation).toBeVisible();
+    await expect(paymentPage.confirmation).toHaveText('Confirmation');
+    await expect(paymentPage.bookingNumber).toBeVisible();
 });
 }

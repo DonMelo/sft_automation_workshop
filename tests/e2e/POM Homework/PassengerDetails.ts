@@ -19,14 +19,6 @@ export class PassengerDetails{
         this.flashAlert = page.locator('#flash_alert');
     }
 
-    async confirmFlightType(flightType : string){
-        await expect (this.Flights).toContainText(flightType);
-    }
-
-    async verifyPassengerDetailsHeader(){
-        await expect (this.Header).toHaveText('Passenger Details');
-    }
-
     async fillFirstAndLastNames(firstName : string, lastName : string) {
         await this.firstName.click();
         await this.firstName.fill(firstName);
@@ -36,11 +28,6 @@ export class PassengerDetails{
 
     async clickSubmitButton(){
         await this.submitButton.click();
-    }
-
-    async verifyErrorAppears() {
-        await expect(this.flashAlert).toBeVisible();
-        await expect(this.flashAlert).toHaveText('Must provide last name');
     }
     
 }

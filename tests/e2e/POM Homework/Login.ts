@@ -34,26 +34,8 @@ export class homework{
         await this.loginButton.click();
     }
 
-    async verifySuccSignIn() {
-        await expect(this.notificationForSuccSignIn).toBeVisible();
-        await expect(this.notificationForSuccSignIn).toHaveText('Signed in!');
-        console.log('✅ Prisijungta.');
-    }
-
-    async verifyInvalidCreds(){
-        await expect(this.alert).toBeVisible();
-        await expect(this.alert).toContainText("Invalid email or password");
-        console.log('❌ Invalid email or password')
-    }
-
     async signUpClick(){
         await this.signUp.click();
-        await this.verifySignUpHeader();
-    }
-    
-    async verifySignUpHeader(){
-        await expect(this.signUpHeader).toBeVisible();
-        await expect(this.signUpHeader).toHaveText('Heading New Staff');
     }
     
 }

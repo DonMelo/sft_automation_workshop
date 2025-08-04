@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { POM } from '../POM Homework/POM';
 import testData from './utils/tripTypes.json';
 
@@ -18,7 +18,12 @@ test.only(`${label}`, async ({page}) => {
     await homeworkPage.goToPage();
     await homeworkPage.logIn('agileway', 'testW1se');
     const flightPage = POManager.getFlightPage();
-    await homeworkPage.verifySuccSignIn(); 
+
+    //Assert
+    await expect(homeworkPage.notificationForSuccSignIn).toBeVisible();
+    await expect(homeworkPage.notificationForSuccSignIn).toHaveText('Signed in!');
+    console.log('✅ Prisijungta.');
+
     let pick : any;
     pick = await flightPage.fillOutTheForm(
     {selector,
@@ -30,6 +35,8 @@ test.only(`${label}`, async ({page}) => {
     dayReturn,
     checkboxes});
     const passengerDetailsPage = POManager.getPassengerDetailsPage();
-    await passengerDetailsPage.confirmFlightType(pick);
+    
+    //Assert
+    await expect (passengerDetailsPage.Flights).toContainText(pick);
 });
 }

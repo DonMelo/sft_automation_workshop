@@ -14,10 +14,4 @@ export class signUp{
         await this.linkTermsAndConditions.click();
     }
 
-    async verifySuggestedFileName(fileName : string, download : Download){
-        await expect(fileName).toBe('tc_2014.pdf');
-        const path = await download.path();
-        await expect(path).not.toBeNull();
-    }
-
 }

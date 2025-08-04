@@ -1,6 +1,6 @@
 {
-  "name": "unit-tests",
-  "version": "1.0.0",
+  "name": "uns",
+  "version": "1.0.0it-test",
   "scripts": {
     "test": "jest"
   },

@@ -1,0 +1,6 @@
+Testai parašyti siekiant automatizuoti pagrindines ir dažniausiai naudojamas funkcijas.
+
+Naudotojai naudodami šį puslapį nuolatos prisijungs, todėl šią funkciją yra itin svarbu testuoti nuolatos atliekant bet kokius pakeitimus.
+
+Skrydžių pasirinkimo bei užsakymo funkcijos yra pagrindinė svetainės dalis, todėl ji taip pat turėtų veikti be priekaištų.
+Dėl šios priežasties šios funkcijos testai taip pat buvo automatizuoti.

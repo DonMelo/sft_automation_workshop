@@ -1,0 +1,28 @@
+[
+    {
+        "username": "",
+        "password": "testW1se",
+        "testName": "Validate empty username sign in"
+    },
+    {
+        "username": "agileway",
+        "password": "",
+        "testName": "Validate empty password sign in"
+    },
+    {
+        "username": "",
+        "password": "",
+        "testName": "Validate empty username and password sign in"
+    },
+    {
+        "username": "123",
+        "password": "testW1se",
+        "testName": "Validate incorrect username"
+    },
+    {
+        "username": "agileway",
+        "password": "test",
+        "testName": "Validate incorrect password"
+    }
+
+]

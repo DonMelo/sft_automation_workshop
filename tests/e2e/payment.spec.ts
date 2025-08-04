@@ -1,70 +1,66 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "e2e-tests/pom/login.page";
+import { FlightPage } from "e2e-tests/pom/flight.page";
+import { PassengerPage } from "e2e-tests/pom/passenger.page";
 import { PaymentPage } from "e2e-tests/pom/payment.page";
+import {
+  VALID_LOGIN_CREDENTIALS,
+  PASSENGER_DETAILS,
+  VALID_PAYMENT_DETAILS,
+  INVALID_PAYMENT_DETAILS,
+} from "e2e-tests/utils/constants";
 
-let loginPage: LoginPage;
 let paymentPage: PaymentPage;
-let validCredentials = { username: "agileway", password: "testW1se" };
-let validPaymentDetails = {
-  type: 0,
-  name: "Card Holder",
-  number: "1234567890123456",
-  expiryMonth: "04",
-  expiryYear: "2027",
-};
-let invalidCardNumber = "1234567890";
-let invalidExpiryYear = "2021";
 
 test.use({ storageState: { cookies: [], origins: [] } });
 
 test.beforeEach("setup", async ({ page }) => {
-  loginPage = new LoginPage(page);
-  await loginPage.goTo();
-  await loginPage.fillUsername(validCredentials.username);
-  await loginPage.fillPassword(validCredentials.password);
-  await loginPage.clickSignInButton();
-  await page.waitForURL("https://travel.agileway.net/flights/start");
-  await page.getByRole("button", { name: "Continue" }).click();
-  await page.waitForURL("https://travel.agileway.net/flights/select_date?*");
-  await page.locator('input[name="passengerFirstName"]').fill("Card");
-  await page.locator('input[name="passengerLastName"]').fill("Holder");
-  await page.getByRole("button", { name: "Next" }).click();
+  let loginPage = new LoginPage(page);
+  let flightPage = new FlightPage(page);
+  let passengerPage = new PassengerPage(page);
   paymentPage = new PaymentPage(page);
-  await paymentPage.assertOnPage();
+
+  await loginPage.goTo();
+  await loginPage.login(
+    VALID_LOGIN_CREDENTIALS.username,
+    VALID_LOGIN_CREDENTIALS.password
+  );
+  await expect(flightPage.title).toHaveText("Select Flight");
+  await flightPage.continueToPassengerPage();
+  await expect(passengerPage.title).toHaveText("Passenger Details");
+  await passengerPage.fillPassengerDetails(
+    PASSENGER_DETAILS.firstName,
+    PASSENGER_DETAILS.lastName
+  );
+  await passengerPage.continueToPaymentPage();
+  await expect(paymentPage.title).toHaveText("Pay by Credit Card");
 });
 
-test("pay with valid payment details", async ({ page }) => {
-  await paymentPage.checkCardType(validPaymentDetails.type);
-  await paymentPage.fillCardNumber(validPaymentDetails.number);
-  await paymentPage.selectExpiryMonth(validPaymentDetails.expiryMonth);
-  await paymentPage.selectExpiryYear(validPaymentDetails.expiryYear);
+test("should be able to pay with valid payment details", async ({ page }) => {
+  await paymentPage.fillPaymentDetails(VALID_PAYMENT_DETAILS);
   await paymentPage.clickPayButton();
-
-  await expect(await paymentPage.confirmationIsVisible()).toBe(true);
+  await page.pause();
+  await expect(paymentPage.confirmationHeading).toBeVisible({ timeout: 20000 });
 });
 
-test("pay with invalid card number", async ({ page }) => {
-  await paymentPage.checkCardType(validPaymentDetails.type);
-  await paymentPage.fillCardNumber(invalidCardNumber);
-  await paymentPage.selectExpiryMonth(validPaymentDetails.expiryMonth);
-  await paymentPage.selectExpiryYear(validPaymentDetails.expiryYear);
-  await paymentPage.clickPayButton();
-
-  await expect(await paymentPage.errorMessageIsVisible()).toBe(true);
+INVALID_PAYMENT_DETAILS.forEach(async (PaymentDetails) => {
+  test(`should not be able to pay with invalid payment details (${PaymentDetails.details})`, async ({
+    page,
+  }) => {
+    await paymentPage.fillPaymentDetails(PaymentDetails);
+    await paymentPage.clickPayButton();
+    await expect(paymentPage.failureHeading).toBeVisible({
+      timeout: 20000,
+    });
+  });
 });
 
-test("pay with invalid expiry date", async ({ page }) => {
-  await paymentPage.checkCardType(validPaymentDetails.type);
-  await paymentPage.fillCardNumber(validPaymentDetails.number);
-  await paymentPage.selectExpiryMonth(validPaymentDetails.expiryMonth);
-  await paymentPage.selectExpiryYear(invalidExpiryYear);
+test("should not be able to pay without filling in missing payment details", async ({
+  page,
+}) => {
   await paymentPage.clickPayButton();
 
-  await expect(await paymentPage.errorMessageIsVisible()).toBe(true);
-});
-
-test("pay without filling in missing payment details", async ({ page }) => {
-  await paymentPage.clickPayButton();
-
-  await expect(await paymentPage.errorMessageIsVisible()).toBe(true);
+  await expect(paymentPage.failureHeading).toBeVisible({
+    timeout: 20000,
+  });
 });

@@ -5,28 +5,18 @@ export class LoginPage {
   readonly usernameTextBox: Locator;
   readonly passwordTextBox: Locator;
   readonly signInButton: Locator;
-  readonly errorMessage: Locator;
+  readonly outcomeMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.usernameTextBox = page.locator("#username");
     this.passwordTextBox = page.locator("#password");
     this.signInButton = page.getByRole("button", { name: "Sign in" });
-    this.errorMessage = page.getByText("Invalid email or password");
+    this.outcomeMessage = page.locator("[id^=flash]");
   }
 
   async goTo() {
     await this.page.goto("https://travel.agileway.net/login");
-  }
-
-  async fillUsername(username: string) {
-    await this.usernameTextBox.click();
-    await this.usernameTextBox.fill(username);
-  }
-
-  async fillPassword(password: string) {
-    await this.passwordTextBox.click();
-    await this.passwordTextBox.fill(password);
   }
 
   async clickSignInButton() {
@@ -34,18 +24,13 @@ export class LoginPage {
   }
 
   async login(username: string, password: string) {
-    await this.fillUsername(username);
-    await this.fillPassword(password);
-    await this.clickSignInButton;
+    await this.usernameTextBox.fill(username);
+    await this.passwordTextBox.fill(password);
+    await this.signInButton.click();
   }
 
-  async errorMessageIsVisible() {
-    await this.errorMessage.waitFor({
-      state: "visible",
-      timeout: 10000,
-    });
-    return await this.errorMessage.isVisible();
+  async getOutcomeMessage() {
+    this.outcomeMessage.waitFor();
+    return await this.outcomeMessage.textContent();
   }
 }
-
-module.exports = { LoginPage };

@@ -1,15 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { CREDENTIALS } from "e2e-tests/utils/constants";
 import { LoginPage } from "e2e-tests/pom/login.page";
 
 let loginPage: LoginPage;
-let validCredentials = { username: "agileway", password: "testW1se" };
-let successfullyLoggedInURL = "https://travel.agileway.net/flights/start";
-let invalidCredentials = [
-  { username: "agileway", password: "" },
-  { username: "agileway", password: "abcd1234" },
-  { username: "", password: "testW1se" },
-  { username: "abcd", password: "testW1se" },
-];
 
 test.use({ storageState: { cookies: [], origins: [] } });
 
@@ -18,28 +11,26 @@ test.beforeEach("setup", async ({ page }) => {
   await loginPage.goTo();
 });
 
-test("login with valid credentials", async ({ page }) => {
-  await loginPage.fillUsername(validCredentials.username);
-  await loginPage.fillPassword(validCredentials.password);
-  await loginPage.clickSignInButton();
-
-  await expect(page).toHaveURL(successfullyLoggedInURL);
-});
-
-for (const invalidCredentialsPair of invalidCredentials) {
-  test(`login with invalid credentials \'${invalidCredentialsPair.username}\' and \'${invalidCredentialsPair.password}\'`, async ({
+CREDENTIALS.forEach(async ({ state, username, password }) => {
+  test(`should show meassage about ${state} login with ${state} credentials ${username} and ${password}`, async ({
     page,
   }) => {
-    await loginPage.fillUsername(invalidCredentialsPair.username);
-    await loginPage.fillPassword(invalidCredentialsPair.password);
-    await loginPage.clickSignInButton();
+    let expectedMessage;
+    if (state === "invalid") {
+      expectedMessage = "Invalid email or password";
+    } else {
+      expectedMessage = "Signed in!";
+    }
+    await loginPage.login(username, password);
 
-    await expect(await loginPage.errorMessageIsVisible()).toBe(true);
+    expect(await loginPage.getOutcomeMessage()).toEqual(expectedMessage);
   });
-}
+});
 
-test("login with empty form", async ({ page }) => {
+test("should not allow login with empty form", async ({ page }) => {
   await loginPage.clickSignInButton();
 
-  await expect(await loginPage.errorMessageIsVisible()).toBe(true);
+  expect(await loginPage.getOutcomeMessage()).toEqual(
+    "Invalid email or password"
+  );
 });

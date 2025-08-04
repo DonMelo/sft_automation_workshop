@@ -1,6 +1,5 @@
 import { Locator, Page } from "playwright";
 import { Basepage } from "./basePage.page";
-import { expect } from "playwright/test";
 export class AgilewayDetails extends Basepage{
 
   readonly firstName: Locator;
@@ -23,6 +22,6 @@ export class AgilewayDetails extends Basepage{
   }
 
   async verifyPassengerDetailsHeaderIsVisible(){
-    await expect(this.header).toContainText('Passenger Details');
+    await this.verifyHeaderContains('Passenger Details');
   }
 } 

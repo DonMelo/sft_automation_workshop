@@ -7,10 +7,12 @@ import { PaymentPage } from './pom/payment.page';
 test('Book a flight to New York', async ({ page }) => {
 
 const loginPage = new LoginPage(page);
+const flightPage = new FlightPage(page);
+const customerPage = new CustomerPage(page);
+const paymentPage = new PaymentPage(page);
+
 await loginPage.gotoFlightPage();
 await loginPage.Login();
-
-const flightPage = new FlightPage(page);
 
 await flightPage.selectTripType();
 await flightPage.selectCityFrom();
@@ -23,17 +25,13 @@ await flightPage.selectFlightOption();
 await flightPage.clickContinueButton();
 await expect(page.locator('h2')).toHaveText('Passenger Details');
 
-const customerPage = new CustomerPage(page);
-
 await customerPage.putPassengerDetails();
 await expect(page.locator('h2')).toHaveText('Pay by Credit Card');
-
-const paymentPage = new PaymentPage(page);
 
 await paymentPage.selectCardType();
 await paymentPage.putCardNumber();
 await paymentPage.selectExpiryDate();
 await paymentPage.clickPayNow();
-await expect(page.locator('#confirmation h2')).toHaveText('Confirmation');
+await expect(page.locator('#confirmation div')).toContainText('New York');
 
 });

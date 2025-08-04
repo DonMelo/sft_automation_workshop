@@ -13,10 +13,6 @@ export class CustomerPage {
         this.Next = page.locator('input[type="submit"][value="Next"]');
     }
 
-    async gotoFlightPage() {
-        this.page.goto('https://travel.agileway.net/');
-    }
-
     async putPassengerDetails() {
         await this.FirstName.fill("Simona");
         await this.LastName.fill("Aukstakalne");

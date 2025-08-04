@@ -25,10 +25,6 @@ export class FlightPage {
         this.ContinueButton = page.locator('input[type="submit"][value="Continue"]');
     }
 
-    async gotoFlightPage() {
-        this.page.goto('https://travel.agileway.net/');
-    }
-
     async selectTripType() {
         await this.TripTypeReturn.check();
     }

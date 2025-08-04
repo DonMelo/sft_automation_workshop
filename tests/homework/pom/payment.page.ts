@@ -17,9 +17,6 @@ constructor (page: Page) {
     this.PayNowButton = page.locator('input[type="submit"][value="Pay now"]');
 }
 
-    async gotoFlightPage() {
-        this.page.goto('https://travel.agileway.net/');
-    }
     async selectCardType() {
         await this.CardType.check();
     }

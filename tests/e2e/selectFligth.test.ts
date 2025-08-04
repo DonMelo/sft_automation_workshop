@@ -6,11 +6,11 @@ import { PassengerDetailsPage } from '../Pages/passengerDetails';
 test('Select a return flight after login', async ({ page }) => {
   // Step 1: Login
   const loginPage = new LoginPage(page);
-  await loginPage.gotoTo();
-  await loginPage.enterUsername('agileway');
-  await loginPage.enterPassword('test$W1se');
-  await loginPage.setRememberMe(true);
-  await loginPage.signIn();
+    await loginPage.gotoTo();
+    await loginPage.enterUsername('agileway');
+    await loginPage.enterPassword('testW1se');
+    await loginPage.setRememberMe(true);
+    await loginPage.signIn();
 
   // Step 2: Go to flight selection
   const selectFlight = new SelectFlightPage(page);

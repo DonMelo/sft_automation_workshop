@@ -4,16 +4,16 @@ import { SelectFlightPage } from '../Pages/selectFligth';
 import { PassengerDetailsPage } from '../Pages/passengerDetails';
 import { PayMethodPage } from '../Pages/payMethodPage';
 
+// Test data
+const returnData = require('../utils/selectFligthWithReturn.json');
+const oneWayData = require('../utils/selectFligthOneWayToFligth.json');
 
-const returnData = JSON.parse(JSON.stringify(require('../utils/selectFligthWithReturn.json')));
-const oneWayData = JSON.parse(JSON.stringify(require('../utils/selectFligthOneWayToFligth.json')));
-
-
+// Common login + navigation
 test.beforeEach('Login and go to flight selection', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.gotoTo();
   await loginPage.enterUsername('agileway');
-  await loginPage.enterPassword('test$W1se');
+  await loginPage.enterPassword('testW1se');
   await loginPage.setRememberMe(true);
   await loginPage.signIn();
 
@@ -21,6 +21,7 @@ test.beforeEach('Login and go to flight selection', async ({ page }) => {
   await flightPage.goTo();
 });
 
+// Return flights
 for (const data of returnData) {
   test(`Booking (Return): ${data.fromCity} → ${data.toCity} | Depart ${data.departDay} ${data.departMonth} | Return ${data.returnDay} ${data.returnMonth}`, async ({ page }) => {
     const selectFlight = new SelectFlightPage(page);
@@ -60,6 +61,7 @@ for (const data of returnData) {
   });
 }
 
+// One-way flights
 for (const data of oneWayData) {
   test(`Booking (One Way): ${data.fromCity} → ${data.toCity} | Depart ${data.departDay} ${data.departMonth}`, async ({ page }) => {
     const selectFlight = new SelectFlightPage(page);

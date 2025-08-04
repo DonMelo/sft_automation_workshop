@@ -6,12 +6,12 @@ import { PayMethodPage } from '../Pages/payMethodPage';
 
 test('End-to-end flight booking including payment', async ({ page }) => {
   // Login
- const loginPage = new LoginPage(page);
-  await loginPage.gotoTo();
-  await loginPage.enterUsername('agileway');
-  await loginPage.enterPassword('test$W1se');
-  await loginPage.setRememberMe(true);
-  await loginPage.signIn();
+  const loginPage = new LoginPage(page);
+    await loginPage.gotoTo();
+    await loginPage.enterUsername('agileway');
+    await loginPage.enterPassword('testW1se');
+    await loginPage.setRememberMe(true);
+    await loginPage.signIn();
 
   // Select flight
   const selectFlight = new SelectFlightPage(page);

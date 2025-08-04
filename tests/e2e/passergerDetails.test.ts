@@ -3,12 +3,41 @@ import { LoginPage } from '../Pages/loginPage';
 import { SelectFlightPage } from '../Pages/selectFligth';
 import { PassengerDetailsPage } from '../Pages/passengerDetails';
 
+const testData = [
+  {
+    username: 'agileway',
+    password: 'testW1se',
+    tripType: 'One way',
+    fromCity: 'New York',
+    toCity: 'Sydney',
+    departMonth: 'November 2025',
+    departDay: '01',
+    flightIndex: 1,
+    firstName: 'John',
+    lastName: '',   // missing last name to trigger alert
+  },
+  {
+    username: 'agileway',
+    password: 'testW1se',
+    tripType: 'Return',
+    fromCity: 'London',
+    toCity: 'Paris',
+    departMonth: 'December 2025',
+    departDay: '10',
+    returnMonth: 'December 2025',
+    returnDay: '20',
+    flightIndex: 0,
+    firstName: 'Alice',
+    lastName: '',   // another missing last name case
+  }
+];
+
 test('Passenger Details - missing last name should show alert', async ({ page }) => {
   // Step 1: Login
   const loginPage = new LoginPage(page);
   await loginPage.gotoTo();
   await loginPage.enterUsername('agileway');
-  await loginPage.enterPassword('test$W1se');
+  await loginPage.enterPassword('testW1se');
   await loginPage.setRememberMe(true);
   await loginPage.signIn();
 

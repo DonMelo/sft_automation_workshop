@@ -16,7 +16,7 @@ test.beforeEach(async ({page}) => {
 
 test.describe("Oneway booking", () => {
   test('One way flight booking', async ({ page }) => {
-    await agilewayStart.fullOnewayFlight('New York','Sydney','07','October 2026');
+    await agilewayStart.fillFormOnewayFlight('New York','Sydney','07','October 2026');
     
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });
@@ -24,7 +24,7 @@ test.describe("Oneway booking", () => {
 
 test.describe("Returning booking", () => {
   test('Returning flight booking', async ({ page }) => {
-    await agilewayStart.fullReturningFlight('New York','Sydney','07','October 2026','20','December 2026',1);
+    await agilewayStart.fillFormReturningFlight('New York','Sydney','07','October 2026','20','December 2026',1);
 
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });

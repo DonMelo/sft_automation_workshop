@@ -12,7 +12,7 @@ test.beforeEach(async ({page}) => {
   agilewayPayment = new AgilewayPayment(page);
   await login.gotoPage();
   await login.fullLogin('agileway','testW1se');
-  await start.fullOnewayFlight('New York','Sydney','07','October 2026');
+  await start.fillFormOnewayFlight('New York','Sydney','07','October 2026');
   await details.fullInput('first','last');
 });
 

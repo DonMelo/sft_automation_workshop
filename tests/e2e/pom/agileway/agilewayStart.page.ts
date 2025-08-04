@@ -26,7 +26,7 @@ export class AgilewayStart extends Basepage{
     this.radioButtonTime = page.getByRole('checkbox');
   }
   
-  async fullOnewayFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string){
+  async fillFormOnewayFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string){
     await this.radioButtonOneWay.check();
     await this.selectFromPort.selectOption(fromPort);
     await this.selectToPort.selectOption(toPort);
@@ -35,7 +35,7 @@ export class AgilewayStart extends Basepage{
     await this.continue();
   }
 
-  async fullReturningFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string, dayReturn: string, monthYearReturn: string, nthCheckbox: number){
+  async fillFormReturningFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string, dayReturn: string, monthYearReturn: string, nthCheckbox: number){
     await this.radioButtonReturning.check();
     await this.selectFromPort.selectOption(fromPort);
     await this.selectToPort.selectOption(toPort);

@@ -32,7 +32,7 @@ export class AgilewayStart extends Basepage{
     await this.selectToPort.selectOption(toPort);
     await this.selectDepartDay.selectOption(dayDepart);
     await this.selectDepartMonth.selectOption(monthYearDepart);
-    await this.clickButtonByName(this.buttonNameContinue);
+    await this.continue();
   }
 
   async fullReturningFlight(fromPort: string, toPort: string, dayDepart: string, monthYearDepart: string, dayReturn: string, monthYearReturn: string, nthCheckbox: number){
@@ -44,7 +44,7 @@ export class AgilewayStart extends Basepage{
     await this.selectReturnDay.selectOption(dayReturn);
     await this.selectReturnMonth.selectOption(monthYearReturn);
     await this.radioButtonTime.nth(nthCheckbox).check();
-    await this.clickButtonByName(this.buttonNameContinue);
+    await this.continue();
   }
   async continue(){
     await this.clickButtonByName(this.buttonNameContinue);

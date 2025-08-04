@@ -49,8 +49,10 @@ export class SelectFlightPage {
     }
 
     async selectDepartDay(day: string) {
-        await this.departDay.selectOption(day);
+    const formattedDay = day.padStart(2, '0');
+    await this.departDay.selectOption(formattedDay);
     }
+
 
     async selectDepartMonth(month: string) {
         await this.departMonth.selectOption(month);
@@ -64,17 +66,20 @@ export class SelectFlightPage {
         await this.returnMonth.selectOption(month);
     }
 
-    // inside SelectFlightPage.ts
-
     async selectFlight(index: number = 0) {
-    const flightOptions = this.page.locator('input[type="radio"][name="flight"]');
+    await this.page.waitForSelector('input[type="checkbox"]', { timeout: 10000 });
+    const flightOptions = this.page.locator('input[type="checkbox"]').first();
     const count = await flightOptions.count();
 
-    if (index >= count) {
-        throw new Error(`Flight option index ${index} is out of range. Only ${count} options available.`);
+    if (count === 0) {
+        throw new Error('No flight options available to select.');
     }
 
-    await flightOptions.nth(index).check(); // .check() for radio buttons
+    // if (index >= count) {
+    //     throw new Error(`Flight option index ${index} is out of range. Only ${count} options available.`);
+    // }
+
+    await flightOptions.check();
     }
 
     

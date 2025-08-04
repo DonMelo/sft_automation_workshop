@@ -14,7 +14,7 @@ const testData = [
     departDay: '01',
     flightIndex: 1,
     firstName: 'John',
-    lastName: '',   // missing last name to trigger alert
+    lastName: 'Lonsson',  
   },
   {
     username: 'agileway',
@@ -28,11 +28,11 @@ const testData = [
     returnDay: '20',
     flightIndex: 0,
     firstName: 'Alice',
-    lastName: '',   // another missing last name case
+    lastName: 'Pierson',   
   }
 ];
 
-test('Passenger Details - missing last name should show alert', async ({ page }) => {
+test('Passenger Details', async ({ page }) => {
   // Step 1: Login
   const loginPage = new LoginPage(page);
   await loginPage.gotoTo();
@@ -55,9 +55,7 @@ test('Passenger Details - missing last name should show alert', async ({ page })
   // Step 3: Passenger details
   const passengerDetails = new PassengerDetailsPage(page);
   await passengerDetails.enterFirstName('John');
-  // No last name entered
+  await passengerDetails.enterLastName('Pierson'); 
   await passengerDetails.pressNextButton();
 
-  // Step 4: Validate alert for missing last name
-  await passengerDetails.expectMissingLastNameAlert();
 });

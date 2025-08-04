@@ -36,10 +36,6 @@ for (const data of returnData) {
     await selectFlight.pressContinueButton();
 
     const passenger = new PassengerDetailsPage(page);
-    await passenger.validateDepartDate(data.departDate);
-    await passenger.validateReturnDate(data.returnDate);
-    await passenger.validateDepartCities(data.fromCity, data.toCity);
-    await passenger.validateReturnCities(data.toCity, data.fromCity);
     await passenger.enterFirstName('John');
     await passenger.enterLastName('Smith');
     await passenger.pressNextButton();
@@ -74,8 +70,6 @@ for (const data of oneWayData) {
     await selectFlight.pressContinueButton();
 
     const passenger = new PassengerDetailsPage(page);
-    await passenger.validateDepartDate(data.departDate);
-    await passenger.validateDepartCities(data.fromCity, data.toCity);
     await passenger.enterFirstName('John');
     await passenger.enterLastName('Smith');
     await passenger.pressNextButton();

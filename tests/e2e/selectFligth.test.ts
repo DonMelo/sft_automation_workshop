@@ -3,7 +3,7 @@ import { LoginPage } from '../Pages/loginPage';
 import { SelectFlightPage } from '../Pages/selectFligth';
 import { PassengerDetailsPage } from '../Pages/passengerDetails';
 
-test('Select a return flight after login', async ({ page }) => {
+test('Select a return flight', async ({ page }) => {
   // Step 1: Login
   const loginPage = new LoginPage(page);
     await loginPage.gotoTo();

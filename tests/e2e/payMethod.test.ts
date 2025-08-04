@@ -38,7 +38,7 @@ test('End-to-end flight booking including payment', async ({ page }) => {
   await payPage.selectCardType('Visa');
   await payPage.enterName(passengerName);
   await payPage.enterCardNumber('4111111111111111');
-  await payPage.selectExpiryDate('01', '2030');
+  await payPage.selectExpiryDate('01', '2025');
   await payPage.confirmPayment();
 
   // Validation

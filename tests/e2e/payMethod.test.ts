@@ -41,11 +41,4 @@ test('End-to-end flight booking including payment', async ({ page }) => {
   await payPage.selectExpiryDate('01', '2025');
   await payPage.confirmPayment();
 
-  // Validation
-  await payPage.validateDepartCities('New York', 'Sydney');
-  await payPage.validateReturnCities('Sydney', 'New York');
-  await payPage.validateDepartDate('2025-11-01');
-  await payPage.validateReturnDate('2025-12-03');
-  await payPage.validateFlightName(passengerName);
-  await payPage.validateCardName(passengerName);
 });

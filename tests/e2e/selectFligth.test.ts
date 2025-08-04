@@ -3,7 +3,6 @@ import { LoginPage } from '../Pages/loginPage';
 import { SelectFlightPage } from '../Pages/selectFligth';
 import { PassengerDetailsPage } from '../Pages/passengerDetails';
 
-// Define test scenarios for both One Way and Return trips
 const flightScenarios = [
   {
     tripType: 'Return',

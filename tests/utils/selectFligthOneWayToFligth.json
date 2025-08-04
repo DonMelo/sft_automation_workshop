@@ -34,7 +34,7 @@
     {
         "fromCity" : "New York",
         "toCity" : "Sydney",
-        "departDay" : "",
+        "departDay" : "01",
         "departMonth" : "November 2025",
         "departDate" : "2025-11-01",
         "flightIndex" : -1

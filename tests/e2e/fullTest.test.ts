@@ -8,7 +8,7 @@ import { PayMethodPage } from '../Pages/payMethodPage';
 const returnData = require('../utils/selectFligthWithReturn.json');
 const oneWayData = require('../utils/selectFligthOneWayToFligth.json');
 
-// Common login + navigation
+// Common login
 test.beforeEach('Login and go to flight selection', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.gotoTo();

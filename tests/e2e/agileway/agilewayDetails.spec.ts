@@ -21,14 +21,12 @@ test.describe('Correct details', () => {
   test('full correct information', async ({ page }) => {
     await agilewayDetails.fullInput('first','last');
     
-    // Assert
     await agilewayPayment.verifyPayByCardHeaderAppears();
   });
 
   test('No firstname', async ({ page }) => {
     await agilewayDetails.fullInput('','last');
     
-    // Assert
     await agilewayPayment.verifyPayByCardHeaderAppears();
   });
 });
@@ -36,14 +34,12 @@ test.describe('Incorrect details', () => {
   test('No firstname or lastname', async ({ page }) => {
     await agilewayDetails.fullInput('','');
     
-    // Assert
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
     await agilewayDetails.verifytLastNameAlertIsVisible();
   });
   test('No lastname', async ({ page }) => {
     await agilewayDetails.fullInput('first','');
     
-    // Assert
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
     await agilewayDetails.verifytLastNameAlertIsVisible();
   });

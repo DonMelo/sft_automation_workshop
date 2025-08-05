@@ -9,11 +9,45 @@ test.beforeEach('setup', async ({page}) => {
   await travelPage.goTo();
 });
 
-test('Validate card number (Visa/Master)', async ({ page }) => {
-await travelPage.loginFlow ('agileway', 'testW1se');
-await travelPage.flightSelect ('New York', 'Sydney', '082025', '15');
-await travelPage.passengerDetails ('Marius', 'Marauskas');
-await travelPage.cardDetails ('1234567898765432', '2026', '03');
-});
+const validCredentials = [
+  {
+   validUsername: 'agileway', 
+   validPassword: 'testW1se'
+  }
+];
+const invalidCredentials = [
+  {
+   invalidUsername: 'agilebay', 
+   invalidPassword: 'testW1se'
+  }
+ ];
+ const emptyCredentials = [
+  {
+   emptyUsername: '', 
+   emptyPassword: ''
+  }
+];
+
+for (const{validUsername, validPassword} of validCredentials) {
+  test("Should login with valid credentials", async ({ page }) => {
+    await travelPage.validLogin(validUsername, validPassword);
+    await expect(page.locator('#flash_notice')).toHaveText('Signed in!');
+  });
+}
+
+for (const{invalidUsername, invalidPassword} of invalidCredentials) {
+  test("Shouldn't login with invalid credentials", async ({ page }) => {  
+    await travelPage.invalidLogin(invalidUsername, invalidPassword);
+    await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+  });
+}
+for (const{emptyUsername, emptyPassword} of emptyCredentials) {
+  test("Shouldn't login with empty credentials", async ({ page }) => {
+    await travelPage.emptyLogin(emptyUsername, emptyPassword);
+    await expect(page.locator('#flash_alert')).toHaveText('Invalid email or password');
+  });
+}
+
+
 
 

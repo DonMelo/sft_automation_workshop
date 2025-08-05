@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
     await expect(loginPage.successNotification).toBeVisible();
     await expect(loginPage.successNotification).toHaveText('Signed in!');
 });
-
+test.describe('Flight details tests', () => {
 for(const {label,
 selector,
 fromPort,
@@ -20,22 +20,23 @@ monthYearReturn,
 dayDepart,
 dayReturn,
 checkboxes} of testData){
-test(`${label}`, async ({page}) => {
-    const POManager = new POM(page);
-    const flightPage = POManager.getFlightPage();
+    test(`${label}`, async ({page}) => {
+        const POManager = new POM(page);
+        const flightPage = POManager.getFlightPage();
 
-    let pick : any;
-    pick = await flightPage.fillOutForm(
-    {selector,
-    fromPort,
-    toPort,
-    monthYearDepart,
-    monthYearReturn,
-    dayDepart,
-    dayReturn,
-    checkboxes});
-    const passengerDetailsPage = POManager.getPassengerDetailsPage();
-    
-    await expect (passengerDetailsPage.flightsInfo).toContainText(pick);
+        let pick : any;
+        pick = await flightPage.fillOutForm(
+        {selector,
+        fromPort,
+        toPort,
+        monthYearDepart,
+        monthYearReturn,
+        dayDepart,
+        dayReturn,
+        checkboxes});
+        const passengerDetailsPage = POManager.getPassengerDetailsPage();
+        
+        await expect (passengerDetailsPage.flightsInfo).toContainText(pick);
+    });
+    }
 });
-}

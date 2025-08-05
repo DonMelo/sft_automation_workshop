@@ -13,38 +13,42 @@ test.beforeEach(async ({ page }) => {
     await expect(loginPage.successNotification).toHaveText('Signed in!');
 });
 
-for(const {label, firstName, lastName} of wrongDataSet){
-    test(`${label}`, async ({page}) => {
-    const POManager = new POM(page);
+test.describe('Negative Passenger Details tests', () => {
+    for(const {label, firstName, lastName} of wrongDataSet){
+        test(`${label}`, async ({page}) => {
+        const POManager = new POM(page);
 
-    const flightDetailsPage = POManager.getFlightPage();
-    await flightDetailsPage.submit();
-    const passengerDetailsPage = POManager.getPassengerDetailsPage();
+        const flightDetailsPage = POManager.getFlightPage();
+        await flightDetailsPage.submit();
+        const passengerDetailsPage = POManager.getPassengerDetailsPage();
 
-    await expect (passengerDetailsPage.header).toHaveText('Passenger Details');
+        await expect (passengerDetailsPage.header).toHaveText('Passenger Details');
 
-    await passengerDetailsPage.fillFirstAndLastNames(firstName, lastName);
-    await passengerDetailsPage.clickSubmitButton();
+        await passengerDetailsPage.fillFirstAndLastNames(firstName, lastName);
+        await passengerDetailsPage.clickSubmitButton();
 
-    await expect(passengerDetailsPage.flashAlert).toBeVisible();
-    await expect(passengerDetailsPage.flashAlert).toHaveText('Must provide last name');
+        await expect(passengerDetailsPage.flashAlert).toBeVisible();
+        await expect(passengerDetailsPage.flashAlert).toHaveText('Must provide last name');
+    });
+    }
 });
-}
 
-for(const {label, firstName, lastName} of dataSet){
-    test(`${label}`, async ({page}) => {
-    const POManager = new POM(page);
+test.describe('Positive Passenger Details tests', () => {
+    for(const {label, firstName, lastName} of dataSet){
+        test(`${label}`, async ({page}) => {
+        const POManager = new POM(page);
 
-    const flightDetailsPage = POManager.getFlightPage();
-    await flightDetailsPage.submit();
-    const passengerDetailsPage = POManager.getPassengerDetailsPage();
+        const flightDetailsPage = POManager.getFlightPage();
+        await flightDetailsPage.submit();
+        const passengerDetailsPage = POManager.getPassengerDetailsPage();
 
-    await expect (passengerDetailsPage.header).toHaveText('Passenger Details');
+        await expect (passengerDetailsPage.header).toHaveText('Passenger Details');
 
-    await passengerDetailsPage.fillFirstAndLastNames(firstName, lastName);
-    await passengerDetailsPage.clickSubmitButton();
-    const paymentPage = POManager.getPaymentPage();
-    
-    await expect(paymentPage.header).toHaveText('Pay by Credit Card');
+        await passengerDetailsPage.fillFirstAndLastNames(firstName, lastName);
+        await passengerDetailsPage.clickSubmitButton();
+        const paymentPage = POManager.getPaymentPage();
+        
+        await expect(paymentPage.header).toHaveText('Pay by Credit Card');
+    });
+    }
 });
-}

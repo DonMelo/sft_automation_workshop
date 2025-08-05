@@ -7,6 +7,7 @@ test('Should succesfully download "Terms and Conditions"', async ({page}) => {
     let signUpPage = POManager.getSignUpPage();
     await loginPage.goToPage('users/new');
     const downloadPromise = page.waitForEvent('download');
+    
     await expect(loginPage.signUpHeader).toBeVisible();
     await expect(loginPage.signUpHeader).toHaveText('Heading New Staff');
     await signUpPage.clickTermsAndConditions();

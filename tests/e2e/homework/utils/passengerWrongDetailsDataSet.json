@@ -1,0 +1,10 @@
+[{
+    "label" : "Filling 'Passenger details' form with wrong credentials (no first name and last name provided) - Should not proceed to payment",
+    "firstName" : "",
+    "lastName" : ""
+},
+{
+    "label" : "Filling 'Passenger details' form with wrong credentials (only first name provided) - Should not proceed to payment",
+    "firstName" : "haha123",
+    "lastName" : ""
+}]

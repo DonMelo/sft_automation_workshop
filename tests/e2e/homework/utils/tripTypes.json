@@ -1,0 +1,37 @@
+[{
+    "label" : "Filling flight details from while selecting 'Return' trip with all possible data - Should proceed to passenger details",
+    "selector" : "first",
+    "fromPort" : "Sydney",
+    "toPort" : "New York",
+    "monthYearDepart" : "062025",
+    "monthYearReturn" : "072025",
+    "dayDepart" : "03",
+    "dayReturn" : "05",
+    "checkboxes": {
+      "firstCheckbox": true,
+      "secondCheckbox": false,
+      "thirdCheckbox": true
+    }
+},
+{
+    "label" : "Filling flight details from while selecting 'One way' trip with all possible data - Should proceed to passenger details",
+    "selector" : "last",
+    "fromPort" : "Sydney",
+    "toPort" : "New York",
+    "monthYearDepart" : "062025",
+    "dayDepart" : "03",
+    "checkboxes": {
+      "firstCheckbox": true,
+      "secondCheckbox": false,
+      "thirdCheckbox": true
+    }
+},
+{
+    "label" : "Filling flight details from while selecting 'Return' trip with no additional data - Should proceed to passenger details",
+    "selector" : "first"
+},
+{
+    "label" : "Filling flight details from while selecting 'One way' trip with no additional data - Should proceed to passenger details",
+    "selector" : "last"
+}
+]

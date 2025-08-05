@@ -1,0 +1,16 @@
+[{
+    "label" : "Logging in with wrong username, correct password - Should not login",
+    "username" : "haha123",
+    "password" : "testW1se"
+ },
+ {
+    "label" : "Logging in with correct username, wrong password - Should not login",
+    "username" : "agileway",
+    "password" : "haha123"
+ },
+ {
+    "label" : "Logging in with wrong username, wrong password - Should not login",
+    "username" : "haha123",
+    "password" : "haha123"
+ }
+]

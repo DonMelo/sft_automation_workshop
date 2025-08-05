@@ -1,0 +1,10 @@
+[{
+    "label" : "Filling 'Passenger details' form with only last name provided - Should proceed to payment",
+    "firstName" : "",
+    "lastName" : "haha123"
+},
+{
+    "label" : "Filling 'Passenger details' form with first and last name provided - Should proceed to payment",
+    "firstName" : "haha123",
+    "lastName" : "haha123"
+}]

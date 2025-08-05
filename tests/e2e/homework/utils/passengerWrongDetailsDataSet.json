@@ -1,10 +1,10 @@
 [{
-    "label" : "Shouldn't pass to payment, wrong credentials (no first name and last name provided)",
+    "label" : "Filling 'Passenger details' form with wrong credentials (no first name and last name provided) - Should not proceed to payment",
     "firstName" : "",
     "lastName" : ""
 },
 {
-    "label" : "Shouldn't pass to payment, wrong credentials (only first name provided)",
+    "label" : "Filling 'Passenger details' form with wrong credentials (only first name provided) - Should not proceed to payment",
     "firstName" : "haha123",
     "lastName" : ""
 }]

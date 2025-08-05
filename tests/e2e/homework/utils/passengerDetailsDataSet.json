@@ -1,10 +1,10 @@
 [{
-    "label" : "Should pass to payment with only last name provided",
+    "label" : "Filling 'Passenger details' form with only last name provided - Should proceed to payment",
     "firstName" : "",
     "lastName" : "haha123"
 },
 {
-    "label" : "Should pass to payment with both, first and last name provided",
+    "label" : "Filling 'Passenger details' form with first and last name provided - Should proceed to payment",
     "firstName" : "haha123",
     "lastName" : "haha123"
 }]

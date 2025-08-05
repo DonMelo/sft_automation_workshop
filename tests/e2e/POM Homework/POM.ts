@@ -1,46 +1,44 @@
 import { type Page } from '@playwright/test';
-import {homework} from './Login';
-import {flight} from './flight';
+import { LoginPage } from './Login';
+import { Flight } from './Flight';
 import { PassengerDetails } from './PassengerDetails';
-import {signUp} from './signUp';
+import { SignUp } from './SignUp';
 import { Payment } from './Payment';
 
-export class POM{
-
+export class POM {
     readonly page: Page;
-    readonly flight : flight;
-    readonly homework : homework;
-    readonly passengerDetails : PassengerDetails;
-    readonly signUpPage : signUp;
-    readonly payment : Payment;
+    readonly flight: Flight;
+    readonly loginPage: LoginPage;
+    readonly passengerDetails: PassengerDetails;
+    readonly signUpPage: SignUp;
+    readonly payment: Payment;
 
-    constructor(page : Page){
+    constructor(page: Page) {
         this.page = page;
-        this.homework = new homework(this.page);
-        this.flight = new flight(this.page);
+        this.loginPage = new LoginPage(this.page);
+        this.flight = new Flight(this.page);
         this.passengerDetails = new PassengerDetails(this.page);
-        this.signUpPage = new signUp(this.page);
+        this.signUpPage = new SignUp(this.page);
         this.payment = new Payment(this.page);
     }
 
-    getHomeworkPage(){
-        return this.homework;
+    getLoginPage(): LoginPage {
+        return this.loginPage;
     }
 
-    getFlightPage(){
+    getFlightPage(): Flight {
         return this.flight;
     }
 
-    getPassengerDetailsPage(){
+    getPassengerDetailsPage(): PassengerDetails {
         return this.passengerDetails;
     }
 
-    getSignUpPage(){
+    getSignUpPage(): SignUp {
         return this.signUpPage;
     }
 
-    getPaymentPage(){
+    getPaymentPage(): Payment {
         return this.payment;
     }
-    
 }

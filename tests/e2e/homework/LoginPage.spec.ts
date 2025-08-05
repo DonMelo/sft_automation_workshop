@@ -4,27 +4,23 @@ import userDataSet from './utils/userDataSet.json';
 
 test('Should succesfully login', async ({page}) => {
     const POManager = new POM(page);
-    const homeworkPage = POManager.getHomeworkPage();
-    await homeworkPage.goToPage();
-    await homeworkPage.logIn('agileway', 'testW1se');
+    const loginPage = POManager.getLoginPage();
+    await loginPage.goToPage();
+    await loginPage.login('agileway', 'testW1se');
 
-    //Assert
-    await expect(homeworkPage.notificationForSuccSignIn).toBeVisible();
-    await expect(homeworkPage.notificationForSuccSignIn).toHaveText('Signed in!');
-    console.log('✅ Prisijungta.');
+    await expect(loginPage.successNotification).toBeVisible();
+    await expect(loginPage.successNotification).toHaveText('Signed in!');
 });
 
 for(const {label, username, password} of userDataSet)
 test(`${label}`, async ({page}) => {
     const POManager = new POM(page);
-    const homeworkPage = POManager.getHomeworkPage();
-    await homeworkPage.goToPage();
-    await homeworkPage.logIn(username, password);
+    const loginPage = POManager.getLoginPage();
+    await loginPage.goToPage();
+    await loginPage.login(username, password);
 
-    //Assert
-    await expect(homeworkPage.alert).toBeVisible();
-    await expect(homeworkPage.alert).toContainText("Invalid email or password");
-    console.log('❌ Invalid email or password')
+    await expect(loginPage.alertNotification).toBeVisible();
+    await expect(loginPage.alertNotification).toContainText("Invalid email or password");
 });
 
 

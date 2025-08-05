@@ -1,6 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { POM } from '../POM Homework/POM';
 import testData from './utils/tripTypes.json';
+test.beforeEach(async ({ page }) => {
+    const POManager = new POM(page);
+    const loginPage = POManager.getLoginPage();
+    await loginPage.goToPage();
+    await loginPage.login('agileway', 'testW1se');
+    
+    await expect(loginPage.successNotification).toBeVisible();
+    await expect(loginPage.successNotification).toHaveText('Signed in!');
+});
 
 for(const {label,
 selector,
@@ -11,21 +20,12 @@ monthYearReturn,
 dayDepart,
 dayReturn,
 checkboxes} of testData){
-test.only(`${label}`, async ({page}) => {
-    //login part
+test(`${label}`, async ({page}) => {
     const POManager = new POM(page);
-    const homeworkPage = POManager.getHomeworkPage();
-    await homeworkPage.goToPage();
-    await homeworkPage.logIn('agileway', 'testW1se');
     const flightPage = POManager.getFlightPage();
 
-    //Assert
-    await expect(homeworkPage.notificationForSuccSignIn).toBeVisible();
-    await expect(homeworkPage.notificationForSuccSignIn).toHaveText('Signed in!');
-    console.log('✅ Prisijungta.');
-
     let pick : any;
-    pick = await flightPage.fillOutTheForm(
+    pick = await flightPage.fillOutForm(
     {selector,
     fromPort,
     toPort,
@@ -36,7 +36,6 @@ test.only(`${label}`, async ({page}) => {
     checkboxes});
     const passengerDetailsPage = POManager.getPassengerDetailsPage();
     
-    //Assert
-    await expect (passengerDetailsPage.Flights).toContainText(pick);
+    await expect (passengerDetailsPage.flightsInfo).toContainText(pick);
 });
 }

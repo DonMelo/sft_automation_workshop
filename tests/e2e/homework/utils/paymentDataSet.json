@@ -1,5 +1,5 @@
 [{
-    "label" : "Visa card type with changed holder name",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type and changing holder name - Should proceed to confirmation",
     "cardType" : "visa",
     "holderName" : "haha123",
     "cardNum" : "123123",
@@ -7,7 +7,7 @@
     "expYear" : "2016"
 },
 {
-    "label" : "Visa card type with the same holder name",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type with the same holder name - Should proceed to confirmation",
     "cardType" : "visa",
     "holderName" : "haha123",
     "cardNum" : "123123",
@@ -15,28 +15,28 @@
     "expYear" : "2025"
 },
 {
-    "label" : "No card type selected with changed holder name",
+    "label" : "Filling 'Payment' form while no card type selected with changed holder name - Should proceed to confirmation",
     "holderName" : "haha123",
     "cardNum" : "123123",
     "expMonth" : "03",
     "expYear" : "2025"
 },
 {
-    "label" : "No card type selected with the same holder name",
+    "label" : "Filling 'Payment' form while no card type selected with the same holder name - Should proceed to confirmation",
     "holderName" : "haha123",
     "cardNum" : "123123",
     "expMonth" : "03",
     "expYear" : "2025"
 },
 {
-    "label" : "Visa card type with no holder name",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type with no holder name - Should proceed to confirmation",
     "cardType" : "visa",
     "cardNum" : "123123",
     "expMonth" : "03",
     "expYear" : "2025"
 },
 {
-    "label" : "Visa card type with no card number",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type with no card number - Should proceed to confirmation",
     "cardType" : "visa",
     "holderName" : "haha123",
     "cardNum" : "123123",
@@ -44,21 +44,21 @@
     "expYear" : "2025"
 },
 {
-    "label" : "Visa card type with default expiry month",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type with default expiry month - Should proceed to confirmation",
     "cardType" : "visa",
     "holderName" : "haha123",
     "cardNum" : "123123",
     "expYear" : "2016"
 },
 {
-    "label" : "Visa card type with default expiry year",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type with default expiry year - Should proceed to confirmation",
     "cardType" : "visa",
     "holderName" : "haha123",
     "cardNum" : "123123",
     "expMonth" : "03"
 },
 {
-    "label" : "Visa card type with no provided card number",
+    "label" : "Filling 'Payment' form while selecting 'Visa' card type with no provided card number - Should proceed to confirmation",
     "cardType" : "visa",
     "holderName" : "haha123",
     "expMonth" : "03",

@@ -1,9 +1,9 @@
 import { type Page } from '@playwright/test';
-import { LoginPage } from './Login';
+import { LoginPage } from './login';
 import { Flight } from './Flight';
-import { PassengerDetails } from './PassengerDetails';
-import { SignUp } from './SignUp';
-import { Payment } from './Payment';
+import { PassengerDetails } from './passengerDetails';
+import { SignUp } from './signUp';
+import { Payment } from './payment';
 
 export class POM {
     readonly page: Page;

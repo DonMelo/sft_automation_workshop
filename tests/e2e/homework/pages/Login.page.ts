@@ -32,6 +32,7 @@ export class LoginPage extends BasePage {
     }
 
     async loginWithBaseCredentials() {
+        await this.goto();
         await this.enterUsername(vars.correct_username);
         await this.enterPassword(vars.correct_password);
         await this.submitSignIn();

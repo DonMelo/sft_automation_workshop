@@ -1,9 +1,9 @@
 import { Page, expect, Locator, test } from '@playwright/test';
 import { vars } from '../others/constants';
 import { PassengerPage } from './PassengerDetails.page';
+import { BasePage } from './BasePage.page';
 
-export class PaymentPage {
-    readonly page: Page;
+export class PaymentPage extends BasePage {
     readonly PassengerPage: PassengerPage;
 
     readonly cardType: Locator;
@@ -17,7 +17,7 @@ export class PaymentPage {
 
 
     constructor(page: Page){
-        this.page = page;
+        super(page)
         this.PassengerPage = new PassengerPage(page);
 
         this.cardType = page.locator('[name="card_type"]');

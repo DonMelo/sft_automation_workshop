@@ -7,12 +7,14 @@ export class BasePage {
     // Common locators for error and notice messages
     readonly error: Locator;
     readonly notice: Locator;
+    readonly header: Locator;
 
     constructor(page: Page){
         this.page = page;
 
         this.error = page.locator('#flash_alert');
         this.notice = page.locator('#flash_notice');
+        this.header = page.locator('h2');
     }
 
     async goto(){
@@ -29,5 +31,9 @@ export class BasePage {
 
     async expectErrorVisible() {
         await expect(this.error).toBeVisible();
+    }
+
+    async expectHeaderValue(text: string){
+        await expect(this.header).toContainText(text);
     }
 }

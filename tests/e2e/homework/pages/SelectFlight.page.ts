@@ -22,6 +22,11 @@ export class SelectFlightPage extends BasePage {
     readonly continueButton: Locator;
     readonly selectFlightButton: Locator;
 
+    readonly firstFromCity: Locator;
+    readonly firstToCity: Locator;
+    readonly secondFromCity: Locator;
+    readonly secondToCity: Locator;
+
     constructor(page: Page){
         super(page);
         this.loginPage = new LoginPage(page);
@@ -36,6 +41,11 @@ export class SelectFlightPage extends BasePage {
         this.selectReturnMonth = page.locator('#returnMonth');
         this.continueButton = page.locator('[type="submit"]');
         this.selectFlightButton = page.locator('[type="checkbox"]');
+
+        this.firstFromCity = page.locator('#container > div:nth-child(4) > b:nth-child(2)');
+        this.firstToCity = page.locator('#container > div:nth-child(4) > b:nth-child(3)');
+        this.secondFromCity = page.locator('#container > div:nth-child(4) > b:nth-child(5)');
+        this.secondToCity = page.locator('#container > div:nth-child(4) > b:nth-child(6)');
     }
 
     async goto() {
@@ -120,5 +130,21 @@ export class SelectFlightPage extends BasePage {
         } else {
             await expect(this.continueButton).toBeDisabled();
         }
+    }
+
+    async expectFirstFromCityToContain(text: string){
+        await expect(this.firstFromCity).toContainText(text);
+    }
+
+    async expectFirstToCityToContain(text: string){
+        await expect(this.firstToCity).toContainText(text);
+    }
+
+    async expectSecondFromCityToContain(text: string){
+        await expect(this.secondFromCity).toContainText(text);
+    }
+
+    async expectSecondToCityToContain(text: string){
+        await expect(this.secondToCity).toContainText(text);
     }
 }

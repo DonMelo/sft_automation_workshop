@@ -14,7 +14,7 @@ test('Enter valid passenger details', async ({ page }) => {
     await passengerPage.enterPassengerSurname(vars.passenger_surname);
     await passengerPage.submitPassengerDetails();
 
-    await expect(page.locator('h2')).toContainText('Pay by Credit Card');
+    await passengerPage.expectHeaderValue('Pay by Credit Card');
 });
 
 test.describe('Enter invalid passenger details', () => {

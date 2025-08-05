@@ -31,11 +31,11 @@ test('Select return trip', async () => {
     await expect(selectFlightPage.selectFlightButton.first()).toBeChecked();
 
     await selectFlightPage.continueToNextStep();
-    await expect(selectFlightPage.page.locator('h2')).toContainText('Passenger Details');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(2)')).toContainText(vars.flight_from);
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText(vars.flight_to);
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(5)')).toContainText(vars.flight_to);
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(6)')).toContainText(vars.flight_from);
+    await selectFlightPage.expectHeaderValue('Passenger Details');
+    await selectFlightPage.expectFirstFromCityToContain(vars.flight_from);
+    await selectFlightPage.expectFirstToCityToContain(vars.flight_to);
+    await selectFlightPage.expectSecondFromCityToContain(vars.flight_to);
+    await selectFlightPage.expectSecondToCityToContain(vars.flight_from);
 });
 
 test('Select one-way trip', async () => {
@@ -55,9 +55,9 @@ test('Select one-way trip', async () => {
     await expect(selectFlightPage.selectFlightButton.first()).toBeChecked();
 
     await selectFlightPage.continueToNextStep();
-    await expect(selectFlightPage.page.locator('h2')).toHaveText('Passenger Details');
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(2)')).toContainText(vars.flight_from);
-    await expect(selectFlightPage.page.locator('#container > div:nth-child(4) > b:nth-child(3)')).toContainText(vars.flight_to);
+    await selectFlightPage.expectHeaderValue('Passenger Details');
+    await selectFlightPage.expectFirstFromCityToContain(vars.flight_from);
+    await selectFlightPage.expectFirstToCityToContain(vars.flight_to);
 });
 
 

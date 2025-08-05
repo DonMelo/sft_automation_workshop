@@ -12,6 +12,7 @@
     "test:e2e": "npm run test -w tests"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@types/node": "^20.14.9",
     "typescript": "^5.5.2"
   }

@@ -14,25 +14,25 @@
       - cell "Visa Master":
         - radio
         - text: Visa
-        - radio [checked]
+        - radio
         - text: Master
-    - 'row "Card holder''s name: Jacob James"':
+    - 'row "Card holder''s name: John J4mes8946"':
       - cell "Card holder's name:"
-      - cell "Jacob James":
-        - textbox: Jacob James
-    - 'row "Card number: 1234567890123456"':
+      - cell "John J4mes8946":
+        - textbox: John J4mes8946
+    - row "Card number:":
       - cell "Card number:"
-      - cell "1234567890123456":
-        - textbox: "1234567890123456"
-    - 'row "Expiry in : 05 / 2016"':
+      - cell:
+        - textbox
+    - 'row "Expiry in : 01 / 2025"':
       - cell "Expiry in :"
-      - cell "05 / 2016":
+      - cell "01 / 2025":
         - combobox:
-          - option "01"
+          - option "01" [selected]
           - option "02"
           - option "03"
           - option "04"
-          - option "05" [selected]
+          - option "05"
           - option "06"
           - option "07"
           - option "08"
@@ -42,19 +42,12 @@
           - option "12"
         - text: /
         - combobox:
-          - option "2025"
+          - option "2025" [selected]
           - option "2026"
           - option "2027"
           - option "2028"
-          - option "2016" [selected]
+          - option "2016"
           - option "2021"
 - paragraph:
   - button "Pay now"
-- heading "Confirmation" [level=2]
-- paragraph: "Booking number: 86889"
-- paragraph:
-  - strong: Flights
-  - text: (return Trip)
-- text: 2025-11-16 New York to New York 2026-04-25 New York to New York
-- paragraph: "Passenger Details: John Jacobs"
 ```

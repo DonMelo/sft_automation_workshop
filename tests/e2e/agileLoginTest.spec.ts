@@ -1,28 +1,27 @@
 import { test, expect, Page } from '@playwright/test';
-import { POM } from './pom/POM';
+import { LogInPage } from './pom/agileLogIn.page';
+import { StartPage } from './pom/agileStart.page';
+import  testData  from './utils/InvalidLoginTestData.json';
+const testDataString = JSON.parse(JSON.stringify(testData))
 
-const testData = JSON.parse(JSON.stringify(require("./utils/InvalidLoginTestData.json")));
-
-let pom: POM;
-let loginPage: any;
-let startPage: any;
+let loginPage: LogInPage;
+let startPage: StartPage;
 
 test.beforeEach("Go to Log In page", async ({ page }) => {
-    pom = new POM(page);
-    loginPage = pom.getLoginPage();
-    startPage = pom.getStartPage();
+    loginPage = new LogInPage(page);
+    startPage = new StartPage(page);
     await loginPage.goToPage();
 })
 
-test("Validate correct sign in data", async ({ page }) => {
+test("Validate correct sign in data", async () => {
     await loginPage.signIn("agileway", "testW1se");
     await startPage.checkSuccessMessage("Signed in!");
 })
 
 
-for(const data of testData){
+for(const data of testDataString){
 
-    test(`${data.testName}`, async ({ page }) => {
+    test(`${data.testName}`, async () => {
         await loginPage.signIn(data.username, data.password);
         await loginPage.checkErrorMessage("Invalid email or password");
     })

@@ -18,14 +18,14 @@ export class LogInPage {
         await this.page.goto("https://travel.agileway.net/login");
     }
 
-    async signIn(username: String, password: String){
-        await this.loginInput.fill(`${username}`);
-        await this.passwordInput.fill(`${password}`);
+    async signIn(username: string, password: string){
+        await this.loginInput.fill(username);
+        await this.passwordInput.fill(password);
         await this.signInButton.click();
     }
 
-    async checkErrorMessage(errorMessage: String){
-        await expect(this.page.locator("#flash_alert")).toContainText(`${errorMessage}`);
+    async checkErrorMessage(errorMessage: string){
+        await expect(this.page.locator("#flash_alert")).toContainText(errorMessage);
     }
 
 }

@@ -1,26 +1,25 @@
 import { test, expect, Page } from '@playwright/test';
-import { POM } from './pom/POM';
-import { start } from 'repl';
+import { LogInPage } from './pom/agileLogIn.page';
+import { StartPage } from './pom/agileStart.page';
+import { PassangerDetailsPage } from './pom/agilePassangerDetails.page';
 
-let pom: POM;
-let loginPage: any;
-let startPage: any;
-let passangerDetailsPage: any;
+let loginPage: LogInPage;
+let startPage: StartPage;
+let passangerDetailsPage: PassangerDetailsPage;
 
 
 test.beforeEach("Setup",async ({ page }) =>{
-    pom = new POM(page);
-    loginPage = pom.getLoginPage();
+    loginPage = new LogInPage(page);
     await loginPage.goToPage();
     await loginPage.signIn("agileway", "testW1se");
-    startPage = pom.getStartPage();
+    startPage = new StartPage(page);
     await startPage.selectFromLocation("New York");
     await startPage.selectToLocation("New York");
     await startPage.selectDepartureDate("16", "November 2025")
     await startPage.selectReturnDate("25", "April 2026")
     await startPage.checkThirdFlight();
     await startPage.clickContinueButton();
-    passangerDetailsPage = pom.getPassangerDetailsPage();
+    passangerDetailsPage = new PassangerDetailsPage(page)
 
 })
 
@@ -121,7 +120,7 @@ test("Non-ASCII first name and last name", async () => {
     await passangerDetailsPage.checkSuccessMessage("Successful")
 })
 
-test.only("first name and Non-ASCII last name", async () => {
+test("first name and Non-ASCII last name", async () => {
     
     await passangerDetailsPage.inputFirstName("Emily")
     await passangerDetailsPage.inputLastName("Žukauskaitė")

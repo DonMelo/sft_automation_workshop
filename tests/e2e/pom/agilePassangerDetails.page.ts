@@ -18,18 +18,18 @@ export class PassangerDetailsPage{
         await this.nextButton.click();
     }
 
-    async inputFirstName(name: String){
-        await this.firstNameInput.fill(`${name}`);
+    async inputFirstName(name: string){
+        await this.firstNameInput.fill(name);
     }
 
-    async inputLastName(name: String){
-        await this.lastNameInput.fill(`${name}`);
+    async inputLastName(name: string){
+        await this.lastNameInput.fill(name);
     }
-    async checkErrorMessage(errorMessage: String){
-        await expect(this.page.locator("#flash_alert")).toContainText(`${errorMessage}`);
+    async checkErrorMessage(errorMessage: string){
+        await expect(this.page.locator("#flash_alert")).toContainText(errorMessage);
     }
 
-    async checkSuccessMessage(successMessage: String){
-        await expect(this.page.locator("#flash_notice")).toContainText(`${successMessage}`);
+    async checkSuccessMessage(successMessage: string){
+        await expect(this.page.locator("#flash_notice")).toContainText(successMessage);
     }
 }

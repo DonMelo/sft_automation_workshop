@@ -16,17 +16,17 @@
         - text: Visa
         - radio [checked]
         - text: Master
-    - 'row "Card holder''s name: John Jackson"':
+    - 'row "Card holder''s name: Jacob James"':
       - cell "Card holder's name:"
-      - cell "John Jackson":
-        - textbox: John Jackson
-    - 'row "Card number: 1234567890123456"':
+      - cell "Jacob James":
+        - textbox: Jacob James
+    - row "Card number:":
       - cell "Card number:"
-      - cell "1234567890123456":
-        - textbox: "1234567890123456"
-    - 'row "Expiry in : 05 / 2016"':
+      - cell:
+        - textbox
+    - 'row "Expiry in : 05 / 2027"':
       - cell "Expiry in :"
-      - cell "05 / 2016":
+      - cell "05 / 2027":
         - combobox:
           - option "01"
           - option "02"
@@ -44,14 +44,14 @@
         - combobox:
           - option "2025"
           - option "2026"
-          - option "2027"
+          - option "2027" [selected]
           - option "2028"
-          - option "2016" [selected]
+          - option "2016"
           - option "2021"
 - paragraph:
   - button "Pay now"
 - heading "Confirmation" [level=2]
-- paragraph: "Booking number: 86690"
+- paragraph: "Booking number: 86884"
 - paragraph:
   - strong: Flights
   - text: (return Trip)

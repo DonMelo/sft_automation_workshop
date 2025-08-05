@@ -1,6 +1,4 @@
 {
-  "name": "uns",
-  "version": "1.0.0it-test",
   "scripts": {
     "test": "jest"
   },

@@ -25,7 +25,7 @@ export class PaymentPage{
     async clickPayNowButton(){
         await this.payNowButton.click();
     }
-    async selectCardType(cardType: String){
+    async selectCardType(cardType: string){
         if(cardType.toLowerCase() === "master"){
             await this.masterRadioButton.check();
         }
@@ -37,21 +37,21 @@ export class PaymentPage{
         }
     }
 
-    async inputCardholdersName(name: String){
-        await this.cardholdersNameInput.fill(`${name}`)
+    async inputCardholdersName(name: string){
+        await this.cardholdersNameInput.fill(name)
     }
 
-    async inputCardNumber(cardNumber: String){
-        await this.cardNumberInput.fill(`${cardNumber}`)
+    async inputCardNumber(cardNumber: string){
+        await this.cardNumberInput.fill(cardNumber)
     }
 
-    async inputCardExpiryDate(month: String, year: String){
-        await this.cardExpireMonth.selectOption(`${month}`)
-        await this.cardExpireYear.selectOption(`${year}`)
+    async inputCardExpiryDate(month: string, year: string){
+        await this.cardExpireMonth.selectOption(month)
+        await this.cardExpireYear.selectOption(year)
     }
 
-    async checkErrorMessage(errorMessage: String){
-        await expect(this.page.locator("#flash_alert")).toContainText(`${errorMessage}`);
+    async checkErrorMessage(errorMessage: string){
+        await expect(this.page.locator("#flash_alert")).toContainText(errorMessage);
     }
 
     async checkConfirmation(){

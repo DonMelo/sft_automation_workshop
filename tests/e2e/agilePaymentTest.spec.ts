@@ -84,7 +84,7 @@ test("empty card holder's name", async () => {
 test("100 charactares cardholder's name", async () => {
     await paymentPage.selectCardType(testData.CardType);
     await paymentPage.inputCardholdersName(`vLrQeKfWgJyRaAmncHXkBZpTq
-        "YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs`)
+        YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs`)
     await paymentPage.inputCardNumber(testData.CardNumber)
     await paymentPage.inputCardExpiryDate(testData.CardExpiryMonth, 
         testData.CardExpiryYear)

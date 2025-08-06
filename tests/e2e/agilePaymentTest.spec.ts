@@ -83,8 +83,8 @@ test("empty card holder's name", async () => {
 
 test("100 charactares cardholder's name", async () => {
     await paymentPage.selectCardType(testData.CardType);
-    await paymentPage.inputCardholdersName("vLrQeKfWgJyRaAmncHXkBZpTq"+
-        "YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs")
+    await paymentPage.inputCardholdersName(`vLrQeKfWgJyRaAmncHXkBZpTq
+        "YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs`)
     await paymentPage.inputCardNumber(testData.CardNumber)
     await paymentPage.inputCardExpiryDate(testData.CardExpiryMonth, 
         testData.CardExpiryYear)
@@ -128,8 +128,8 @@ test("Valid payment details, card number with spaces", async () => {
 test("card number with 75 characters", async()=>{
     await paymentPage.selectCardType(testData.CardType);
     await paymentPage.inputCardholdersName(testData.Name)
-    await paymentPage.inputCardNumber("9081746253019478562039481765092837"
-        +"46192837465029384756120394857612938475610")
+    await paymentPage.inputCardNumber(`9081746253019478562039481765092837
+        "46192837465029384756120394857612938475610`)
     await paymentPage.inputCardExpiryDate(testData.CardExpiryMonth, 
         testData.CardExpiryYear)
     await paymentPage.clickPayNowButton();

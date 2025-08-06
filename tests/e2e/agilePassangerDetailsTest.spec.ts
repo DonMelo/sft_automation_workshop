@@ -91,8 +91,8 @@ test("special characters in last name", async () => {
 
 test("first name with 100 characters", async () => {
     
-    await passangerDetailsPage.inputFirstName("vLrQeKfWgJyRaAmncHXkBZpTq"+
-        "YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs");
+    await passangerDetailsPage.inputFirstName(`vLrQeKfWgJyRaAmncHXkBZpTq
+        YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs`);
     await passangerDetailsPage.inputLastName("James")
 
     await passangerDetailsPage.clickNextButton();
@@ -103,8 +103,8 @@ test("last name with 100 characters", async () => {
     
 
     await passangerDetailsPage.inputFirstName("James")
-    await passangerDetailsPage.inputLastName("vLrQeKfWgJyRaAmncHXkBZpTq"+
-        "YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs");
+    await passangerDetailsPage.inputLastName(`vLrQeKfWgJyRaAmncHXkBZpTq
+        "YtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs`);
     
     
     await passangerDetailsPage.clickNextButton();

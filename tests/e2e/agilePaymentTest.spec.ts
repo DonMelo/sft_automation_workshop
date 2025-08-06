@@ -129,7 +129,7 @@ test("card number with 75 characters", async()=>{
     await paymentPage.selectCardType(testData.CardType);
     await paymentPage.inputCardholdersName(testData.Name)
     await paymentPage.inputCardNumber(`9081746253019478562039481765092837
-        "46192837465029384756120394857612938475610`)
+        46192837465029384756120394857612938475610`)
     await paymentPage.inputCardExpiryDate(testData.CardExpiryMonth, 
         testData.CardExpiryYear)
     await paymentPage.clickPayNowButton();
@@ -147,12 +147,12 @@ test("card number field with special characters", async()=>{
     await paymentPage.checkErrorMessage("Invalid")
 })
 
-test("card number field with letters", async()=>{
+test.only("card number field with letters", async()=>{
     await paymentPage.selectCardType(testData.CardType);
     await paymentPage.inputCardholdersName(testData.Name)
     await paymentPage.inputCardNumber("this input should not allow letters")
-    await paymentPage.inputCardExpiryDate((testData.CardExpiryMonth, 
-        testData.CardExpiryYear))
+    await paymentPage.inputCardExpiryDate(testData.CardExpiryMonth, 
+        testData.CardExpiryYear)
     await paymentPage.clickPayNowButton();
     await paymentPage.checkErrorMessage("Invalid")
 })

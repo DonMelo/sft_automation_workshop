@@ -2,7 +2,11 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts",
+  "**/*.json"
+],
 }

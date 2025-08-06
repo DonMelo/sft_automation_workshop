@@ -1,0 +1,53 @@
+# Page snapshot
+
+```yaml
+- text: Welcome agileway |
+- link "Sign off (agileway)":
+  - /url: /logout
+- heading [level=1]
+- heading "Pay by Credit Card" [level=2]
+- text: "Fare (return New York to New York): $1,249.00"
+- table:
+  - rowgroup:
+    - 'row "Card type: Visa Master"':
+      - cell "Card type:"
+      - cell "Visa Master":
+        - radio
+        - text: Visa
+        - radio [checked]
+        - text: Master
+    - 'row "Card holder''s name: Jacob James"':
+      - cell "Card holder's name:"
+      - cell "Jacob James":
+        - textbox: Jacob James
+    - 'row "Card number: this input should not allow letters"':
+      - cell "Card number:"
+      - cell "this input should not allow letters":
+        - textbox: this input should not allow letters
+    - 'row "Expiry in : 01 / 2025"':
+      - cell "Expiry in :"
+      - cell "01 / 2025":
+        - combobox:
+          - option "01" [selected]
+          - option "02"
+          - option "03"
+          - option "04"
+          - option "05"
+          - option "06"
+          - option "07"
+          - option "08"
+          - option "09"
+          - option "10"
+          - option "11"
+          - option "12"
+        - text: /
+        - combobox:
+          - option "2025" [selected]
+          - option "2026"
+          - option "2027"
+          - option "2028"
+          - option "2016"
+          - option "2021"
+- paragraph:
+  - button "Pay now"
+```

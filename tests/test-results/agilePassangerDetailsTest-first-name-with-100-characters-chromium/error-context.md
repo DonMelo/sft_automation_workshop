@@ -1,0 +1,53 @@
+# Page snapshot
+
+```yaml
+- text: Welcome agileway |
+- link "Sign off (agileway)":
+  - /url: /logout
+- heading [level=1]
+- heading "Pay by Credit Card" [level=2]
+- text: "Fare (return New York to New York): $1,249.00"
+- table:
+  - rowgroup:
+    - 'row "Card type: Visa Master"':
+      - cell "Card type:"
+      - cell "Visa Master":
+        - radio
+        - text: Visa
+        - radio
+        - text: Master
+    - 'row "Card holder''s name: vLrQeKfWgJyRaAmncHXkBZpTqYtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs James"':
+      - cell "Card holder's name:"
+      - cell "vLrQeKfWgJyRaAmncHXkBZpTqYtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs James":
+        - textbox: vLrQeKfWgJyRaAmncHXkBZpTqYtVbCdMSzEjuLFxDNwPoIGsUhMYqvRLeCKXatnJzBGOUykhNiTqWmVAExPbHs James
+    - row "Card number:":
+      - cell "Card number:"
+      - cell:
+        - textbox
+    - 'row "Expiry in : 01 / 2025"':
+      - cell "Expiry in :"
+      - cell "01 / 2025":
+        - combobox:
+          - option "01" [selected]
+          - option "02"
+          - option "03"
+          - option "04"
+          - option "05"
+          - option "06"
+          - option "07"
+          - option "08"
+          - option "09"
+          - option "10"
+          - option "11"
+          - option "12"
+        - text: /
+        - combobox:
+          - option "2025" [selected]
+          - option "2026"
+          - option "2027"
+          - option "2028"
+          - option "2016"
+          - option "2021"
+- paragraph:
+  - button "Pay now"
+```

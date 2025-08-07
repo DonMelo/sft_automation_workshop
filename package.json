@@ -1,18 +1,16 @@
 {
-  "name": "SFT Automation workshop",
+  "name": "agile-travel",
   "version": "1.0.0",
-  "private": true,
-  "workspaces": [
-    "src",
-    "tests"
-  ],
+  "description": "Playwright automation for Agile Travel app",
+  "main": "index.js",
   "scripts": {
-    "test": "npm run test:unit && npm run test:e2e",
-    "test:unit": "npm run test -w src",
-    "test:e2e": "npm run test -w tests"
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:report": "npx playwright show-report"
   },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.14.9",
-    "typescript": "^5.5.2"
+    "@playwright/test": "^1.54.2"
   }
 }

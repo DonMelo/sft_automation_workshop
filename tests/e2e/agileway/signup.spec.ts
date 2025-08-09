@@ -8,7 +8,7 @@ test.beforeEach(async ({page}) =>{
   agilewaySignup = new AgilewaySignup(page);
 
   agilewayLogin.gotoPage();
-  agilewayLogin.clickSignup();
+  agilewayLogin.clickSignupLink();
 })
 
 test('terms and conditions download', async ({ page }) => {

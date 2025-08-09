@@ -14,13 +14,13 @@ export class AgilewayLogin extends Basepage{
     this.passwordInputField= this.page.locator('#password');
     this.signupLink =  this.page.getByRole('link', { name: 'Register' });
   }
-  async clickSignup(){
+  async clickSignupLink(){
     this.signupLink.click();
   }
   async gotoPage(){
     await this.page.goto(this.loginURL);
   }
-  async fullLogin(username:string,pass:string ) {
+  async fillLoginDetails(username:string,pass:string ) {
     await this.usernameInputField.fill(username);
     await this.passwordInputField.fill(pass);
     await this.clickButtonByName(this.buttonNameSignIn);

@@ -11,7 +11,7 @@ export class AgilewayDetails extends Basepage{
     this.lastName = page.locator('input[name="passengerLastName"]');
   }
   
-  async fullInput(firstName: string, lastName: string){
+  async fillInputDetails(firstName: string, lastName: string){
     await this.lastName.fill(lastName);
     await this.firstName.fill(firstName);
     await this.clickButtonByName(this.buttonNameNext);

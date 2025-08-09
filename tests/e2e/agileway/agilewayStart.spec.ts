@@ -11,7 +11,7 @@ test.beforeEach(async ({page}) => {
   let login = new AgilewayLogin(page);
 
   await login.gotoPage();
-  await login.fullLogin('agileway','testW1se');
+  await login.fillLoginDetails('agileway','testW1se');
 });
 
 test.describe("Oneway booking", () => {
@@ -30,7 +30,7 @@ test.describe("Returning booking", () => {
   });
     
   test('Default flight booking', async ({ page }) => {
-    await agilewayStart.continue();
+    await agilewayStart.clickContinueButton();
     
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
   });

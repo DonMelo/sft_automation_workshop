@@ -20,7 +20,7 @@ test.describe('Invalid tests', () => {
 
   for(const{title,username,password} of invalidCredentials){
     test(title, async ({page}) =>{
-      await agilewayLogin.fullLogin(username,password);
+      await agilewayLogin.fillLoginDetails(username,password);
       
       await agilewayLogin.verifyLoginAlertIsDisplayed();
     });
@@ -29,7 +29,7 @@ test.describe('Invalid tests', () => {
 
 test.describe('Valid tests', () => {
   test('Succesful login', async ({page}) => {
-    await agilewayLogin.fullLogin('agileway','testW1se');
+    await agilewayLogin.fillLoginDetails('agileway','testW1se');
     
     await agilewayStart.verifySelectFlightHeaderAppears();
   });

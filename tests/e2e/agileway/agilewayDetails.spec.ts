@@ -13,32 +13,32 @@ test.beforeEach(async ({page}) => {
   agilewayDetails = new AgilewayDetails(page);
   agilewayPayment = new AgilewayPayment(page);
   await login.gotoPage();
-  await login.fullLogin('agileway','testW1se');
+  await login.fillLoginDetails('agileway','testW1se');
   await start.fillFormOnewayFlight('New York','Sydney','07','October 2026');
 });
 
 test.describe('Correct details', () => {
   test('full correct information', async ({ page }) => {
-    await agilewayDetails.fullInput('first','last');
+    await agilewayDetails.fillInputDetails('first','last');
     
     await agilewayPayment.verifyPayByCardHeaderAppears();
   });
 
   test('No firstname', async ({ page }) => {
-    await agilewayDetails.fullInput('','last');
+    await agilewayDetails.fillInputDetails('','last');
     
     await agilewayPayment.verifyPayByCardHeaderAppears();
   });
 });
 test.describe('Incorrect details', () => {
   test('No firstname or lastname', async ({ page }) => {
-    await agilewayDetails.fullInput('','');
+    await agilewayDetails.fillInputDetails('','');
     
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
     await agilewayDetails.verifytLastNameAlertIsVisible();
   });
   test('No lastname', async ({ page }) => {
-    await agilewayDetails.fullInput('first','');
+    await agilewayDetails.fillInputDetails('first','');
     
     await agilewayDetails.verifyPassengerDetailsHeaderIsVisible();
     await agilewayDetails.verifytLastNameAlertIsVisible();

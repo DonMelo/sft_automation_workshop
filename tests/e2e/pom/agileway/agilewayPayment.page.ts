@@ -19,15 +19,15 @@ export class AgilewayPayment extends Basepage{
     this.cardTypeMaster =  page.locator('input[type="radio"][value="master"]');
     this.cardTypeVisa =  page.locator('input[type="radio"][value="visa"]');
   }
-  async useMastercard(){
+  async checkUseMastercard(){
     await this.cardTypeMaster.check();
   }
   
-  async useVisa(){
+  async checkUseVisa(){
     await this.cardTypeVisa.check();
   }
 
-  async fullPayment(cardNumber: string, cardExpiryMonth: string, cardExpiryYear: string){
+  async fillPaymentDetails(cardNumber: string, cardExpiryMonth: string, cardExpiryYear: string){
     await this.fieldCardNumber.fill(cardNumber);
     await this.fieldCardExpiryMonth.selectOption(cardExpiryMonth);
     await this.fieldCardExpiryYear.selectOption(cardExpiryYear);

@@ -1,13 +1,11 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./Base.page";
 
-export class RegisterPage {
-    readonly page: Page;
-    readonly termsLink: Locator;
+export class RegisterPage extends BasePage {
+  readonly termsLink: Locator;
 
-    constructor(page: Page) {
-        this.page = page;
-        this.termsLink = page.getByRole('link', { name: 'Terms and Conditions' });
-
-    }
-
+  constructor(page: Page) {
+    super(page);
+    this.termsLink = page.getByRole("link", { name: "Terms and Conditions" });
+  }
 }
